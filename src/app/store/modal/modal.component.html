@@ -1,0 +1,8 @@
+<div class="modal modal-open" tabindex="-1" role="dialog" style="display: block" (click)="onCancel()">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <ng-content></ng-content>
+    </div>
+  </div>
+</div>
+<div class="modal-backdrop in"></div>
