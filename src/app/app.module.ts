@@ -1,3 +1,6 @@
+import { SignUpComponent } from './sign-up/sign-up.component';
+import { IsLoggedInGuard } from './guards/isLoggedIn.guard';
+import { ProfilePageComponent } from './profile/profile-page.component';
 import { AuthMethods, AuthProviders } from 'angularfire2/auth';
 import { StatefulClass } from './helpers/statefulClass';
 import { FirebaseConfig } from './firebase/firebase.config';
@@ -12,6 +15,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { AngularFireModule } from 'angularfire2';
+import { RouterStoreModule } from '@ngrx/router-store';
 
 import { AppComponent } from './app.component';
 import { ContentComponent } from './content/content.component';
@@ -27,7 +31,9 @@ import { ModalComponent } from './store/modal/modal.component';
         FooterComponent,
         LandingPageComponent,
         NavComponent,
-        ModalComponent
+        ModalComponent,
+        ProfilePageComponent,
+        SignUpComponent
     ],
     imports: [
         BrowserModule,
@@ -36,12 +42,14 @@ import { ModalComponent } from './store/modal/modal.component';
         HttpModule,
         RouterModule.forRoot(AppRoutes),
         StoreModule.provideStore(Reducers),
+        RouterStoreModule.connectRouter(),
         ...Effects.map(e => EffectsModule.run(e)),
-        AngularFireModule.initializeApp(FirebaseConfig)
+        AngularFireModule.initializeApp(FirebaseConfig),
     ],
     providers: [
         StateService,
-        StatefulClass
+        StatefulClass,
+        IsLoggedInGuard
     ],
     bootstrap: [AppComponent]
 })

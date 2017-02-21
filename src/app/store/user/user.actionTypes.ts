@@ -4,6 +4,7 @@ export const UserActionTypes = {
         LogIn: '[User] Log In',
         LogInFailure: '[User] Log In Failure',
         LogInSuccess: '[User] Log In Success',
-        SignUp: '[User] Log Out',
+        SignUp: '[User] Sign Up',
+        SignUpFailure: '[User] Sign Up Failure',
         LogOut: '[User] Log Out'
 };

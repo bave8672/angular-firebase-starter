@@ -22,6 +22,7 @@
     "@angular/router": "^3.4.0",
     "@ngrx/core": "^1.2.0",
     "@ngrx/effects": "^2.0.0",
+    "@ngrx/router-store": "ngrx/router-store",
     "@ngrx/store": "^2.2.1",
     "angularfire2": "^2.0.0-beta.8",
     "bootstrap": "^3.3.7",

@@ -39,7 +39,7 @@ export class NavComponent extends FormComponent implements OnInit {
     }
 
     facebookLogIn() {
-        this.state.dispatch(new UserActions.LogIn({ 
+        this.state.dispatch(new UserActions.LogIn({
             provider: AuthProviders.Facebook,
             method: AuthMethods.Popup
         }));
@@ -55,8 +55,8 @@ export class NavComponent extends FormComponent implements OnInit {
     emailPasswordLogIn() {
         if (this.formGroup.valid) {
             this.state.dispatch(new UserActions.LogIn({
-                email: this.getFormValue<string>(NavComponent.controlNames.email),
-                password: this.getFormValue<string>(NavComponent.controlNames.password)
+                email: this.getFormValue(NavComponent.controlNames.email, ''),
+                password: this.getFormValue(NavComponent.controlNames.password, '')
             }));
         }
     }

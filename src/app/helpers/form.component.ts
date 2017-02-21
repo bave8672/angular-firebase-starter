@@ -18,9 +18,11 @@ export abstract class FormComponent extends StatefulClass    {
                 super(state, firebase);
         }
 
-        protected getFormValue<T>(controlName: string): T | undefined {
-                if (this.formGroup && this.formGroup.controls[controlName]) {
-                        return this.formGroup.controls[controlName].value;
-                }
+        protected getFormValue<T>(controlName: string, fallback: T): T {
+            if (this.formGroup && this.formGroup.controls[controlName] &&
+                this.formGroup.controls[controlName].value) {
+                return this.formGroup.controls[controlName].value;
+            }
+            return fallback;
         }
 }

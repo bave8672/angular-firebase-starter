@@ -31,7 +31,12 @@ export namespace UserActions {
 
     export class SignUp implements Action {
         type = UserActionTypes.SignUp;
-        payload: void;
+        constructor(public payload: EmailPasswordCredentials) {}
+    }
+
+    export class SignUpFailure implements Action {
+        type = UserActionTypes.SignUpFailure;
+        constructor(public payload: any) {}
     }
 
     export class LogOut implements Action {
@@ -44,5 +49,6 @@ export namespace UserActions {
         | LogInFailure
         | LogInSuccess
         | SignUp
+        | SignUpFailure
         | LogOut;
 }

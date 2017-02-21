@@ -13,6 +13,7 @@ import { Injectable } from '@angular/core';
 import { UserActions } from '../';
 import { StateService } from '../state-service/state.service';
 import { AngularFire } from 'angularfire2';
+import { go } from '@ngrx/router-store';
 
 @Injectable()
 export class UserEffects extends StatefulClass {
@@ -36,10 +37,21 @@ export class UserEffects extends StatefulClass {
     logOut$ = this.state.actions$.ofType(UserActionTypes.LogOut)
         .map(() => this.firebase.auth.logout());
 
+    @Effect()
+    signUp$ = this.state.actions$.ofType(UserActionTypes.SignUp)
+        .switchMap((action: UserActions.SignUp) =>
+            Observable.from(this.firebase.auth.createUser(action.payload))
+                .map(authState => new UserActions.LogInSuccess(authState))
+                .catch(error => Observable.of(new UserActions.SignUpFailure(error))));
+
+    @Effect()
+    navigateToProfileOnLogin$ = this.state.actions$.ofType(UserActionTypes.LogInSuccess)
+        .map(() => go('/profile'));
+
     constructor(
         state: StateService,
         firebase: AngularFire
     ) {
-    super(state, firebase);
+        super(state, firebase);
     }
 }

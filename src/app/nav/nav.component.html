@@ -8,13 +8,14 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">Brand</a>
+      <a class="navbar-brand" routerLink="/">Brand</a>
     </div>
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
-        <li *ngIf="!(user$ | async).isLoggedIn"><a href="#" (click)="showLogInModal()">Log In</a></li>
-        <li *ngIf="(user$ | async).isLoggedIn"><a href="#" (click)="logOut()">Log Out</a></li>
+        <li *ngIf="!(user$ | async).isLoggedIn"><button class="btn btn-link navbar-btn"(click)="showLogInModal()">Log In</button></li>
+        <li *ngIf="(user$ | async).isLoggedIn"><button class="btn btn-link navbar-btn" (click)="logOut()">Log Out</button></li>
+        <li *ngIf="!(user$ | async).isLoggedIn"><button routerLink="/signup" class="btn btn-default navbar-btn">Sign up</button></li>
         <!--<li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
           <ul class="dropdown-menu">
@@ -32,7 +33,7 @@
 
 <app-modal *ngIf="(user$ | async).showLogInModal" (cancel)="hideLogInModal()">
   <div class="modal-body">
-    <form name="log-in" [formGroup]="formGroup">
+    <form novalidate name="log-in" [formGroup]="formGroup" (submit)="emailPasswordLogIn()">
       <button class="btn btn-lg btn-block btn-default" (click)="facebookLogIn()">Login with Facebook</button>
       <button class="btn btn-lg btn-block btn-default" (click)="googleLogIn()">Login with Google</button>
       <hr>
