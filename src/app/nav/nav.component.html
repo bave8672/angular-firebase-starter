@@ -2,7 +2,7 @@
   <div class="container">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+      <button type="button" class="navbar-toggle" [class.collapsed]="!(navState$ | async).showNavigation" aria-expanded="false" (click)="toggleNavigation()">
         <span class="sr-only">Toggle navigation</span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -11,11 +11,11 @@
       <a class="navbar-brand" routerLink="/">Brand</a>
     </div>
     <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+    <div [class.collapse]="!(navState$ | async).showNavigation && window.innerWidth < 768">
       <ul class="nav navbar-nav navbar-right">
-        <li *ngIf="!(user$ | async).isLoggedIn"><button class="btn btn-link navbar-btn"(click)="showLogInModal()">Log In</button></li>
-        <li *ngIf="(user$ | async).isLoggedIn"><button class="btn btn-link navbar-btn" (click)="logOut()">Log Out</button></li>
-        <li *ngIf="!(user$ | async).isLoggedIn"><button routerLink="/signup" class="btn btn-default navbar-btn">Sign up</button></li>
+        <li *ngIf="!(userState$ | async).isLoggedIn"><button class="btn btn-link navbar-btn"(click)="showLogInModal()">Log In</button></li>
+        <li *ngIf="(userState$ | async).isLoggedIn"><button class="btn btn-link navbar-btn" (click)="logOut()">Log Out</button></li>
+        <li *ngIf="!(userState$ | async).isLoggedIn"><button routerLink="/signup" class="btn btn-default navbar-btn">Sign up</button></li>
         <!--<li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
           <ul class="dropdown-menu">
@@ -30,28 +30,3 @@
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
-
-<app-modal *ngIf="(user$ | async).showLogInModal" (cancel)="hideLogInModal()">
-  <div class="modal-body">
-    <form novalidate name="log-in" [formGroup]="formGroup" (submit)="emailPasswordLogIn()">
-      <button class="btn btn-lg btn-block btn-default" (click)="facebookLogIn()">Login with Facebook</button>
-      <button class="btn btn-lg btn-block btn-default" (click)="googleLogIn()">Login with Google</button>
-      <hr>
-      <div class="form-group">
-        <label for="email">Email address</label>
-        <input type="email" class="form-control" id="email" formControlName="email" placeholder="Email">
-      </div>
-      <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" class="form-control" id="password" formControlName="password" placeholder="Password">
-      </div>
-      <!--<div class="checkbox">
-        <label>
-          <input type="checkbox">Remember me
-        </label>
-      </div>-->
-      <button type="submit" class="btn btn-lg btn-block btn-primary" (click)="emailPasswordLogIn()">Submit</button>
-      <button class="btn btn-lg btn-block btn-default">Sign Up</button>
-    </form>
-  </div>
-</app-modal>

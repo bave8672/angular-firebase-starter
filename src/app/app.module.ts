@@ -1,3 +1,6 @@
+import { UpdatePasswordComponent } from './update-password/update-password.component';
+import { LogInComponent } from './log-in/log-in.component';
+import { ValidationMessageComponent } from './validation-message/validation-message.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { IsLoggedInGuard } from './guards/isLoggedIn.guard';
 import { ProfilePageComponent } from './profile/profile-page.component';
@@ -23,6 +26,7 @@ import { FooterComponent } from './footer/footer.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { NavComponent } from './nav/nav.component';
 import { ModalComponent } from './store/modal/modal.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 @NgModule({
     declarations: [
@@ -33,7 +37,11 @@ import { ModalComponent } from './store/modal/modal.component';
         NavComponent,
         ModalComponent,
         ProfilePageComponent,
-        SignUpComponent
+        SignUpComponent,
+        ValidationMessageComponent,
+        ResetPasswordComponent,
+        LogInComponent,
+        UpdatePasswordComponent
     ],
     imports: [
         BrowserModule,

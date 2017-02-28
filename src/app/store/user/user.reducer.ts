@@ -8,6 +8,13 @@ export const UserReducer: Reducer<UserState, UserActions.UserAction> = (state = 
 
     switch (action.type) {
 
+        case '[Router] Update Location': { // TODO: what is this event?
+            if (state.showLogInModal) {
+                return assign(state, { showLogInModal: false });
+            }
+            return state;
+        }
+
         case UserActionTypes.ShowLogInModal: {
             return assign(state, { showLogInModal: true });
         }

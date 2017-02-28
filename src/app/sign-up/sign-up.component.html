@@ -3,16 +3,20 @@
     <form novalidate [formGroup]="formGroup" (submit)="signUp()">
         <div class="form-group">
             <label for="email">Email address</label>
-            <input type="email" class="form-control" id="email" formControlName="email" placeholder="Email">
+            <input type="email" class="form-control" id="email" [formControlName]="controlNames.email" placeholder="Email">
+            <app-validation-message [control]="formGroup.controls[controlNames.email]"></app-validation-message>
         </div>
         <div class="form-group">
             <label for="password"></label>
-            <input type="password" class="form-control" id="password" formControlName="password" placeholder="Password">
+            <input type="password" class="form-control" id="password" [formControlName]="controlNames.password" placeholder="Password">
+            <app-validation-message [control]="formGroup.controls[controlNames.password]"></app-validation-message>
         </div>
         <div class="form-group">
             <label for="confirmPssword"></label>
-            <input type="password" class="form-control" id="password" formControlName="confirmPassword" placeholder="Confirm Password">
+            <input type="password" class="form-control" id="password" [formControlName]="controlNames.confirmPassword" placeholder="Confirm Password">
+            <app-validation-message [control]="formGroup.controls[controlNames.confirmPassword]"></app-validation-message>
         </div>
-        <button class="btn btn-lg btn-block btn-default">Sign Up</button>
+        <app-validation-message [control]="formGroup"></app-validation-message>
+        <button class="btn btn-lg btn-block btn-default" [class.disabled]="!formGroup.valid">Sign Up</button>
     </form>
 </div>

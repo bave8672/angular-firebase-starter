@@ -6,5 +6,6 @@ export const UserActionTypes = {
         LogInSuccess: '[User] Log In Success',
         SignUp: '[User] Sign Up',
         SignUpFailure: '[User] Sign Up Failure',
-        LogOut: '[User] Log Out'
+        LogOut: '[User] Log Out',
+        ResetPassword: '[User] Reset Password'
 };

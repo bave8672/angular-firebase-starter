@@ -1,0 +1,30 @@
+<app-modal *ngIf="(userState$ | async)?.showLogInModal" (cancel)="hideLogInModal()">
+    <div class="modal-body">
+        <form novalidate name="log-in" [formGroup]="formGroup">
+            <button class="btn btn-lg btn-block btn-default" (click)="facebookLogIn()">Login with Facebook</button>
+            <button class="btn btn-lg btn-block btn-default" (click)="googleLogIn()">Login with Google</button>
+            <hr>
+            <div class="form-group">
+                <label for="email">Email address</label>
+                <input type="email" class="form-control" id="email" [formControlName]="controlNames.email" placeholder="Email">
+                <app-validation-message [control]="formGroup.controls[controlNames.email]"></app-validation-message>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" [formControlName]="controlNames.password" placeholder="Password">
+                <app-validation-message [control]="formGroup.controls[controlNames.password]"></app-validation-message>
+            </div>
+            <div class="form-group">
+                <a routerLink="/reset-password">Forgotten your password?</a>
+            </div>
+            <!--<div class="checkbox">
+                <label>
+                <input type="checkbox">Remember me
+                </label>
+            </div>-->
+            <button type="submit" class="btn btn-lg btn-block btn-primary" (click)="emailPasswordLogIn()">Submit</button>
+            <button class="btn btn-lg btn-block btn-link" [disabled]="!formGroup.valid" routerLink="/signup">Sign Up</button>
+            <p class="text-danger" [hidden]="!(userState$ | async)?.logInFailure">An error occurred attempting to sign in</p>
+        </form>
+    </div>
+</app-modal>

@@ -1,3 +1,4 @@
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { IsLoggedInGuard } from './guards/isLoggedIn.guard';
 import { ProfilePageComponent } from './profile/profile-page.component';
@@ -8,5 +9,6 @@ export const AppRoutes: Routes = [
     { path: '', component: LandingPageComponent },
     { path: 'signup', component: SignUpComponent },
     { path: 'profile', component: ProfilePageComponent, canActivate: [IsLoggedInGuard] },
+    { path: 'reset-password', component: ResetPasswordComponent },
     { path: '**', redirectTo: '' }
 ];

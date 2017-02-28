@@ -44,11 +44,18 @@ export namespace UserActions {
         payload: void;
     }
 
+    export class ResetPassword implements Action {
+        type = UserActionTypes.ResetPassword;
+        // payload: user email
+        constructor(public payload: string) {}
+    }
+
     export type UserAction =
         LogIn
         | LogInFailure
         | LogInSuccess
         | SignUp
         | SignUpFailure
-        | LogOut;
+        | LogOut
+        | ResetPassword;
 }

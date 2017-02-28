@@ -7,7 +7,8 @@ import { AngularFire } from 'angularfire2';
 @Injectable()
 export abstract class FormComponent extends StatefulClass    {
 
-        static controlNames: { [name: string]: string; };
+        static readonly ControlNames: { [name: string]: string; };
+        controlNames: any;
         formGroup: FormGroup;
 
         constructor(
@@ -18,11 +19,13 @@ export abstract class FormComponent extends StatefulClass    {
                 super(state, firebase);
         }
 
-        protected getFormValue<T>(controlName: string, fallback: T): T {
+        protected getFormValue<T>(controlName: string, fallback?: T) {
             if (this.formGroup && this.formGroup.controls[controlName] &&
                 this.formGroup.controls[controlName].value) {
                 return this.formGroup.controls[controlName].value;
             }
-            return fallback;
+            if (fallback != null) {
+                return fallback;
+            }
         }
 }
