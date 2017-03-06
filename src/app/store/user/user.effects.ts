@@ -49,7 +49,8 @@ export class UserEffects extends StatefulClass {
 
     @Effect()
     navigateToProfileOnLogin$ = this.state.actions$.ofType(UserActionTypes.LogInSuccess)
-        .map(() => go('/profile'));
+        .map(() => go('/account/profile'))
+        .takeUntil(Observable.timer(10000));
 
     // TODO: implement resetting password when angularfire2 implements it
     // @Effect()
@@ -57,6 +58,25 @@ export class UserEffects extends StatefulClass {
     //     .switchMap((action: UserActions.ResetPassword) => 
     //         Observable.from(this.firebase.auth.getAuth().auth.sendEmailVerification())
     //         .map()
+
+    @Effect()
+    updatePassword$ = this.state.actions$.ofType(UserActionTypes.UpdatePassword)
+        .map((action: UserActions.UpdatePassword) => action.payload)
+        .switchMap(passwords => {
+
+            this.state.dispatch(new UserActions.LogIn({
+                email: this.firebase.auth.getAuth().auth.email,
+                password: passwords.old
+            }));
+
+            return Observable.race(
+                this.state.actions$.ofType(UserActionTypes.LogInSuccess)
+                    .switchMap(() => Observable.from(this.firebase.auth.getAuth().auth.updatePassword(passwords.new))
+                        .map(res => new UserActions.UpdatePasswordSuccess(res))
+                        .catch(err => Observable.of(new UserActions.UpdatePasswordFailure(err)))),
+                this.state.actions$.ofType(UserActionTypes.LogInFailure)
+                    .map(action => new UserActions.UpdatePasswordFailure(action.payload)))
+        });
 
     constructor(
         state: StateService,

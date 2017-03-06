@@ -1,0 +1,29 @@
+<div class="container">
+    <h1>Your Account</h1>
+    <label>
+        Profile Picture
+    </label>
+    <img *ngIf="(user$ | async)?.photoURL" src="{{(user$ | async)?.photoURL}}" />
+    <p>
+        <small *ngIf="!(user$ | async)?.photoURL">No profile picture</small>
+        <button class="btn btn-link">edit</button>
+    </p>
+    <label>
+        Email Address
+    </label>
+    <p>
+        {{ (user$ | async)?.email }}
+        <button class="btn btn-link">edit</button>
+    </p>
+    <label>
+        Password
+    </label>
+    <p>
+        <button class="btn btn-link" (click)="toggleUpdatePasswordForm()">
+            {{(ui$ | async).showUpdatePasswordForm ? 'close' : 'edit'}}
+        </button>
+    </p>
+    <account-update-password></account-update-password>
+    <label>Email Verified</label>
+    <p>{{ (ui$ | async)?.emailVerified ? 'Yes' : 'No' }}</p>
+</div>

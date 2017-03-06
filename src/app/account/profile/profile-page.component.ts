@@ -1,5 +1,5 @@
-import { StatefulClass } from '../helpers/statefulClass';
-import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';  
+import { StatefulClass } from '../../helpers/statefulClass';
+import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
 
 @Component({
     templateUrl: './profile-page.component.html',

@@ -4,4 +4,12 @@ export class UserState {
     logInFailure = false;
     isLoggedIn = false;
     firebaseUid = '';
+    newPhotoUrl = '';
+    showUpdatePasswordForm = false;
+    isRequestingPasswordUpdate = false;
+    passwordUpdateSuccess = false;
+    passwordUpdateSuccessMessage = '';
+    passwordUpdateFailureMessage = '';
+    showUpdateEmailForm = false;
+    showUpdatePhotoUrlForm = false;
 };

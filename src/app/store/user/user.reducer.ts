@@ -1,3 +1,5 @@
+import { getErrorMessage } from '../../helpers/getErrorMessage';
+import { Messages } from '../../resources/messages';
 import { assign } from '../../helpers/assign';
 import { UserActionTypes } from './user.actionTypes';
 import { UserActions } from './user.actions';
@@ -43,6 +45,52 @@ export const UserReducer: Reducer<UserState, UserActions.UserAction> = (state = 
 
         case UserActionTypes.LogOut: {
             return assign(state, { isLoggedIn: false, firebaseUid: '', isRequestingLogIn: false });
+        }
+
+        case UserActionTypes.ShowUpdatePasswordForm: {
+            if (!state.showUpdatePasswordForm) {
+                return assign(state, {
+                    passwordUpdateSuccessMessage: '',
+                    passwordUpdateFailureMessage: '',
+                    showUpdatePasswordForm: true
+                });
+            }
+            return state;
+        }
+
+        case UserActionTypes.HideUpdatePasswordForm: {
+            if (state.showUpdatePasswordForm) {
+                return assign(state, { showUpdatePasswordForm: false });
+            }
+            return state;
+        }
+
+        case UserActionTypes.ToggleUpdatePasswordForm: {
+            return assign(state, {
+                passwordUpdateSuccessMessage: '',
+                passwordUpdateFailureMessage: '',
+                showUpdatePasswordForm: !state.showUpdatePasswordForm
+            });
+        }
+
+        case UserActionTypes.UpdatePassword: {
+            return assign(state, { isRequestingPasswordUpdate: true });
+        }
+
+        case UserActionTypes.UpdatePasswordFailure: {
+            return assign(state, {
+                isRequestingPasswordUpdate: false,
+                passwordUpdateSuccessMessage: '',
+                passwordUpdateFailureMessage: getErrorMessage(action.payload)
+            });
+        }
+
+        case UserActionTypes.UpdatePasswordSuccess: {
+            return assign(state, {
+                isRequestingPasswordUpdate: false,
+                passwordUpdateFailureMessage: '',
+                passwordUpdateSuccessMessage: Messages.ApiResponse.UpdatePasswordSuccess
+            });
         }
     }
 

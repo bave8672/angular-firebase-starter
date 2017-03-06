@@ -7,5 +7,22 @@ export const UserActionTypes = {
         SignUp: '[User] Sign Up',
         SignUpFailure: '[User] Sign Up Failure',
         LogOut: '[User] Log Out',
-        ResetPassword: '[User] Reset Password'
+        ResetPassword: '[User] Reset Password',
+        ResetPasswordFailure: '[User] Reset Password Failure',
+        ResetPasswordSuccess: '[User] Reset Password Success',
+        ShowUpdatePasswordForm: '[User] Show Update Password Form',
+        HideUpdatePasswordForm: '[User] Hide Update Password Form',
+        ToggleUpdatePasswordForm: '[User] Toggle Update Password Form',
+        UpdatePassword: '[User] UpdatePassword',
+        UpdatePasswordFailure: '[User] Update Password Failure',
+        UpdatePasswordSuccess: '[User] Update Password Success',
+        TryUpdatePhotoUrl: '[User] Try Update Photo Url',
+        TryUpdatePhotoUrlFailure: '[User] Try Update Photo Url Failure',
+        TryUpdatePhotoUrlSuccess: '[User] Tr Update Photo Url Success',
+        UpdatePhotoUrl: '[User] Update Photo Url',
+        UpdatePhotoUrlFailure: '[User] Update Photo Url Failure',
+        UpdatePhotoUrlSuccess: '[User] Update Photo Url Success',
+        UpdateEmail: '[User] Update Email',
+        UpdateEmailSuccess: '[User] Update Email Succsess',
+        UpdateEmailFailure: '[User] Update Email Failure'
 };

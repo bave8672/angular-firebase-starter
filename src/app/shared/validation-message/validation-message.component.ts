@@ -5,7 +5,7 @@ import { Component, Input } from '@angular/core';
 
 @Component({
     selector: 'app-validation-message',
-    template: `<span class="text-warning" *ngIf="message">{{message}}</span>`
+    template: `<span class="text-danger" *ngIf="message">{{message}}</span>`
 })
 export class ValidationMessageComponent {
 

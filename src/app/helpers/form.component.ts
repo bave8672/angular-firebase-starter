@@ -8,7 +8,7 @@ import { AngularFire } from 'angularfire2';
 export abstract class FormComponent extends StatefulClass    {
 
         static readonly ControlNames: { [name: string]: string; };
-        controlNames: any;
+        protected readonly controlNames: any;
         formGroup: FormGroup;
 
         constructor(

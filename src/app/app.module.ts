@@ -1,32 +1,27 @@
-import { UpdatePasswordComponent } from './update-password/update-password.component';
-import { LogInComponent } from './log-in/log-in.component';
-import { ValidationMessageComponent } from './validation-message/validation-message.component';
-import { SignUpComponent } from './sign-up/sign-up.component';
-import { IsLoggedInGuard } from './guards/isLoggedIn.guard';
-import { ProfilePageComponent } from './profile/profile-page.component';
-import { AuthMethods, AuthProviders } from 'angularfire2/auth';
-import { StatefulClass } from './helpers/statefulClass';
-import { FirebaseConfig } from './firebase/firebase.config';
-import { Effects, Reducers } from './store/store.config';
-import { EffectsModule } from '@ngrx/effects';
-import { StoreModule } from '@ngrx/store';
-import { StateService } from './store/state-service/state.service';
-import { AppRoutes } from './app.routes';
-import { RouterModule } from '@angular/router';
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
-import { AngularFireModule } from 'angularfire2';
-import { RouterStoreModule } from '@ngrx/router-store';
-
+import { AccountModule } from './account/account.module';
 import { AppComponent } from './app.component';
+import { AppRoutes } from './app.routes';
 import { ContentComponent } from './content/content.component';
+import { FirebaseConfig } from './firebase/firebase.config';
 import { FooterComponent } from './footer/footer.component';
+import { IsLoggedInGuard } from './guards/isLoggedIn.guard';
+import { IsPasswordUserGuard } from './guards/isPasswordUser.guard';
+import { StatefulClass } from './helpers/statefulClass';
 import { LandingPageComponent } from './landing-page/landing-page.component';
+import { LogInComponent } from './log-in/log-in.component';
 import { NavComponent } from './nav/nav.component';
-import { ModalComponent } from './store/modal/modal.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { SharedModule } from './shared/shared.module';
+import { SignUpComponent } from './sign-up/sign-up.component';
+import { StateService } from './store/state-service/state.service';
+import { Effects, Reducers } from './store/store.config';
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { EffectsModule } from '@ngrx/effects';
+import { RouterStoreModule } from '@ngrx/router-store';
+import { StoreModule } from '@ngrx/store';
+import { AngularFireModule } from 'angularfire2';
+
 
 @NgModule({
     declarations: [
@@ -35,29 +30,24 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
         FooterComponent,
         LandingPageComponent,
         NavComponent,
-        ModalComponent,
-        ProfilePageComponent,
         SignUpComponent,
-        ValidationMessageComponent,
-        ResetPasswordComponent,
         LogInComponent,
-        UpdatePasswordComponent
+        ResetPasswordComponent
     ],
     imports: [
-        BrowserModule,
-        FormsModule,
-        ReactiveFormsModule,
-        HttpModule,
+        SharedModule,
         RouterModule.forRoot(AppRoutes),
         StoreModule.provideStore(Reducers),
         RouterStoreModule.connectRouter(),
         ...Effects.map(e => EffectsModule.run(e)),
         AngularFireModule.initializeApp(FirebaseConfig),
+        AccountModule
     ],
     providers: [
         StateService,
         StatefulClass,
-        IsLoggedInGuard
+        IsLoggedInGuard,
+        IsPasswordUserGuard
     ],
     bootstrap: [AppComponent]
 })
