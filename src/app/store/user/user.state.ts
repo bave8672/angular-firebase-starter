@@ -1,15 +1,18 @@
 export class UserState {
+    logInModal = new FormState()
     showLogInModal = false;
     isRequestingLogIn = false;
     logInFailure = false;
     isLoggedIn = false;
     firebaseUid = '';
-    newPhotoUrl = '';
-    showUpdatePasswordForm = false;
-    isRequestingPasswordUpdate = false;
-    passwordUpdateSuccess = false;
-    passwordUpdateSuccessMessage = '';
-    passwordUpdateFailureMessage = '';
-    showUpdateEmailForm = false;
-    showUpdatePhotoUrlForm = false;
+    updatePhotoUrl = new FormState();
+    updatePassword = new FormState();
+    updateEmail = new FormState();
 };
+
+export class FormState {
+    showForm = false;
+    isRequesting = false;
+    successMessage = '';
+    failureMessage = '';
+}

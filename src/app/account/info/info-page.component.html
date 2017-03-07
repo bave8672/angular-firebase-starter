@@ -3,27 +3,33 @@
     <label>
         Profile Picture
     </label>
-    <img *ngIf="(user$ | async)?.photoURL" src="{{(user$ | async)?.photoURL}}" />
+    <img class="img-thumbnail img-rounded" *ngIf="(user$ | async)?.photoURL" [src]="(user$ | async)?.photoURL" />
     <p>
         <small *ngIf="!(user$ | async)?.photoURL">No profile picture</small>
-        <button class="btn btn-link">edit</button>
+        <button class="btn btn-link" (click)="toggleUpdatePhotoUrl()">
+            {{(userState$ | async).updatePhotoUrl.showForm ? 'close' : 'edit'}}
+        </button>
     </p>
+    <account-update-photo-url></account-update-photo-url>
     <label>
         Email Address
     </label>
     <p>
         {{ (user$ | async)?.email }}
-        <button class="btn btn-link">edit</button>
+        <button class="btn btn-link" (click)="toggleUpdateEmailForm()">
+            {{(userState$ | async).updateEmail.showForm ? 'close' : 'edit'}}
+        </button>
     </p>
+    <account-update-email></account-update-email>
     <label>
         Password
     </label>
     <p>
         <button class="btn btn-link" (click)="toggleUpdatePasswordForm()">
-            {{(ui$ | async).showUpdatePasswordForm ? 'close' : 'edit'}}
+            {{(userState$ | async).updatePassword.showForm ? 'close' : 'edit'}}
         </button>
     </p>
     <account-update-password></account-update-password>
     <label>Email Verified</label>
-    <p>{{ (ui$ | async)?.emailVerified ? 'Yes' : 'No' }}</p>
+    <p>{{ (userState$ | async)?.emailVerified ? 'Yes' : 'No' }}</p>
 </div>

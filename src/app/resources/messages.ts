@@ -7,5 +7,6 @@ export const Messages = {
     ApiResponse: {
         ServerError: 'An error occurred. Please try again.',
         UpdatePasswordSuccess: 'Password updated successfully.',
+        UpdateEmailSuccess: 'Email updated successfully'
     }
 };

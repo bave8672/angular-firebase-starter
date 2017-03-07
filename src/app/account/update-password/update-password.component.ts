@@ -1,4 +1,4 @@
-import { UserState } from '../../store/user/user.state';
+import { FormState, UserState } from '../../store/user/user.state';
 import { Observable } from 'rxjs/Rx';
 import { UserActions } from '../../store';
 import { Messages } from '../../resources/messages';
@@ -14,7 +14,7 @@ import { passwordValid, valuesEqual } from '../../validators';
 
 export class UpdatePasswordComponent extends FormComponent {
 
-    userState$: Observable<UserState>;
+    passwordState$: Observable<FormState>;
 
     controlNames = {
         password: 'password',
@@ -35,7 +35,7 @@ export class UpdatePasswordComponent extends FormComponent {
             )(Messages.Validation.PasswordsNotEqual)
         });
 
-        this.userState$ = this.state.select(s => s.user);
+        this.passwordState$ = this.state.select(s => s.user.updatePassword);
     }
 
     updatePassword() {

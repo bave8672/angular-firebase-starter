@@ -47,50 +47,92 @@ export const UserReducer: Reducer<UserState, UserActions.UserAction> = (state = 
             return assign(state, { isLoggedIn: false, firebaseUid: '', isRequestingLogIn: false });
         }
 
-        case UserActionTypes.ShowUpdatePasswordForm: {
-            if (!state.showUpdatePasswordForm) {
-                return assign(state, {
-                    passwordUpdateSuccessMessage: '',
-                    passwordUpdateFailureMessage: '',
-                    showUpdatePasswordForm: true
-                });
-            }
-            return state;
-        }
-
-        case UserActionTypes.HideUpdatePasswordForm: {
-            if (state.showUpdatePasswordForm) {
-                return assign(state, { showUpdatePasswordForm: false });
-            }
-            return state;
-        }
-
         case UserActionTypes.ToggleUpdatePasswordForm: {
-            return assign(state, {
-                passwordUpdateSuccessMessage: '',
-                passwordUpdateFailureMessage: '',
-                showUpdatePasswordForm: !state.showUpdatePasswordForm
-            });
+            return assign(state, { updatePassword: {
+                successMessage: '',
+                failureMessage: '',
+                showForm: !state.updatePassword.showForm
+            } });
         }
 
         case UserActionTypes.UpdatePassword: {
-            return assign(state, { isRequestingPasswordUpdate: true });
+            return assign(state, { updatePassword: { isRequesting: true } });
         }
 
         case UserActionTypes.UpdatePasswordFailure: {
-            return assign(state, {
-                isRequestingPasswordUpdate: false,
-                passwordUpdateSuccessMessage: '',
-                passwordUpdateFailureMessage: getErrorMessage(action.payload)
-            });
+            return assign(state, { updatePassword: {
+                isRequesting: false,
+                successMessage: '',
+                failureMessage: getErrorMessage(action.payload)
+            } });
         }
 
         case UserActionTypes.UpdatePasswordSuccess: {
-            return assign(state, {
-                isRequestingPasswordUpdate: false,
-                passwordUpdateFailureMessage: '',
-                passwordUpdateSuccessMessage: Messages.ApiResponse.UpdatePasswordSuccess
-            });
+            return assign(state, { updatePassword: {
+                isRequesting: false,
+                failureMessage: '',
+                successMessage: Messages.ApiResponse.UpdatePasswordSuccess
+            } });
+        }
+
+        case UserActionTypes.ToggleUpdateEmailForm: {
+            return assign(state, { updateEmail: {
+                successMessage: '',
+                failureMessage: '',
+                showForm: !state.updateEmail.showForm
+            } });
+        }
+
+        case UserActionTypes.UpdateEmail: {
+            return assign(state, { updateEmail: {
+                isRequesting: true
+            }});
+        }
+
+        case UserActionTypes.UpdateEmailFailure: {
+            return assign(state, { updateEmail: {
+                isRequesting: false,
+                successMessage: '',
+                failureMessage: getErrorMessage(action.payload)
+            } });
+        }
+
+        case UserActionTypes.UpdateEmailSuccess: {
+            return assign(state, { updateEmail: {
+                isRequesting: false,
+                failureMessage: '',
+                successMessage: Messages.ApiResponse.UpdateEmailSuccess
+            } });
+        }
+
+        case UserActionTypes.ToggleUpdatePhotoUrl: {
+            return assign(state, { updatePhotoUrl: {
+                successMessage: '',
+                failureMessage: '',
+                showForm: !state.updatePhotoUrl.showForm
+            } });
+        }
+
+        case UserActionTypes.UpdatePhotoUrl: {
+            return assign(state, { updatePhotoUrl: {
+                isRequesting: true
+            }});
+        }
+
+        case UserActionTypes.UpdatePhotoUrlFailure: {
+            return assign(state, { updatePhotoUrl: {
+                isRequesting: false,
+                successMessage: '',
+                failureMessage: getErrorMessage(action.payload)
+            } });
+        }
+
+        case UserActionTypes.UpdatePhotoUrlSuccess: {
+            return assign(state, { updatePhotoUrl: {
+                isRequesting: false,
+                failureMessage: '',
+                successMessage: ''
+            } });
         }
     }
 

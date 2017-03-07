@@ -1,3 +1,6 @@
+import { Observable } from 'rxjs/Rx';
+import { FormState } from '../../store/user/user.state';
+import { SubscriberComponent } from '../../helpers/subscriber.component';
 import { validUrl } from '../../validators/validUrl';
 import { FormComponent } from '../../helpers/form.component';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
@@ -15,16 +18,17 @@ export class UpdatePhotoUrlComponent extends FormComponent implements OnInit {
         newPhotoUrl: 'newPhotoUrl'
     };
 
+    photoState$: Observable<FormState>;
+    newPhotoUrl = '';
+
     ngOnInit() {
         this.formGroup = this.formBuilder.group({
             [this.controlNames.newPhotoUrl]: ['', validUrl]
         });
-
-        this.formGroup.controls[this.controlNames.newPhotoUrl].valueChanges
-            .subscribe(this.onUrlChanged);
+        this.photoState$ = this.state.select(s => s.user.updatePhotoUrl);
     }
 
-    onUrlChanged(url: string) {
-        this.state.dispatch(new UserActions.TryUpdatePhotoUrl(this.getFormValue(this.controlNames.newPhotoUrl)));
+    onSubmitPhoto() {
+        this.state.dispatch(new UserActions.UpdatePhotoUrl(this.newPhotoUrl));
     }
 }

@@ -14,15 +14,23 @@ export class InfoPageComponent extends StatefulClass implements OnInit {
 
     user$: Observable<firebase.User>;
     isPasswordUser$: Observable<boolean>;
-    ui$: Observable<UserState>;
+    userState$: Observable<UserState>;
 
     ngOnInit() {
-        this.user$ = this.firebase.auth.map(auth => auth.auth);
+        this.user$ = this.firebase.auth.map(auth => auth ? auth.auth : null);
         this.isPasswordUser$ = UserSelectors.IsPasswordUser(this.firebase);
-        this.ui$ = this.state.select(s => s.user);
+        this.userState$ = this.state.select(s => s.user);
+    }
+
+    toggleUpdatePhotoUrl() {
+        this.state.dispatch(new UserActions.ToggleUpdatePhotoUrl());
     }
 
     toggleUpdatePasswordForm() {
-        this.state.dispatch(new UserActions.ToggleUpdatePasswordResetForm());
+        this.state.dispatch(new UserActions.ToggleUpdatePasswordForm());
+    }
+
+    toggleUpdateEmailForm() {
+        this.state.dispatch(new UserActions.ToggleUpdateEmailForm());
     }
 }

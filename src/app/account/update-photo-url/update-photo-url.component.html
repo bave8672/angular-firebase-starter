@@ -1,0 +1,10 @@
+<form novalidate *ngIf="(photoState$ | async).showForm">
+    <div>
+        <img class="img-thumbnail img-rounded" [src]="newPhotoUrl" alt="New profile picture" />
+    </div>
+    <div class="form-group">
+        <label for="newPhotoUrl">Photo URL</label>
+        <input type="text" class="form-control" name="newPhotoUrl" placeholder="e.g https://www.google.com.au/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png" [(ngModel)]="newPhotoUrl" />
+    </div>
+    <button class="btn btn-default" (click)="onSubmitPhoto()">Save Profile Picture</button>
+</form>

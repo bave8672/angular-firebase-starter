@@ -6,12 +6,12 @@
         <form novalidate name="log-in" [formGroup]="formGroup" (onsubmit)="emailPasswordLogin()">
             <div class="form-group">
                 <label for="email">Email address</label>
-                <input type="email" class="form-control" id="email" [formControlName]="controlNames.email" placeholder="Email">
+                <input type="email" class="form-control" name="email" [formControlName]="controlNames.email" placeholder="Email">
                 <app-validation-message [control]="formGroup.controls[controlNames.email]"></app-validation-message>
             </div>
             <div class="form-group">
                 <label for="password">Password</label>
-                <input type="password" class="form-control" id="password" [formControlName]="controlNames.password" placeholder="Password">
+                <input type="password" class="form-control" name="password" [formControlName]="controlNames.password" placeholder="Password">
                 <app-validation-message [control]="formGroup.controls[controlNames.password]"></app-validation-message>
             </div>
             <div class="form-group">
@@ -22,8 +22,8 @@
                 <input type="checkbox">Remember me
                 </label>
             </div>-->
-            <button type="submit" class="btn btn-lg btn-block btn-primary" (click)="emailPasswordLogIn()">Submit</button>
-            <button class="btn btn-lg btn-block btn-link" [disabled]="!formGroup.valid" routerLink="/signup">Sign Up</button>
+            <button type="submit" class="btn btn-lg btn-block btn-primary"[disabled]="!formGroup.valid" (click)="emailPasswordLogIn()">Submit</button>
+            <button class="btn btn-lg btn-block btn-link" routerLink="/signup">Sign Up</button>
             <p class="text-danger" [hidden]="!(userState$ | async)?.logInFailure">An error occurred attempting to sign in</p>
         </form>
     </div>

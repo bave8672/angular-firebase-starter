@@ -1,3 +1,4 @@
+import { GlobalActionTypes } from '../global/global.actionTypes';
 import {
     AuthConfiguration,
     AuthMethods,
@@ -19,7 +20,8 @@ import { go } from '@ngrx/router-store';
 export class UserEffects extends StatefulClass {
 
     @Effect()
-    logIn$: Observable<UserActions.LogInFailure | UserActions.LogInSuccess> = this.state.actions$.ofType(UserActionTypes.LogIn)
+    logIn$: Observable<UserActions.LogInFailure | UserActions.LogInSuccess> = this.state.actions$
+        .ofType(UserActionTypes.LogIn)
         .switchMap((action: UserActions.LogIn) => {
             let request: firebase.Promise<FirebaseAuthState>;
             if ((action.payload as EmailPasswordCredentials).email) {
@@ -33,9 +35,10 @@ export class UserEffects extends StatefulClass {
                 .catch(error => Observable.of(new UserActions.LogInFailure(error)));
     });
 
-    @Effect({ dispatch: false })
+    @Effect()
     logOut$ = this.state.actions$.ofType(UserActionTypes.LogOut)
-        .map(() => this.firebase.auth.logout());
+        .switchMap(() => Observable.from(this.firebase.auth.logout()))
+        .map(() => go('/'));
 
     @Effect()
     signUp$ = this.state.actions$.ofType(UserActionTypes.SignUp)
@@ -77,6 +80,19 @@ export class UserEffects extends StatefulClass {
                 this.state.actions$.ofType(UserActionTypes.LogInFailure)
                     .map(action => new UserActions.UpdatePasswordFailure(action.payload)))
         });
+
+    @Effect()
+    updatePhotoUrl$ = this.state.actions$.ofType(UserActionTypes.UpdatePhotoUrl)
+        .map((action: UserActions.UpdatePhotoUrl) => action.payload)
+        .switchMap(url => this.firebase.auth
+            .map(a => a.auth)
+            .switchMap(auth => {
+                return Observable.from(auth.updateProfile({
+                displayName: auth.displayName,
+                photoURL: url
+            }))})
+            .map(res => new UserActions.UpdatePhotoUrlSuccess(res))
+            .catch(error => Observable.of(new UserActions.UpdatePhotoUrlFailure(error))));
 
     constructor(
         state: StateService,

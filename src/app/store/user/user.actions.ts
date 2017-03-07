@@ -44,17 +44,7 @@ export namespace UserActions {
         payload: void;
     }
 
-    export class ShowUpdatePasswordForm implements Action {
-        type = UserActionTypes.ShowUpdatePasswordForm;
-        payload: void;
-    }
-
-    export class HideUpdatePasswordForm implements Action {
-        type = UserActionTypes.HideUpdatePasswordForm;
-        payload: void;
-    }
-
-    export class ToggleUpdatePasswordResetForm implements Action {
+    export class ToggleUpdatePasswordForm implements Action {
         type = UserActionTypes.ToggleUpdatePasswordForm;
         payload: void;
     }
@@ -93,6 +83,11 @@ export namespace UserActions {
         constructor(public payload: any) {} // TODO: type?
     }
 
+    export class ToggleUpdateEmailForm implements Action {
+        type = UserActionTypes.ToggleUpdateEmailForm;
+        payload: void;
+    }
+
     export class UpdateEmail implements Action {
         type = UserActionTypes.UpdateEmail;
         // payload: new Email
@@ -109,20 +104,9 @@ export namespace UserActions {
         constructor(public payload: any) {} // TODO: type?
     }
 
-    export class TryUpdatePhotoUrl implements Action {
-        type = UserActionTypes.TryUpdatePhotoUrl;
-        // payload: new PhotoUrl
-        constructor(public payload: string) {}
-    }
-
-    export class TryUpdatePhotoUrlFailure implements Action {
-        type = UserActionTypes.TryUpdatePhotoUrlFailure;
-        constructor(public payload: any) {}
-    }
-
-    export class TryUpdatePhotoUrlSuccess implements Action {
-        type = UserActionTypes.TryUpdatePhotoUrlSuccess;
-        constructor(public payload: any) {} // TODO: type?
+    export class ToggleUpdatePhotoUrl implements Action {
+        type = UserActionTypes.ToggleUpdatePhotoUrl;
+        payload: void;
     }
 
     export class UpdatePhotoUrl implements Action {
@@ -149,9 +133,11 @@ export namespace UserActions {
         | SignUpFailure
         | LogOut
         | ResetPassword
+        | ToggleUpdatePasswordForm
         | UpdatePassword
         | UpdatePasswordFailure
         | UpdatePasswordSuccess
+        | ToggleUpdateEmailForm
         | UpdateEmail
         | UpdateEmailFailure
         | UpdateEmailSuccess
