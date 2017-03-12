@@ -1,3 +1,4 @@
+import { PanelComponent } from './panel/panel.component';
 import { RouterModule } from '@angular/router';
 import { OutletComponent } from './outlet/outlet.component';
 import { ModalComponent } from './modal/modal.component';
@@ -15,12 +16,13 @@ import { NgModule } from '@angular/core';
         FormsModule,
         ReactiveFormsModule,
         HttpModule,
-        RouterModule
+        RouterModule,
     ],
     declarations: [
         ModalComponent,
         ValidationMessageComponent,
-        OutletComponent
+        OutletComponent,
+        PanelComponent
     ],
     exports: [
         CommonModule,
@@ -30,7 +32,8 @@ import { NgModule } from '@angular/core';
         HttpModule,
         ModalComponent,
         ValidationMessageComponent,
-        OutletComponent
+        OutletComponent,
+        PanelComponent
     ]
 })
 

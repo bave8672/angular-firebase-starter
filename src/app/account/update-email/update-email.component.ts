@@ -1,4 +1,4 @@
-import { FormState } from '../../store/user/user.state';
+import { FormState } from '../../store';
 import { Observable } from 'rxjs/Rx';
 import { emailValid } from '../../validators';
 import { FormComponent } from '../../helpers/form.component';
@@ -17,14 +17,12 @@ export class UpdateEmailComponent extends FormComponent implements OnInit {
         newEmail: 'newEmail'
     };
 
-    emailState$: Observable<FormState>;
+    formState$ = this.state.select(s => s.user.updateEmail);
 
     ngOnInit() {
         this.formGroup = this.formBuilder.group({
             [this.controlNames.newEmail]: ['', emailValid]
         });
-
-        this.emailState$ = this.state.select(s => s.user.updateEmail);
     }
 
     updateEmail() {

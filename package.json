@@ -6,9 +6,12 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "test": "ng test",
+    "debug": "ng test --no-single-run",
+    "test": "ng test --single-run --code-coverage",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "build": "npm run build:prd",
+    "build:prod": "ng build --prod --aot"
   },
   "private": true,
   "dependencies": {

@@ -1,0 +1,8 @@
+<div [class]="'panel panel-' + state">
+    <div class="panel-heading" *ngIf="title">
+        <h3 class="panel-title">{{ title }}</h3>
+    </div>
+    <div class="panel-body">
+        <ng-content></ng-content>
+    </div>
+</div>

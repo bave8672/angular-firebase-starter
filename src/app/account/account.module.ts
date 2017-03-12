@@ -1,3 +1,5 @@
+import { SendEmailVerificationComponent } from './send-email-verification/send-email-verification.component';
+import { ProfilePictureComponent } from './profile-picture/profile-picture.component';
 import { SharedModule } from '../shared/shared.module';
 import { AccountRoutes } from './account.routes';
 import { InfoPageComponent } from './info/info-page.component';
@@ -18,7 +20,12 @@ import { RouterModule } from '@angular/router';
         ProfilePageComponent,
         UpdatePasswordComponent,
         UpdateEmailComponent,
-        UpdatePhotoUrlComponent
+        UpdatePhotoUrlComponent,
+        ProfilePictureComponent,
+        SendEmailVerificationComponent
+    ],
+    exports: [
+        ProfilePictureComponent
     ]
 })
 

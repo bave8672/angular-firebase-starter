@@ -1,23 +1,20 @@
-<div *ngIf="(emailState$ | async).showForm">
-    <h2>Update Email</h2>
-    <form novalidate [formGroup]="formGroup" (submit)="updateEmail()">
-        <div class="form-group">
-            <label for="email">New Email</label>
-            <input type="text" class="form-control" [formControlName]="controlNames.newEmail" placeholder="New email">
-            <app-validation-message [control]="formGroup.controls[controlNames.newEmail]"></app-validation-message>
-        </div>
-        <app-validation-message [control]="formGroup"></app-validation-message>
-        <button class="btn btn-lg btn-block btn-default"
-                [class.disabled]="!formGroup.valid || (emailState$ | async).isRequesting"
-                [class.btn-info]="(emailState$ | async).isRequestingEmailupdate"
-                [class.btn-success]="(emailState$ | async).successMessage">
-                Update Email
-        </button>
-        <p class="text-success" *ngIf="(emailState$ | async).successMessage">
-            {{(emailState$ | async).EmailUpdateSuccessMessage}}
-        </p>
-        <p class="text-danger" *ngIf="(emailState$ | async).failureMessage">
-            {{(emailState$ | async).EmailUpdateFailureMessage}}
-        </p>
-    </form>
-</div>
+<form novalidate [formGroup]="formGroup" (submit)="updateEmail()">
+    <div class="form-group">
+        <label for="email">New Email</label>
+        <input type="text" class="form-control" [formControlName]="controlNames.newEmail" placeholder="New email">
+        <app-validation-message [control]="formGroup.controls[controlNames.newEmail]"></app-validation-message>
+    </div>
+    <app-validation-message [control]="formGroup"></app-validation-message>
+    <button class="btn btn-lg btn-block btn-default"
+            [class.disabled]="!formGroup.valid || (formState$ | async).isRequesting"
+            [class.btn-info]="(formState$ | async).isRequestingEmailupdate"
+            [class.btn-success]="(formState$ | async).successMessage">
+            Update
+    </button>
+    <p class="text-success" *ngIf="(formState$ | async).successMessage">
+        {{(formState$ | async).EmailUpdateSuccessMessage}}
+    </p>
+    <p class="text-danger" *ngIf="(formState$ | async).failureMessage">
+        {{(formState$ | async).EmailUpdateFailureMessage}}
+    </p>
+</form>

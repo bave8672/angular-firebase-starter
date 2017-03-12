@@ -33,4 +33,8 @@ export class InfoPageComponent extends StatefulClass implements OnInit {
     toggleUpdateEmailForm() {
         this.state.dispatch(new UserActions.ToggleUpdateEmailForm());
     }
+
+    resendEmailVerification() {
+        this.state.dispatch(new UserActions.SendEmailVerification());
+    }
 }

@@ -48,11 +48,16 @@ export const UserReducer: Reducer<UserState, UserActions.UserAction> = (state = 
         }
 
         case UserActionTypes.ToggleUpdatePasswordForm: {
-            return assign(state, { updatePassword: {
+            const newState = assign(state, { updatePassword: {
                 successMessage: '',
                 failureMessage: '',
                 showForm: !state.updatePassword.showForm
             } });
+            if (newState.updatePassword.showForm) {
+                newState.updateEmail.showForm = false;
+                newState.updatePhotoUrl.showForm = false;
+            }
+            return newState;
         }
 
         case UserActionTypes.UpdatePassword: {
@@ -76,11 +81,16 @@ export const UserReducer: Reducer<UserState, UserActions.UserAction> = (state = 
         }
 
         case UserActionTypes.ToggleUpdateEmailForm: {
-            return assign(state, { updateEmail: {
+            const newState = assign(state, { updateEmail: {
                 successMessage: '',
                 failureMessage: '',
                 showForm: !state.updateEmail.showForm
             } });
+            if (newState.updateEmail.showForm) {
+                newState.updatePassword.showForm = false;
+                newState.updatePhotoUrl.showForm = false;
+            }
+            return newState;
         }
 
         case UserActionTypes.UpdateEmail: {
@@ -106,11 +116,16 @@ export const UserReducer: Reducer<UserState, UserActions.UserAction> = (state = 
         }
 
         case UserActionTypes.ToggleUpdatePhotoUrl: {
-            return assign(state, { updatePhotoUrl: {
+            const newState = assign(state, { updatePhotoUrl: {
                 successMessage: '',
                 failureMessage: '',
                 showForm: !state.updatePhotoUrl.showForm
             } });
+            if (newState.updatePhotoUrl.showForm) {
+                newState.updateEmail.showForm = false;
+                newState.updatePassword.showForm = false;
+            }
+            return newState;
         }
 
         case UserActionTypes.UpdatePhotoUrl: {
@@ -131,7 +146,29 @@ export const UserReducer: Reducer<UserState, UserActions.UserAction> = (state = 
             return assign(state, { updatePhotoUrl: {
                 isRequesting: false,
                 failureMessage: '',
-                successMessage: ''
+                successMessage: Messages.ApiResponse.UpdatePhotoUrlSucess
+            } });
+        }
+
+        case UserActionTypes.SendEmailVerification: {
+            return assign(state, { sendEmailVerification: {
+                isRequesting: true
+            }});
+        }
+
+        case UserActionTypes.SendEmailVerificationFailure: {
+            return assign(state, { sendEmailVerification: {
+                isRequesting: false,
+                successMessage: '',
+                failureMessage: getErrorMessage(action.payload)
+            } });
+        }
+
+        case UserActionTypes.SendEmailVerificationSuccess: {
+            return assign(state, { sendEmailVerification: {
+                isRequesting: false,
+                failureMessage: '',
+                successMessage: Messages.ApiResponse.UpdateEmailSuccess
             } });
         }
     }

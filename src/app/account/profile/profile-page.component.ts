@@ -1,3 +1,4 @@
+import { TodosService } from '../../todos/todos.service';
 import { StatefulClass } from '../../helpers/statefulClass';
 import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
 
@@ -5,9 +6,9 @@ import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
     templateUrl: './profile-page.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProfilePageComponent extends StatefulClass implements OnInit {
+export class ProfilePageComponent {
 
-    ngOnInit() {
-        // todo
-    }
+    todos$ = this.todosService.todos();
+
+    constructor(private todosService: TodosService) {}
 }

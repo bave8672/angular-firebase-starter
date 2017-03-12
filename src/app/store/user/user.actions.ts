@@ -125,6 +125,21 @@ export namespace UserActions {
         constructor(public payload: any) {} // TODO: type?
     }
 
+    export class SendEmailVerification implements Action {
+        type = UserActionTypes.SendEmailVerification;
+        payload: void;
+    }
+
+    export class SendEmailVerificationSuccess implements Action {
+        type = UserActionTypes.SendEmailVerificationSuccess;
+        constructor(public payload: any) {}
+    }
+
+    export class SendEmailVerificationFailure implements Action {
+        type = UserActionTypes.SendEmailVerificationFailure;
+        constructor(public payload: any) {}
+    }
+
     export type UserAction =
         LogIn
         | LogInFailure
@@ -143,5 +158,8 @@ export namespace UserActions {
         | UpdateEmailSuccess
         | UpdatePhotoUrl
         | UpdatePhotoUrlFailure
-        | UpdatePhotoUrlSuccess;
+        | UpdatePhotoUrlSuccess
+        | SendEmailVerification
+        | SendEmailVerificationSuccess
+        | SendEmailVerificationFailure;
 }

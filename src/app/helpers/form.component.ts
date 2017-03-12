@@ -1,3 +1,5 @@
+import { Observable } from 'rxjs/Rx';
+import { FormState } from '../store/formState';
 import { StateService } from '../store';
 import { StatefulClass } from './statefulClass';
 import { FormBuilder, FormGroup } from '@angular/forms';
@@ -8,8 +10,9 @@ import { AngularFire } from 'angularfire2';
 export abstract class FormComponent extends StatefulClass    {
 
     static readonly ControlNames: { [name: string]: string; };
-    protected readonly controlNames: any;
+    protected readonly controlNames: { [name: string]: string; };
     formGroup: FormGroup;
+    formState: Observable<FormState>;
 
     constructor(
             protected formBuilder: FormBuilder,

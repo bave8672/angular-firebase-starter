@@ -94,6 +94,21 @@ export class UserEffects extends StatefulClass {
             .map(res => new UserActions.UpdatePhotoUrlSuccess(res))
             .catch(error => Observable.of(new UserActions.UpdatePhotoUrlFailure(error))));
 
+    @Effect()
+    sendEmailVerification$ = this.state.actions$.ofType(UserActionTypes.SendEmailVerification)
+        .switchMap(() => this.firebase.auth.filter(a => !!a)
+            .switchMap(a => a.auth.sendEmailVerification())
+            .map(res => new UserActions.SendEmailVerificationSuccess(res))
+            .catch(error => Observable.of(new UserActions.SendEmailVerificationFailure(error))));
+
+    @Effect()
+    updateEmail$ = this.state.actions$.ofType(UserActionTypes.UpdateEmail)
+        .switchMap((action: UserActions.UpdateEmail) => action.payload)
+        .switchMap(newEmail => this.firebase.auth.filter(a => !!a)
+            .switchMap(a => a.auth.updateEmail(newEmail))
+            .map(res => new UserActions.UpdateEmailSuccess(res))
+            .catch(error => Observable.of(new UserActions.UpdateEmailFailure(error))));
+
     constructor(
         state: StateService,
         firebase: AngularFire

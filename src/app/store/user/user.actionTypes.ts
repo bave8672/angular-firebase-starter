@@ -23,5 +23,8 @@ export const UserActionTypes = {
         ToggleUpdateEmailForm: '[User] Toggle Update Email Form',
         UpdateEmail: '[User] Update Email',
         UpdateEmailSuccess: '[User] Update Email Succsess',
-        UpdateEmailFailure: '[User] Update Email Failure'
+        UpdateEmailFailure: '[User] Update Email Failure',
+        SendEmailVerification: '[User] Send Email Verification',
+        SendEmailVerificationSuccess: '[User] Send Email Verification Success',
+        SendEmailVerificationFailure: '[User] Send Email Verification Failure'
 };

@@ -1,3 +1,7 @@
 <div class="container">
     <h1>Your Profile</h1>
+    <div *ngFor="let todo of (todos$ | async)">
+        
+    </div>
+    <todo-edit></todo-edit>
 </div>

@@ -1,6 +1,6 @@
-import { FormState, UserState } from '../../store/user/user.state';
+import { UserState } from '../../store/user/user.state';
 import { Observable } from 'rxjs/Rx';
-import { UserActions } from '../../store';
+import { UserActions, FormState } from '../../store';
 import { Messages } from '../../resources/messages';
 import { FormComponent } from '../../helpers/form.component';
 import { ChangeDetectionStrategy, Component } from '@angular/core';

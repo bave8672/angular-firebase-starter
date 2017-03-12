@@ -5,10 +5,16 @@ import { ProfilePageComponent } from './profile/profile-page.component';
 import { Routes } from '@angular/router';
 
 export const AccountRoutes: Routes = [
-    { path: 'account', component: OutletComponent, canActivate: [IsLoggedInGuard], children: [
-        { path: '', component: ProfilePageComponent },
-        { path: 'profile', component: ProfilePageComponent },
-        { path: 'info', component: InfoPageComponent },
-        { path: '**', component: ProfilePageComponent }
-    ]}
+    {
+        path: 'account',
+        component: OutletComponent,
+        canActivate: [IsLoggedInGuard],
+        canActivateChild: [IsLoggedInGuard],
+        children: [
+            { path: '', component: ProfilePageComponent },
+            { path: 'profile', component: ProfilePageComponent },
+            { path: 'info', component: InfoPageComponent },
+            { path: '**', component: ProfilePageComponent }
+        ]
+    }
 ];

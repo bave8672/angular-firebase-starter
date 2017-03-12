@@ -1,3 +1,5 @@
+import { FormState } from '../';
+
 export class UserState {
     logInModal = new FormState()
     showLogInModal = false;
@@ -8,11 +10,5 @@ export class UserState {
     updatePhotoUrl = new FormState();
     updatePassword = new FormState();
     updateEmail = new FormState();
-};
-
-export class FormState {
-    showForm = false;
-    isRequesting = false;
-    successMessage = '';
-    failureMessage = '';
+    sendEmailVerification = new FormState();
 }

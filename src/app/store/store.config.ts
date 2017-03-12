@@ -1,3 +1,4 @@
+import { TodosEffects } from './todos/todos.effects';
 import { combineReducers } from '@ngrx/store';
 import { compose } from '@ngrx/core/compose';
 import { NavReducer } from './nav/nav.reducer';
@@ -16,5 +17,6 @@ export const Reducers = compose(
 });
 
 export const Effects = [
-    UserEffects
+    UserEffects,
+    TodosEffects
 ];
