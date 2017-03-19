@@ -18,6 +18,8 @@
         </div>
         <app-validation-message [control]="formGroup"></app-validation-message>
         <span class="text-danger">{{ (formState$ | async)?.failureMessage }}</span>
-        <button class="btn btn-lg btn-block btn-default" [class.disabled]="!formGroup.valid">Sign Up</button>
+        <app-submit-button [requesting]="(formState$ | async).isRequesting" [disabled]="!formGroup.valid" extraClasses="btn-lg btn-block">
+            Sign Up
+        </app-submit-button>
     </form>
 </div>

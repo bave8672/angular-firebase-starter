@@ -1,0 +1,6 @@
+<button type="submit" [class]="'btn btn-' + buttonState + ' ' + extraClasses" [class.disabled]="disabled || requesting">
+    <div [class.hidden]="requesting">
+        <ng-content></ng-content>
+    </div>
+    <span [class.hidden]="!requesting">{{ requestingText }}</span>
+</button>

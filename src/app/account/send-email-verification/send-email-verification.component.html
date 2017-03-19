@@ -1,10 +1,7 @@
 <form novalidate (submit)="send()">
-    <button type="submit"
-        class="btn btn-default"
-        [class.disabled]="(formState$ | async)?.isRequesting"
-        *ngIf="!(formState$ | async).successMessage">
+    <app-submit-button *ngIf="!(formState$ | async).successMessage" [requesting]="(formState$ | async).isRequesting">
         Send verification email
-    </button>
+    </app-submit-button>
     <span>{{(formState$ | async).successMessage}}</span>
     <span>{{(formState$ | async).failureMessage}}</span>
 </form>

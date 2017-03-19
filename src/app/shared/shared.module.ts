@@ -1,13 +1,14 @@
-import { PanelComponent } from './panel/panel.component';
-import { RouterModule } from '@angular/router';
-import { OutletComponent } from './outlet/outlet.component';
 import { ModalComponent } from './modal/modal.component';
+import { OutletComponent } from './outlet/outlet.component';
+import { PanelComponent } from './panel/panel.component';
+import { SubmitButtonComponent } from './submit-button/submit-button.component';
+import { ValidationMessageComponent } from './validation-message/validation-message.component';
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
-import { ValidationMessageComponent } from './validation-message/validation-message.component';
-import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
     imports: [
@@ -16,13 +17,14 @@ import { NgModule } from '@angular/core';
         FormsModule,
         ReactiveFormsModule,
         HttpModule,
-        RouterModule,
+        RouterModule
     ],
     declarations: [
         ModalComponent,
         ValidationMessageComponent,
         OutletComponent,
-        PanelComponent
+        PanelComponent,
+        SubmitButtonComponent
     ],
     exports: [
         CommonModule,
@@ -33,7 +35,8 @@ import { NgModule } from '@angular/core';
         ModalComponent,
         ValidationMessageComponent,
         OutletComponent,
-        PanelComponent
+        PanelComponent,
+        SubmitButtonComponent
     ]
 })
 
