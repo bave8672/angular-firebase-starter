@@ -1,31 +1,36 @@
-import { Observable } from 'rxjs/Rx';
-import { FormState } from '../../store/user/user.state';
-import { SubscriberComponent } from '../../helpers/subscriber.component';
-import { validUrl } from '../../validators/validUrl';
+import { FormBuilder } from '@angular/forms';
+import { StateService } from '../../store/state-service/state.service';
 import { FormComponent } from '../../helpers/form.component';
+import { UserActions, FormState } from '../../store';
+import { validUrl } from '../../validators/validUrl';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { UserActions } from '../../store';
+import { Observable } from 'rxjs/Rx';
 
 @Component({
-    selector: 'account-update-photo-url',
+    selector: 'app-account-update-photo-url',
     templateUrl: './update-photo-url.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-export class UpdatePhotoUrlComponent extends FormComponent implements OnInit {
+export class UpdatePhotoUrlComponent extends FormComponent {
 
     controlNames = {
         newPhotoUrl: 'newPhotoUrl'
     };
 
-    photoState$: Observable<FormState>;
     newPhotoUrl = '';
 
-    ngOnInit() {
-        this.formGroup = this.formBuilder.group({
-            [this.controlNames.newPhotoUrl]: ['', validUrl]
-        });
-        this.photoState$ = this.state.select(s => s.user.updatePhotoUrl);
+    formGroup = this.formBuilder.group({
+        [this.controlNames.newPhotoUrl]: ['', validUrl]
+    });
+
+    formState$ = this.state.select(s => s.user.updatePhotoUrl);
+
+    constructor(
+        private state: StateService,
+        private formBuilder: FormBuilder
+    ) {
+        super();
     }
 
     onSubmitPhoto() {

@@ -1,10 +1,9 @@
 import { assign } from '../../helpers/assign';
 import { NavActionTypes } from './nav.actionTypes';
 import { NavState } from './navState';
-import { Reducer } from '../reducer';
-import { NavActions } from './nav.actions';
+import { ActionReducer } from '@ngrx/store';
 
-export const NavReducer: Reducer<NavState, NavActions.NavAction> = (state = new NavState(), action) => {
+export const NavReducer: ActionReducer<NavState> = (state = new NavState(), action) => {
 
     switch (action.type) {
 

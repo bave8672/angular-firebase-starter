@@ -1,4 +1,4 @@
-import { UserActions } from '../store';
+import { LogInActions } from '../store';
 import { StateService } from '../store/state-service/state.service';
 import { Injectable } from '@angular/core';
 import { CanActivate, CanActivateChild } from '@angular/router';
@@ -24,7 +24,7 @@ export class IsLoggedInGuard implements CanActivate, CanActivateChild {
         return this.isLoggedIn()
             .map(isAuth => {
                 if (!isAuth) {
-                    this.state.dispatch(new UserActions.ShowLogInModal());
+                    this.state.dispatch(new LogInActions.ShowModal());
                 }
                 return isAuth;
         });

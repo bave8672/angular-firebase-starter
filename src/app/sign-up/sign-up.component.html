@@ -17,6 +17,7 @@
             <app-validation-message [control]="formGroup.controls[controlNames.confirmPassword]"></app-validation-message>
         </div>
         <app-validation-message [control]="formGroup"></app-validation-message>
+        <span class="text-danger">{{ (formState$ | async)?.failureMessage }}</span>
         <button class="btn btn-lg btn-block btn-default" [class.disabled]="!formGroup.valid">Sign Up</button>
     </form>
 </div>

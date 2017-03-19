@@ -6,22 +6,34 @@ export namespace TodosActions {
 
     export class Edit implements Action {
         type = TodosActionTypes.Edit;
-        constructor(public payload: string) {} // uid
+        /**
+         * payload: uid
+         */
+        constructor(public payload: string | null) {}
     }
 
     export class CloseEdit implements Action {
         type = TodosActionTypes.CloseEdit;
-        constructor(public payload: string | null) {} //uid
+        /**
+         * payload: uid
+         */
+        constructor(public payload: string | null) {}
     }
 
     export class Update implements Action {
         type = TodosActionTypes.Update;
-        constructor(public payload: Todo) {} // name
+        /**
+         * payload: name
+         */
+        constructor(public payload: Todo) {}
     }
 
     export class Delete implements Action {
         type = TodosActionTypes.Delete;
-        constructor(public payload: string) {} // uid
+        /**
+         * payload: uid
+         */
+        constructor(public payload: string) {}
     }
 
     export type TodosAction =

@@ -1,51 +1,15 @@
+import { ActionReducer } from '@ngrx/store';
 import { getErrorMessage } from '../../helpers/getErrorMessage';
 import { Messages } from '../../resources/messages';
 import { assign } from '../../helpers/assign';
 import { UserActionTypes } from './user.actionTypes';
 import { UserActions } from './user.actions';
 import { UserState } from './user.state';
-import { Reducer } from '../reducer';
+import { routerActions } from '@ngrx/router-store';
 
-export const UserReducer: Reducer<UserState, UserActions.UserAction> = (state = new UserState(), action = { type: '', payload: '' }) => {
+export const UserReducer: ActionReducer<UserState> = (state = new UserState(), action = { type: '', payload: '' }) => {
 
     switch (action.type) {
-
-        case '[Router] Update Location': { // TODO: what is this event?
-            if (state.showLogInModal) {
-                return assign(state, { showLogInModal: false });
-            }
-            return state;
-        }
-
-        case UserActionTypes.ShowLogInModal: {
-            return assign(state, { showLogInModal: true });
-        }
-
-        case UserActionTypes.HideLogInModal: {
-            return assign(state, { showLogInModal: false });
-        }
-
-        case UserActionTypes.LogIn: {
-            return assign(state, { isRequestingLogIn: true });
-        }
-
-        case UserActionTypes.LogInFailure: {
-            return assign(state, { logInFailure: true, isLoggedIn: false, isRequestingLogIn: false });
-        }
-
-        case UserActionTypes.LogInSuccess: {
-            return assign(state, {
-                logInFailure: false,
-                isLoggedIn: true,
-                firebaseUid: action.payload.uid,
-                showLogInModal: false,
-                isRequestingLogIn: false
-            });
-        }
-
-        case UserActionTypes.LogOut: {
-            return assign(state, { isLoggedIn: false, firebaseUid: '', isRequestingLogIn: false });
-        }
 
         case UserActionTypes.ToggleUpdatePasswordForm: {
             const newState = assign(state, { updatePassword: {

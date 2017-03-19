@@ -1,26 +1,17 @@
 import { Observable } from 'rxjs/Rx';
 import { FormState } from '../store/formState';
 import { StateService } from '../store';
-import { StatefulClass } from './statefulClass';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Injectable } from '@angular/core';
 import { AngularFire } from 'angularfire2';
 
 @Injectable()
-export abstract class FormComponent extends StatefulClass    {
+export abstract class FormComponent {
 
-    static readonly ControlNames: { [name: string]: string; };
+    static readonly ControlNames: { [name: string]: string; } | undefined;
     protected readonly controlNames: { [name: string]: string; };
     formGroup: FormGroup;
-    formState: Observable<FormState>;
-
-    constructor(
-            protected formBuilder: FormBuilder,
-            state: StateService,
-            firebase: AngularFire
-    ) {
-            super(state, firebase);
-    }
+    formState$: Observable<FormState>;
 
     protected getFormValue<T>(controlName: string, fallback?: T) {
         if (this.formGroup && this.formGroup.controls[controlName] &&

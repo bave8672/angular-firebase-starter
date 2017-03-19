@@ -1,0 +1,9 @@
+<form novalidate class="form-inline" onsubmit="event.preventDefault()" [formGroup]="formGroup">
+    <div class="form-group">
+        <label for="todo">{{ todo.uid ? 'Update' : 'New' }} Task</label>
+        <input type="text" class="form-control" placeholder="Task name" [formControlName]="controlNames.name" />
+    </div>
+    <button type="submit" class="btn btn-default" [class.disabled]="!formGroup.valid" (click)="save()">Save</button>
+    <button type="submit" class="btn btn-danger" (click)="cancel()" *ngIf="cancelable">Cancel</button>
+    <app-validation-message [control]="formGroup.controls[controlNames.name]"></app-validation-message>
+</form>

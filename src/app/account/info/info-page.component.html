@@ -3,40 +3,42 @@
     <label>
         Profile Picture
     </label>
-    <account-profile-picture></account-profile-picture>
+    <app-account-profile-picture></app-account-profile-picture>
     <p>
         <small *ngIf="!(user$ | async)?.photoURL">No profile picture</small>
-        <button class="btn btn-link" (click)="toggleUpdatePhotoUrl()">
+        <button class="btn btn-link" *ngIf="isPasswordUser$ | async" (click)="toggleUpdatePhotoUrl()">
             {{(userState$ | async).updatePhotoUrl.showForm ? 'close' : 'edit'}}
         </button>
     </p>
     <app-panel title="Update Profile Picture" *ngIf="(userState$ | async)?.updatePhotoUrl.showForm">
-        <account-update-photo-url></account-update-photo-url>
+        <app-account-update-photo-url></app-account-update-photo-url>
     </app-panel>
     <label>
         Email Address
     </label>
     <p>
         {{ (user$ | async)?.email }}
-        <button class="btn btn-link" (click)="toggleUpdateEmailForm()">
+        <button class="btn btn-link" *ngIf="isPasswordUser$ | async" (click)="toggleUpdateEmailForm()">
             {{(userState$ | async).updateEmail.showForm ? 'close' : 'edit'}}
         </button>
     </p>
     <app-panel title="Update Email" *ngIf="(userState$ | async)?.updateEmail.showForm">
-        <account-update-email></account-update-email>
+        <app-account-update-email></app-account-update-email>
     </app-panel>
-    <label>
-        Password
-    </label>
-    <p>
-        <button class="btn btn-link" (click)="toggleUpdatePasswordForm()">
-            {{(userState$ | async).updatePassword.showForm ? 'close' : 'edit'}}
-        </button>
-    </p>
-    <app-panel title="Update Password" *ngIf="(userState$ | async)?.updatePassword.showForm">
-        <account-update-password></account-update-password>
-    </app-panel>
-    <label>Email Verified</label>
-    <p>{{ (userState$ | async)?.emailVerified ? 'Yes' : 'No' }}</p>
-    <account-send-email-verification *ngIf="!(userState$ | async)?.emailVerified "></account-send-email-verification>
+    <div *ngIf="isPasswordUser$ | async">
+        <label>
+            Password
+        </label>
+        <p>
+            <button class="btn btn-link" *ngIf="isPasswordUser$ | async" (click)="toggleUpdatePasswordForm()">
+                {{(userState$ | async).updatePassword.showForm ? 'close' : 'edit'}}
+            </button>
+        </p>
+        <app-panel title="Update Password" *ngIf="(isPasswordUser$ | async) && (userState$ | async)?.updatePassword.showForm">
+            <app-account-update-password></app-account-update-password>
+        </app-panel>
+        <label>Email Verified</label>
+        <p>{{ (userState$ | async)?.emailVerified ? 'Yes' : 'No' }}</p>
+        <app-account-send-email-verification *ngIf="!(userState$ | async)?.emailVerified "></app-account-send-email-verification>
+    </div>
 </div>

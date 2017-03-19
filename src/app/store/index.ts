@@ -5,3 +5,4 @@ export { NavActions } from './nav/nav.actions';
 export { GlobalActions } from './global/global.actions';
 export { FormState } from './formState';
 export { TodosActions } from './todos/todos.actions';
+export * from './user';

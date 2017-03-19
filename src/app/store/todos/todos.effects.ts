@@ -9,18 +9,27 @@ import { Effect } from '@ngrx/effects';
 
 export class TodosEffects {
 
-    @Effect()
+    @Effect({ dispatch: false })
     update$ = this.state.actions$.ofType(TodosActionTypes.Update)
         .map((action: TodosActions.Update) => action.payload)
         .switchMap(todo => {
             if (!todo.uid) {
-                const ref = this.todosService.todos().push(todo);
-                todo.uid = ref.key;
-                return ref.set(todo);
+                const ref = this.todosService.todos().push({
+                    name: todo.name
+                });
+                return ref.set({
+                    name: todo.name,
+                    uid: ref.key
+                });
             } else {
                 return this.todosService.todo(todo.uid).set(todo);
             }
         });
+
+    @Effect({ dispatch: false })
+    delete$ = this.state.actions$.ofType(TodosActionTypes.Delete)
+        .map((action: TodosActions.Delete) => action.payload)
+        .map(uid => this.todosService.todo(uid).remove());
 
     constructor(
         private state: StateService,

@@ -1,1 +1,2 @@
-<p>{{ todo?.name }}</p>
+<app-todo-display [todo]="todo" *ngIf="!(isEditing$ | async)"></app-todo-display>
+<app-todo-edit [todo]="todo" *ngIf="isEditing$ | async"></app-todo-edit>

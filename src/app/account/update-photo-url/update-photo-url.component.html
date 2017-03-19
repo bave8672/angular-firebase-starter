@@ -1,6 +1,6 @@
-<form novalidate *ngIf="(photoState$ | async).showForm">
+<form novalidate *ngIf="(formState$ | async).showForm">
     <div>
-        <account-profile-picture [src]="newPhotoUrl"></account-profile-picture>
+        <app-account-profile-picture [src]="newPhotoUrl"></app-account-profile-picture>
     </div>
     <div class="form-group">
         <label for="newPhotoUrl">Photo URL</label>

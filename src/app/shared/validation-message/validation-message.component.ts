@@ -15,16 +15,16 @@ export class ValidationMessageComponent {
         return this.getMessage(this.control);
     }
 
-    private getMessage(control: FormControl | FormGroup | void, isChild: boolean = false): string | void {
+    private getMessage(control: FormControl | FormGroup, isChild: boolean = false): string | void {
         if (control && control.touched || isChild) {
-            for (let errorName in control.errors) {
+            for (const errorName in control.errors) {
                 if (control.errors.hasOwnProperty(errorName)) {
                     return control.errors[errorName];
                 }
             }
-            const fg = control as FormGroup
+            const fg = control as FormGroup;
             if (fg.controls) {
-                for (let controlName in fg.controls) {
+                for (const controlName in fg.controls) {
                     if (fg.controls.hasOwnProperty(controlName)) {
                         const error = this.getMessage(fg[controlName]);
                         if (error) {

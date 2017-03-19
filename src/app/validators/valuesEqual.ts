@@ -14,4 +14,4 @@ export const valuesEqual = (a: string, b: string, attachTo: string | null = null
                 return error;
             }
             return {};
-        }
+        };

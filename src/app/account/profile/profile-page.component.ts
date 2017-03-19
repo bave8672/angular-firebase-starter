@@ -1,5 +1,4 @@
 import { TodosService } from '../../todos/todos.service';
-import { StatefulClass } from '../../helpers/statefulClass';
 import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
 
 @Component({

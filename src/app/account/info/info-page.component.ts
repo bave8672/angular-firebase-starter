@@ -1,20 +1,27 @@
+import { UserActions, UserSelectors } from '../../store';
+import { StateService } from '../../store/state-service/state.service';
 import { UserState } from '../../store/user/user.state';
-import { UserSelectors, UserActions } from '../../store';
-import { StatefulClass } from '../../helpers/statefulClass';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { AngularFire } from 'angularfire2';
 import { Observable } from 'rxjs/Rx';
 
 @Component({
-    selector: 'account-info-page',
+    selector: 'app-account-info-page',
     templateUrl: './info-page.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-export class InfoPageComponent extends StatefulClass implements OnInit {
+export class InfoPageComponent implements OnInit {
 
     user$: Observable<firebase.User>;
     isPasswordUser$: Observable<boolean>;
     userState$: Observable<UserState>;
+
+    constructor(
+        protected state: StateService,
+        protected firebase: AngularFire
+    ) {
+    }
 
     ngOnInit() {
         this.user$ = this.firebase.auth.map(auth => auth ? auth.auth : null);

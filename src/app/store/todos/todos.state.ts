@@ -1,3 +1,3 @@
-export class TodoState {
+export class TodosState {
     editing = '' // uid
 }

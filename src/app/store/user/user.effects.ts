@@ -1,4 +1,12 @@
-import { GlobalActionTypes } from '../global/global.actionTypes';
+import { SignUpActionTypes } from './signUp/signUp.actionTypes';
+import { LogInActions, UserActions, SignUpActions } from '../';
+import { StateService } from '../state-service/state.service';
+import { LogInActionTypes } from './logIn';
+import { UserActionTypes } from './user.actionTypes';
+import { Injectable } from '@angular/core';
+import { Effect } from '@ngrx/effects';
+import { go } from '@ngrx/router-store';
+import { AngularFire } from 'angularfire2';
 import {
     AuthConfiguration,
     AuthMethods,
@@ -7,22 +15,14 @@ import {
     FirebaseAuthState
 } from 'angularfire2/auth';
 import { Observable } from 'rxjs/Rx';
-import { StatefulClass } from '../../helpers/statefulClass';
-import { UserActionTypes } from './user.actionTypes';
-import { Actions, Effect } from '@ngrx/effects';
-import { Injectable } from '@angular/core';
-import { UserActions } from '../';
-import { StateService } from '../state-service/state.service';
-import { AngularFire } from 'angularfire2';
-import { go } from '@ngrx/router-store';
 
 @Injectable()
-export class UserEffects extends StatefulClass {
+export class UserEffects {
 
     @Effect()
-    logIn$: Observable<UserActions.LogInFailure | UserActions.LogInSuccess> = this.state.actions$
-        .ofType(UserActionTypes.LogIn)
-        .switchMap((action: UserActions.LogIn) => {
+    logIn$: Observable<LogInActions.Failure | LogInActions.Success> = this.state.actions$
+        .ofType(LogInActionTypes.LogIn)
+        .switchMap((action: LogInActions.LogIn) => {
             let request: firebase.Promise<FirebaseAuthState>;
             if ((action.payload as EmailPasswordCredentials).email) {
                 const passwordConfig: AuthConfiguration = { provider: AuthProviders.Password, method: AuthMethods.Password };
@@ -31,8 +31,8 @@ export class UserEffects extends StatefulClass {
                 request = this.firebase.auth.login(action.payload as AuthConfiguration);
             }
             return Observable.from(request)
-                .map(authState => new UserActions.LogInSuccess(authState))
-                .catch(error => Observable.of(new UserActions.LogInFailure(error)));
+                .map(authState => new LogInActions.Success(authState))
+                .catch(error => Observable.of(new LogInActions.Failure(error)));
     });
 
     @Effect()
@@ -41,17 +41,20 @@ export class UserEffects extends StatefulClass {
         .map(() => go('/'));
 
     @Effect()
-    signUp$ = this.state.actions$.ofType(UserActionTypes.SignUp)
-        .switchMap((action: UserActions.SignUp) =>
+    signUp$ = this.state.actions$.ofType(SignUpActionTypes.SignUp)
+        .switchMap((action: SignUpActions.SignUp) =>
             Observable.from(this.firebase.auth.createUser(action.payload))
-                .map(authState => {
-                    this.firebase.auth.getAuth().auth.sendEmailVerification();
-                    return new UserActions.LogInSuccess(authState)
-                })
-                .catch(error => Observable.of(new UserActions.SignUpFailure(error))));
+                .mergeMap(authState => this.firebase.auth.map(a => {
+                    a.auth.sendEmailVerification();
+                    return Observable.from([
+                        new LogInActions.Success(authState),
+                        go('/Profile')
+                    ]);
+                }))
+                .catch(error => Observable.of(new SignUpActions.Failure(error))));
 
     @Effect()
-    navigateToProfileOnLogin$ = this.state.actions$.ofType(UserActionTypes.LogInSuccess)
+    navigateToProfileOnLogin$ = this.state.actions$.ofType(LogInActionTypes.Success)
         .map(() => go('/account/profile'))
         .takeUntil(Observable.timer(10000));
 
@@ -67,18 +70,18 @@ export class UserEffects extends StatefulClass {
         .map((action: UserActions.UpdatePassword) => action.payload)
         .switchMap(passwords => {
 
-            this.state.dispatch(new UserActions.LogIn({
+            this.state.dispatch(new LogInActions.LogIn({
                 email: this.firebase.auth.getAuth().auth.email,
                 password: passwords.old
             }));
 
             return Observable.race(
-                this.state.actions$.ofType(UserActionTypes.LogInSuccess)
+                this.state.actions$.ofType(LogInActionTypes.Success)
                     .switchMap(() => Observable.from(this.firebase.auth.getAuth().auth.updatePassword(passwords.new))
                         .map(res => new UserActions.UpdatePasswordSuccess(res))
                         .catch(err => Observable.of(new UserActions.UpdatePasswordFailure(err)))),
-                this.state.actions$.ofType(UserActionTypes.LogInFailure)
-                    .map(action => new UserActions.UpdatePasswordFailure(action.payload)))
+                this.state.actions$.ofType(LogInActionTypes.Failure)
+                    .map(action => new UserActions.UpdatePasswordFailure(action.payload)));
         });
 
     @Effect()
@@ -88,9 +91,10 @@ export class UserEffects extends StatefulClass {
             .map(a => a.auth)
             .switchMap(auth => {
                 return Observable.from(auth.updateProfile({
-                displayName: auth.displayName,
-                photoURL: url
-            }))})
+                    displayName: auth.displayName,
+                    photoURL: url
+                }));
+        })
             .map(res => new UserActions.UpdatePhotoUrlSuccess(res))
             .catch(error => Observable.of(new UserActions.UpdatePhotoUrlFailure(error))));
 
@@ -110,9 +114,7 @@ export class UserEffects extends StatefulClass {
             .catch(error => Observable.of(new UserActions.UpdateEmailFailure(error))));
 
     constructor(
-        state: StateService,
-        firebase: AngularFire
-    ) {
-        super(state, firebase);
-    }
+        private state: StateService,
+        private firebase: AngularFire
+    ) {}
 }

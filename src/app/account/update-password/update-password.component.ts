@@ -1,20 +1,19 @@
-import { UserState } from '../../store/user/user.state';
-import { Observable } from 'rxjs/Rx';
-import { UserActions, FormState } from '../../store';
-import { Messages } from '../../resources/messages';
 import { FormComponent } from '../../helpers/form.component';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Messages } from '../../resources/messages';
+import { FormState, UserActions } from '../../store';
+import { StateService } from '../../store/state-service/state.service';
 import { passwordValid, valuesEqual } from '../../validators';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
+import { Observable } from 'rxjs/Rx';
 
 @Component({
-    selector: 'account-update-password',
+    selector: 'app-account-update-password',
     templateUrl: './update-password.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class UpdatePasswordComponent extends FormComponent {
-
-    passwordState$: Observable<FormState>;
 
     controlNames = {
         password: 'password',
@@ -22,20 +21,25 @@ export class UpdatePasswordComponent extends FormComponent {
         confirmNewPassword: 'confirmNewPassword'
     };
 
-    ngOnInit() {
-        this.formGroup = this.formBuilder.group({
-            [this.controlNames.password]: ['', passwordValid],
-            [this.controlNames.newPassword]: ['', passwordValid],
-            [this.controlNames.confirmNewPassword]: ['', passwordValid]
-        }, {
-            validator: valuesEqual(
-                this.controlNames.newPassword,
-                this.controlNames.confirmNewPassword,
-                this.controlNames.confirmNewPassword
-            )(Messages.Validation.PasswordsNotEqual)
-        });
+    formGroup = this.formBuilder.group({
+        [this.controlNames.password]: ['', passwordValid],
+        [this.controlNames.newPassword]: ['', passwordValid],
+        [this.controlNames.confirmNewPassword]: ['', passwordValid]
+    }, {
+        validator: valuesEqual(
+            this.controlNames.newPassword,
+            this.controlNames.confirmNewPassword,
+            this.controlNames.confirmNewPassword
+        )(Messages.Validation.PasswordsNotEqual)
+    });
 
-        this.passwordState$ = this.state.select(s => s.user.updatePassword);
+    formState$ = this.state.select(s => s.user.updatePassword);
+
+    constructor(
+        private state: StateService,
+        private formBuilder: FormBuilder
+    ) {
+        super();
     }
 
     updatePassword() {

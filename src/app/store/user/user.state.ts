@@ -1,12 +1,8 @@
 import { FormState } from '../';
 
 export class UserState {
-    logInModal = new FormState()
-    showLogInModal = false;
-    isRequestingLogIn = false;
-    logInFailure = false;
-    isLoggedIn = false;
-    firebaseUid = '';
+    logIn = new FormState();
+    signUp = new FormState();
     updatePhotoUrl = new FormState();
     updatePassword = new FormState();
     updateEmail = new FormState();

@@ -1,25 +1,26 @@
+import { NavActions, UserActions, LogInActions } from '../store';
 import { NavState } from '../store/nav/navState';
-import { Observable } from 'rxjs/Rx';
+import { StateService } from '../store/state-service/state.service';
 import { UserState } from '../store/user/user.state';
-import { AuthMethods, AuthProviders } from 'angularfire2/auth';
-import { FormComponent } from '../helpers/form.component';
-import { FormGroup } from '@angular/forms';
-import { StatefulClass } from '../helpers/statefulClass';
 import { Component, OnInit } from '@angular/core';
-import { UserActions, NavActions } from '../store';
+import { Observable } from 'rxjs/Rx';
 
-declare let window: Window;
+declare const window: Window;
 
 @Component({
     selector: 'app-nav',
     templateUrl: './nav.component.html',
     styleUrls: ['./nav.component.css']
 })
-export class NavComponent extends StatefulClass implements OnInit {
+export class NavComponent implements OnInit {
 
     userState$: Observable<UserState>;
     navState$: Observable<NavState>;
     window = window;
+
+    constructor(
+        private state: StateService,
+    ) {}
 
     ngOnInit() {
         this.userState$ = this.state.select(s => s.user);
@@ -31,7 +32,7 @@ export class NavComponent extends StatefulClass implements OnInit {
     }
 
     showLogInModal() {
-        this.state.dispatch(new UserActions.ShowLogInModal());
+        this.state.dispatch(new LogInActions.ShowModal());
     }
 
     logOut() {

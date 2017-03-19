@@ -13,18 +13,19 @@ import { AngularFire } from 'angularfire2';
 
 export class TodosService {
 
+    authUid = '';
+
     constructor(
-        private firebase: AngularFire,
-        private isLoggedInGuard: IsLoggedInGuard
-    ) {}
+        private firebase: AngularFire
+    ) {
+        this.firebase.auth.subscribe(a => this.authUid = a ? a.uid : '');
+    }
 
     todos(): FirebaseListObservable<Todo[]> {
-        return this.isLoggedInGuard.continueIfLoggedIn()
-            .switchMap(auth => this.firebase.database.list(`/todos/${auth.uid}`)) as FirebaseListObservable<Todo[]> ;
+        return this.firebase.database.list(`/todos/${this.authUid}`);
     }
 
     todo(uid: string): FirebaseObjectObservable<Todo> {
-        return this.isLoggedInGuard.continueIfLoggedIn()
-            .switchMap(auth => this.firebase.database.object(`/todos/${auth.uid}/${uid}`)) as FirebaseObjectObservable<Todo> ;
+        return this.firebase.database.object(`/todos/${this.authUid}/${uid}`);
     }
 }

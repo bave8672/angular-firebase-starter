@@ -1,3 +1,4 @@
+import { TodosModule } from '../todos/todos.module';
 import { SendEmailVerificationComponent } from './send-email-verification/send-email-verification.component';
 import { ProfilePictureComponent } from './profile-picture/profile-picture.component';
 import { SharedModule } from '../shared/shared.module';
@@ -13,6 +14,7 @@ import { RouterModule } from '@angular/router';
 @NgModule({
     imports: [
         SharedModule,
+        TodosModule,
         RouterModule.forChild(AccountRoutes)
     ],
     declarations: [

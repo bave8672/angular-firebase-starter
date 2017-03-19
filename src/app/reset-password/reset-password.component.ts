@@ -1,7 +1,9 @@
 import { FormComponent } from '../helpers/form.component';
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { emailValid } from '../validators';
 import { UserActions } from '../store';
+import { StateService } from '../store/state-service/state.service';
+import { emailValid } from '../validators';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
 
 @Component({
     selector: 'app-password-reset',
@@ -9,7 +11,7 @@ import { UserActions } from '../store';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-export class ResetPasswordComponent extends FormComponent implements OnInit {
+export class ResetPasswordComponent extends FormComponent {
 
     static ControlNames = {
         email: 'email'
@@ -17,10 +19,15 @@ export class ResetPasswordComponent extends FormComponent implements OnInit {
 
     controlNames = ResetPasswordComponent.ControlNames;
 
-    ngOnInit() {
-        this.formGroup = this.formBuilder.group({
-            [this.controlNames.email]: ['', emailValid]
-        });
+    formGroup = this.formBuilder.group({
+        [this.controlNames.email]: ['', emailValid]
+    });
+
+    constructor(
+        private formBuilder: FormBuilder,
+        private state: StateService
+    ) {
+        super();
     }
 
     resetPassword() {

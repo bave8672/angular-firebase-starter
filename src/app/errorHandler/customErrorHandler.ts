@@ -10,7 +10,7 @@ export class CustomErrorHandler extends ErrorHandler {
 
     handleError(error: any) {
         if (!environment.production) {
-            console.error(error);
+            super.handleError(error);
         }
     }
 }

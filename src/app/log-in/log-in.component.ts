@@ -1,10 +1,9 @@
-import { emailValid, passwordValid } from '../validators';
-import { NavState } from '../store/nav/navState';
-import { UserState } from '../store/user/user.state';
 import { FormComponent } from '../helpers/form.component';
+import { LogInActions } from '../store';
+import { StateService } from '../store/state-service/state.service';
+import { emailValid, passwordValid } from '../validators';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { UserActions } from '../store';
+import { FormBuilder } from '@angular/forms';
 import { AuthMethods, AuthProviders } from 'angularfire2/auth';
 
 @Component({
@@ -15,46 +14,50 @@ import { AuthMethods, AuthProviders } from 'angularfire2/auth';
 
 export class LogInComponent extends FormComponent {
 
-    static ControlNames = {
+    controlNames = {
         email: 'email',
-        password: 'password'
+        password: 'password',
+        rememberMe: 'rememberMe'
     };
 
-    controlNames = LogInComponent.ControlNames;
-    userState$: Observable<UserState>;
+    userState$ = this.state.select(s => s.user);
 
-    ngOnInit() {
-        this.formGroup = this.formBuilder.group({
-            email: ['', emailValid],
-            password: ['', passwordValid]
-        });
+    formGroup = this.formBuilder.group({
+        [this.controlNames.email]: ['', emailValid],
+        [this.controlNames.password]: ['', passwordValid],
+        [this.controlNames.rememberMe]: [true]
+    });
 
-        this.userState$ = this.state.select(s => s.user);
+    constructor(
+        private state: StateService,
+        private formBuilder: FormBuilder
+    ) {
+        super();
     }
 
     hideLogInModal() {
-        this.state.dispatch(new UserActions.HideLogInModal());
+        this.state.dispatch(new LogInActions.HideModal());
     }
 
     facebookLogIn() {
-        this.state.dispatch(new UserActions.LogIn({
+        this.state.dispatch(new LogInActions.LogIn({
             provider: AuthProviders.Facebook,
             method: AuthMethods.Popup
         }));
     }
 
     googleLogIn() {
-        this.state.dispatch(new UserActions.LogIn({
+        this.state.dispatch(new LogInActions.LogIn({
             provider: AuthProviders.Google,
             method: AuthMethods.Popup
         }));
     }
 
-    emailPasswordLogIn() {
+    emailPasswordLogin() {
         if (this.formGroup.valid) {
-            this.state.dispatch(new UserActions.LogIn({
-                email: this.getFormValue(LogInComponent.ControlNames.email, ''),
-                password: this.getFormValue(LogInComponent.ControlNames.password, '')
+            this.state.dispatch(new LogInActions.LogIn({
+                email: this.getFormValue(this.controlNames.email, ''),
+                password: this.getFormValue(this.controlNames.password, '')
             }));
         }
     }
