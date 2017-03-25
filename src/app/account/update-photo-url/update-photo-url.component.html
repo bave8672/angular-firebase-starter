@@ -6,5 +6,5 @@
         <label for="newPhotoUrl">Photo URL</label>
         <input type="text" class="form-control" name="newPhotoUrl" placeholder="e.g https://www.google.com.au/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png" [(ngModel)]="newPhotoUrl" />
     </div>
-    <button class="btn btn-default" (click)="onSubmitPhoto()">Save Profile Picture</button>
+    <app-submit-button [requesting]="(formState$ | async).isRequesting" (click)="onSubmitPhoto()">Save Profile Picture</app-submit-button>
 </form>

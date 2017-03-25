@@ -1,3 +1,4 @@
+import { environment } from '../../../environments/environment';
 import { Actions } from '@ngrx/effects';
 import { AppState } from '../app-state';
 import { Action, Store } from '@ngrx/store';
@@ -12,7 +13,9 @@ export class StateService {
         private store: Store<AppState>,
         public actions$: Actions
     ) {
-        this.actions$.subscribe(a => console.info(a.type, a.payload));
+        if (!environment.production) {
+            this.actions$.subscribe(a => console.info(a.type, a.payload));
+        }
      }
 
     dispatch(...actions: Action[]) {

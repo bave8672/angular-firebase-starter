@@ -1,3 +1,4 @@
+import { IsLoggedInGuard } from '../guards/isLoggedIn.guard';
 import { NavActions, UserActions, LogInActions } from '../store';
 import { NavState } from '../store/nav/navState';
 import { StateService } from '../store/state-service/state.service';
@@ -9,23 +10,19 @@ declare const window: Window;
 
 @Component({
     selector: 'app-nav',
-    templateUrl: './nav.component.html',
-    styleUrls: ['./nav.component.css']
+    templateUrl: './nav.component.html'
 })
-export class NavComponent implements OnInit {
+export class NavComponent{
 
-    userState$: Observable<UserState>;
-    navState$: Observable<NavState>;
+    userState$ = this.state.select(s => s.user);
+    navState$ = this.state.select(s => s.nav);
+    isLoggedIn$ = this.isLoggedInGuard.isLoggedIn();
     window = window;
 
     constructor(
         private state: StateService,
+        private isLoggedInGuard: IsLoggedInGuard
     ) {}
-
-    ngOnInit() {
-        this.userState$ = this.state.select(s => s.user);
-        this.navState$ = this.state.select(s => s.nav);
-    }
 
     toggleNavigation() {
         this.state.dispatch(new NavActions.ToggleNavigation());

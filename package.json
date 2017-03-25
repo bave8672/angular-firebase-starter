@@ -31,6 +31,7 @@
     "bootstrap": "^3.3.7",
     "core-js": "^2.4.1",
     "firebase": "^3.6.9",
+    "font-awesome": "^4.7.0",
     "ngrx-store-localstorage": "^0.1.5",
     "rxjs": "latest",
     "zone.js": "^0.7.6"

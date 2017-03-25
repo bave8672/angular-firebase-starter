@@ -1,5 +1,6 @@
 // Place your settings in this file to overwrite default and user settings.
 {
     "editor.tabSize": 4,
-    "typescript.tsdk": "./node_modules/typescript/lib"
+    "typescript.tsdk": "./node_modules/typescript/lib",
+    "typescript.check.workspaceVersion": true
 }

@@ -44,14 +44,15 @@ export class UserEffects {
     signUp$ = this.state.actions$.ofType(SignUpActionTypes.SignUp)
         .switchMap((action: SignUpActions.SignUp) =>
             Observable.from(this.firebase.auth.createUser(action.payload))
-                .mergeMap(authState => this.firebase.auth.map(a => {
+                .switchMap(authState => this.firebase.auth.map(a => {
                     a.auth.sendEmailVerification();
-                    return Observable.from([
-                        new LogInActions.Success(authState),
-                        go('/Profile')
-                    ]);
+                    return new LogInActions.Success(authState);
                 }))
                 .catch(error => Observable.of(new SignUpActions.Failure(error))));
+
+    @Effect()
+    redirectToProfliePageOnLoginSuccess$ = this.state.actions$.ofType(LogInActionTypes.Success)
+        .map(() => go('/Profile'));
 
     @Effect()
     navigateToProfileOnLogin$ = this.state.actions$.ofType(LogInActionTypes.Success)

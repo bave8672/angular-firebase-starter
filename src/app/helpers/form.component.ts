@@ -1,9 +1,7 @@
-import { Observable } from 'rxjs/Rx';
 import { FormState } from '../store/formState';
-import { StateService } from '../store';
-import { FormBuilder, FormGroup } from '@angular/forms';
 import { Injectable } from '@angular/core';
-import { AngularFire } from 'angularfire2';
+import { FormGroup } from '@angular/forms';
+import { Observable } from 'rxjs/Rx';
 
 @Injectable()
 export abstract class FormComponent {

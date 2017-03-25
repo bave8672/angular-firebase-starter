@@ -31,10 +31,10 @@ export class IsLoggedInGuard implements CanActivate, CanActivateChild {
     }
 
     continueIfLoggedIn() {
-        return this.firebase.auth.filter(a => !!a.uid);
+        return this.firebase.auth.filter(a => !!a && !!a.uid);
     }
 
     isLoggedIn() {
-        return this.firebase.auth.map(a => !!a.uid);
+        return this.firebase.auth.map(a => !!a && !!a.uid);
     }
 }

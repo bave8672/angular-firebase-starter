@@ -11,13 +11,13 @@
       <a class="navbar-brand" routerLink="/">Brand</a>
     </div>
     <div [class.collapse]="!(navState$ | async).showNavigation && window.innerWidth < 768">
-      <ul class="nav navbar-nav navbar-right" *ngIf="(userState$ | async).isLoggedIn">
+      <ul class="nav navbar-nav navbar-right" *ngIf="isLoggedIn$ | async">
         <li><button class="btn btn-link navbar-btn" routerLink="/account/profile">Profile</button></li>
         <li><button class="btn btn-link navbar-btn" routerLink="/account/info">Account</button></li>
         <li><button class="btn btn-link navbar-btn" (click)="logOut()">Log Out</button></li>
       </ul>
-      <ul class="nav navbar-nav navbar-right" *ngIf="!(userState$ | async).isLoggedIn">
-        <li><button routerLink="/signup" class="btn btn-default navbar-btn">Sign up</button></li>
+      <ul class="nav navbar-nav navbar-right" *ngIf="!(isLoggedIn$ | async)">
+        <li><button routerLink="/sign-up" class="btn btn-default navbar-btn">Sign up</button></li>
         <li><button class="btn btn-link navbar-btn"(click)="showLogInModal()">Log In</button></li>
       </ul>
     </div>

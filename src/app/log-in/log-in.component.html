@@ -24,7 +24,7 @@
                 </label>
             </div>-->
             <button type="submit" class="btn btn-lg btn-block btn-primary"[disabled]="!formGroup.valid" (click)="emailPasswordLogin()">Submit</button>
-            <button class="btn btn-lg btn-block btn-link" routerLink="/signup">Sign Up</button>
+            <button class="btn btn-lg btn-block btn-link" routerLink="/sign-up">Sign Up</button>
             <p class="text-danger" [hidden]="!(userState$ | async)?.logInFailure">An error occurred attempting to sign in</p>
         </form>
     </div>

@@ -11,5 +11,5 @@ export class SubmitButtonComponent {
     @Input() disabled = false;
     @Input() buttonState = 'default';
     @Input() extraClasses = '';
-    @Input() requestingText = 'Loading...';
+    @Input() requestingText = '';
 }

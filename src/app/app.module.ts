@@ -1,3 +1,4 @@
+import { IsNotLoggedInGuard } from './guards/isNotLoggedIn.guard';
 import { AccountModule } from './account/account.module';
 import { AppComponent } from './app.component';
 import { AppRoutes } from './app.routes';
@@ -48,6 +49,7 @@ import { AngularFireModule } from 'angularfire2';
     providers: [
         StateService,
         IsLoggedInGuard,
+        IsNotLoggedInGuard,
         IsPasswordUserGuard,
         { provide: ErrorHandler, useClass: CustomErrorHandler }
     ],
