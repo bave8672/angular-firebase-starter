@@ -67,8 +67,8 @@ Adding other auth providers is straightforward: See the [firebase docs](https://
 
 Forms are always an important aspect of web applications. This starter attempts to standardise form interactions beyond what angular provides by:
 
-- Exclusively using Angular's (reactive forms)[https://angular.io/docs/ts/latest/guide/reactive-forms.html] module.
-- Requiring all components to inherit from a base (FormComponent)[./src/app/helpers/form.component.ts]
+- Exclusively using Angular's [reactive forms](https://angular.io/docs/ts/latest/guide/reactive-forms.html) module.
+- Requiring all components to inherit from a base [FormComponent](./src/app/helpers/form.component.ts)
 - Using an underlying [FormState](./src/app/store/formState.ts) to capture the state of every form (e.g whether a request is in-flight, whether to display an error message...) in a redux-friendly way.
 - Providing a shared [validation message component](./src/app/shared/validation-message/validation-message.component.ts) to display validation warnings and messages.
 - Providing various validation functions and helpers to e.g. parse errors from http results.
