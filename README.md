@@ -87,8 +87,7 @@ The project is set up to take advantage of firebase hosting.
 
 Add your project's firebase config to [firebase.config.ts](.src/app/firebase/firebase.config.ts), the run
 
-bash
-```
+```bash
 npm run build-deploy
 ```
 
