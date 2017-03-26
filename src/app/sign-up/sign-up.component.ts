@@ -1,7 +1,7 @@
 import { _stateFactory } from '@ngrx/store';
 import { FormComponent } from '../helpers/form.component';
 import { Messages } from '../resources/messages';
-import { SignUpActions } from '../store';
+import { SignUpActions, LogInActions } from '../store';
 import { StateService } from '../store/state-service/state.service';
 import { emailValid, passwordValid, valuesEqual } from '../validators';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
@@ -48,5 +48,9 @@ export class SignUpComponent extends FormComponent {
                 password: this.getFormValue(this.controlNames.password, '')
             }));
         }
+    }
+
+    showLogin() {
+        this.state.dispatch(new LogInActions.ShowModal());
     }
 }

@@ -3,9 +3,16 @@ import { error } from 'util';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Component, Input } from '@angular/core';
 
+/**
+ * Finds and displays the error message associated with a given form control or group.
+ *
+ * Rules:
+ * - Won't display mesages for controls that have not been touched
+ * - Will only ever display one message at a time
+ */
 @Component({
     selector: 'app-validation-message',
-    template: `<span class="text-danger" *ngIf="message">{{message}}</span>`
+    template: `<span class="text-danger" *ngIf="message">{{ message }}</span>`
 })
 export class ValidationMessageComponent {
 

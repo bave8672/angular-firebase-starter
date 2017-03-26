@@ -2,6 +2,7 @@ import { assign } from '../../helpers/assign';
 import { NavActionTypes } from './nav.actionTypes';
 import { NavState } from './navState';
 import { ActionReducer } from '@ngrx/store';
+import { routerActions } from '@ngrx/router-store';
 
 export const NavReducer: ActionReducer<NavState> = (state = new NavState(), action) => {
 
@@ -11,7 +12,7 @@ export const NavReducer: ActionReducer<NavState> = (state = new NavState(), acti
             return assign(state, { showNavigation: !state.showNavigation });
         }
 
-        case '[Router] Update Location': { // TODO: what is this event?
+        case routerActions.UPDATE_LOCATION: {
             if (state.showNavigation) {
                 return assign(state, { showNavigation: false });
             }
@@ -19,4 +20,4 @@ export const NavReducer: ActionReducer<NavState> = (state = new NavState(), acti
     }
 
     return state;
-}
+};

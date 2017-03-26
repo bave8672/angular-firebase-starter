@@ -21,5 +21,6 @@
         <app-submit-button [requesting]="(formState$ | async).isRequesting" [disabled]="!formGroup.valid" extraClasses="btn-lg btn-block">
             Sign Up
         </app-submit-button>
+        <button class="btn btn-link" (click)="showLogin()">I already have an account</button>
     </form>
 </div>

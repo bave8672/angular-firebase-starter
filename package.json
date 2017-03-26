@@ -10,8 +10,10 @@
     "test:debug": "ng test --no-single-run",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "build": "npm run build:prd",
-    "build:prod": "ng build --prod --aot"
+    "build": "npm run build:prod",
+    "build:prod": "ng build --prod --aot",
+    "deploy": "firebase deploy",
+    "build-deploy": "npm run build && npm run deploy"
   },
   "private": true,
   "dependencies": {
@@ -42,6 +44,7 @@
     "@types/jasmine": "2.5.38",
     "@types/node": "~6.0.60",
     "codelyzer": "~2.0.0-beta.4",
+    "firebase-tools": "^3.5.0",
     "jasmine-core": "~2.5.2",
     "jasmine-spec-reporter": "~3.2.0",
     "karma": "~1.4.1",

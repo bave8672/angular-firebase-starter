@@ -1,12 +1,12 @@
-import { IsNotLoggedInGuard } from './guards/isNotLoggedIn.guard';
+import { environment } from '../environments/environment';
 import { AccountModule } from './account/account.module';
 import { AppComponent } from './app.component';
 import { AppRoutes } from './app.routes';
 import { ContentComponent } from './content/content.component';
-import { CustomErrorHandler } from './errorHandler/customErrorHandler';
-import { FirebaseConfig } from './firebase/firebase.config';
+import { CustomErrorHandler } from './error-handler/custom-error-handler';
 import { FooterComponent } from './footer/footer.component';
 import { IsLoggedInGuard } from './guards/isLoggedIn.guard';
+import { IsNotLoggedInGuard } from './guards/isNotLoggedIn.guard';
 import { IsPasswordUserGuard } from './guards/isPasswordUser.guard';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { LogInComponent } from './log-in/log-in.component';
@@ -14,9 +14,10 @@ import { NavComponent } from './nav/nav.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { SharedModule } from './shared/shared.module';
 import { SignUpComponent } from './sign-up/sign-up.component';
-import { AppState } from './store/app-state';
 import { StateService } from './store/state-service/state.service';
-import { Effects, Reducers } from './store/store.config';
+import { InitialState, Reducer } from './store/store.config';
+import { TodosEffects } from './store/todos/todos.effects';
+import { UserEffects } from './store/user';
 import { TodosModule } from './todos/todos.module';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
@@ -40,10 +41,11 @@ import { AngularFireModule } from 'angularfire2';
         SharedModule,
         TodosModule,
         RouterModule.forRoot(AppRoutes),
-        StoreModule.provideStore(Reducers, new AppState()),
+        StoreModule.provideStore(Reducer, InitialState),
         RouterStoreModule.connectRouter(),
-        ...Effects.map(e => EffectsModule.run(e)),
-        AngularFireModule.initializeApp(FirebaseConfig),
+        EffectsModule.run(UserEffects),
+        EffectsModule.run(TodosEffects),
+        AngularFireModule.initializeApp(environment.firebaseConfig),
         AccountModule
     ],
     providers: [

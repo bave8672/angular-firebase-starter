@@ -20,7 +20,7 @@ export class LogInComponent extends FormComponent {
         rememberMe: 'rememberMe'
     };
 
-    userState$ = this.state.select(s => s.user);
+    formState$ = this.state.select(s => s.user.logIn);
 
     formGroup = this.formBuilder.group({
         [this.controlNames.email]: ['', emailValid],

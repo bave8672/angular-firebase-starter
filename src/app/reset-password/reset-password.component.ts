@@ -13,15 +13,15 @@ import { FormBuilder } from '@angular/forms';
 
 export class ResetPasswordComponent extends FormComponent {
 
-    static ControlNames = {
+    controlNames = {
         email: 'email'
     };
-
-    controlNames = ResetPasswordComponent.ControlNames;
 
     formGroup = this.formBuilder.group({
         [this.controlNames.email]: ['', emailValid]
     });
+
+    // formState = this.state.select(s => s.user.resetPassword);
 
     constructor(
         private formBuilder: FormBuilder,
