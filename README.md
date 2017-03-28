@@ -95,7 +95,7 @@ to build the app in production mode and deploy to it to the firebase server.
 
 You can add different firebase configurations for different environments - see the environment files.
 
-in production mode the app's [custom error handler](./src/app/error-handler/custom-error-handler.ts) will post errors to your firebase db.
+In production mode the app's [custom error handler](./src/app/error-handler/custom-error-handler.ts) will post errors to your firebase db.
 
 ### Testing
 
