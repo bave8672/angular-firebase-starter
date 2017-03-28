@@ -24,9 +24,11 @@ export class ValidationMessageComponent {
 
     private getMessage(control: FormControl | FormGroup, isChild: boolean = false): string | void {
         if (control && control.touched || isChild) {
-            for (const errorName in control.errors) {
-                if (control.errors.hasOwnProperty(errorName)) {
-                    return control.errors[errorName];
+            if (control.errors) {
+                for (const errorName in control.errors) {
+                    if (control.errors.hasOwnProperty(errorName)) {
+                        return control.errors[errorName];
+                    }
                 }
             }
             const fg = control as FormGroup;

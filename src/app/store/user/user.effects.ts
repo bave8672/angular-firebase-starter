@@ -62,7 +62,7 @@ export class UserEffects {
     // TODO: implement resetting password when angularfire2 implements it
     // @Effect()
     // resetPassword$ = this.state.actions$.ofType(UserActionTypes.ResetPassword)
-    //     .switchMap((action: UserActions.ResetPassword) => 
+    //     .switchMap((action: UserActions.ResetPassword) =>
     //         Observable.from(this.firebase.auth.getAuth().auth.sendEmailVerification())
     //         .map()
 

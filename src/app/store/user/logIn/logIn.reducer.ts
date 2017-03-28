@@ -4,7 +4,7 @@ import { LogInActionTypes } from './logIn.actionTypes';
 import { routerActions } from '@ngrx/router-store';
 import { ActionReducer } from '@ngrx/store';
 
-export const LogInReducer: ActionReducer<FormState> = (state = new FormState(), action) => {
+export const LogInReducer: ActionReducer<FormState> = (state = FormStates.Default, action) => {
 
     switch (action.type) {
 
@@ -32,7 +32,7 @@ export const LogInReducer: ActionReducer<FormState> = (state = new FormState(), 
         }
 
         case LogInActionTypes.Success: {
-            return assign(state, new FormState());
+            return assign(state, FormStates.Default);
         }
     }
 

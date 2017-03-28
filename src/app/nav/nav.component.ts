@@ -1,10 +1,7 @@
 import { IsLoggedInGuard } from '../guards/isLoggedIn.guard';
-import { NavActions, UserActions, LogInActions } from '../store';
-import { NavState } from '../store/nav/navState';
+import { LogInActions, NavActions, UserActions } from '../store';
 import { StateService } from '../store/state-service/state.service';
-import { UserState } from '../store/user/user.state';
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs/Rx';
+import { Component } from '@angular/core';
 
 declare const window: Window;
 
@@ -12,7 +9,7 @@ declare const window: Window;
     selector: 'app-nav',
     templateUrl: './nav.component.html'
 })
-export class NavComponent{
+export class NavComponent {
 
     userState$ = this.state.select(s => s.user);
     navState$ = this.state.select(s => s.nav);

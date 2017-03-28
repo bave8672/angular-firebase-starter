@@ -1,8 +1,8 @@
 import { environment } from '../../../environments/environment';
-import { Actions } from '@ngrx/effects';
-import { AppState } from '../app-state';
-import { Action, Store } from '@ngrx/store';
+import { AppState } from '../app.state';
 import { Injectable } from '@angular/core';
+import { Actions } from '@ngrx/effects';
+import { Action, Store } from '@ngrx/store';
 
 export type StateSelector<T> = (state: AppState) => T;
 

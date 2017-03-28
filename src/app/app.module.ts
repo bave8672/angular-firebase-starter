@@ -14,8 +14,9 @@ import { NavComponent } from './nav/nav.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { SharedModule } from './shared/shared.module';
 import { SignUpComponent } from './sign-up/sign-up.component';
+import { DefaultAppState } from './store/app.state';
 import { StateService } from './store/state-service/state.service';
-import { InitialState, Reducer } from './store/store.config';
+import { Reducer } from './store/store.config';
 import { TodosEffects } from './store/todos/todos.effects';
 import { UserEffects } from './store/user';
 import { TodosModule } from './todos/todos.module';
@@ -41,7 +42,7 @@ import { AngularFireModule } from 'angularfire2';
         SharedModule,
         TodosModule,
         RouterModule.forRoot(AppRoutes),
-        StoreModule.provideStore(Reducer, InitialState),
+        StoreModule.provideStore(Reducer, DefaultAppState),
         RouterStoreModule.connectRouter(),
         EffectsModule.run(UserEffects),
         EffectsModule.run(TodosEffects),

@@ -1,4 +1,4 @@
-import { AppState } from '../app-state';
+import { AppState, DefaultAppState } from '../app.state';
 import { StateService } from './state.service';
 import { inject, TestBed } from '@angular/core/testing';
 import { Actions } from '@ngrx/effects';
@@ -38,7 +38,7 @@ describe('StateService', () => {
     it('should select state from the store', done => {
         const $ = service.select(s => s.user.logIn.showForm);
 
-        const newState = new AppState();
+        const newState = DefaultAppState;
         expect(newState.user.logIn.showForm).toBe(false);
         newState.user.logIn.showForm = true;
 

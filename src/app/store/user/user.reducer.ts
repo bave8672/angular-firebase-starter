@@ -1,13 +1,11 @@
-import { ActionReducer } from '@ngrx/store';
+import { assign } from '../../helpers/assign';
 import { getErrorMessage } from '../../helpers/getErrorMessage';
 import { Messages } from '../../resources/messages';
-import { assign } from '../../helpers/assign';
 import { UserActionTypes } from './user.actionTypes';
-import { UserActions } from './user.actions';
-import { UserState } from './user.state';
-import { routerActions } from '@ngrx/router-store';
+import { DefaultUserState, UserState } from './user.state';
+import { ActionReducer } from '@ngrx/store';
 
-export const UserReducer: ActionReducer<UserState> = (state = new UserState(), action = { type: '', payload: '' }) => {
+export const UserReducer: ActionReducer<UserState> = (state = DefaultUserState, action = { type: '', payload: '' }) => {
 
     switch (action.type) {
 

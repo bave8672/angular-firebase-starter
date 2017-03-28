@@ -3,7 +3,7 @@ import { ActionReducer } from '@ngrx/store';
 import { FormState, FormStates } from '../../formState';
 import { assign, getErrorMessage } from '../../../helpers';
 
-export const SignUpReducer: ActionReducer<FormState> = (state, action) => {
+export const SignUpReducer: ActionReducer<FormState> = (state = FormStates.Default, action) => {
 
     switch (action.type) {
 

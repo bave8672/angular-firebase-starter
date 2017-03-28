@@ -1,10 +1,19 @@
-import { FormState } from '../';
+import { FormState, FormStates } from '../';
 
-export class UserState {
-    logIn = new FormState();
-    signUp = new FormState();
-    updatePhotoUrl = new FormState();
-    updatePassword = new FormState();
-    updateEmail = new FormState();
-    sendEmailVerification = new FormState();
+export interface UserState {
+    logIn: FormState;
+    signUp: FormState;
+    updatePhotoUrl: FormState;
+    updatePassword: FormState;
+    updateEmail: FormState;
+    sendEmailVerification: FormState;
 }
+
+export const DefaultUserState: UserState = {
+    logIn: FormStates.Default,
+    signUp: FormStates.Default,
+    updatePhotoUrl: FormStates.Default,
+    updatePassword: FormStates.Default,
+    updateEmail: FormStates.Default,
+    sendEmailVerification: FormStates.Default
+};

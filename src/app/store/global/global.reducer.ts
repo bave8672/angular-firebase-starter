@@ -1,15 +1,14 @@
 import { assignDeep } from '../../helpers/';
-import { GlobalActionTypes } from './global.actionTypes';
-import { AppState } from '../app-state';
+import { GlobalActionTypes, AppState, DefaultAppState } from '../';
 import { ActionReducer } from '@ngrx/store';
 
-export const GlobalReducer: ActionReducer<AppState> = (state = new AppState(), action) => {
+export const GlobalReducer: ActionReducer<AppState> = (state = DefaultAppState, action) => {
 
     switch (action.type) {
 
         case GlobalActionTypes.AppStart: {
             // Ensure app state includes all properties, including any ones that may be new.
-            return assignDeep(new AppState(), state);
+            return assignDeep(DefaultAppState, state);
         }
     }
 

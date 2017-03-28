@@ -1,11 +1,18 @@
-export class FormState {
-    showForm = false;
-    isRequesting = false;
-    successMessage = '';
-    failureMessage = '';
+export interface FormState {
+    showForm: boolean;
+    isRequesting: boolean;
+    successMessage: string;
+    failureMessage: string;
 }
 
 export namespace FormStates {
+
+    export const Default: FormState = {
+        showForm: false,
+        isRequesting: false,
+        successMessage: '',
+        failureMessage: ''
+    };
 
     export const Requesting: FormState = {
         showForm: true,

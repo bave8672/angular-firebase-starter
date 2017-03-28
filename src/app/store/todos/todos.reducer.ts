@@ -1,10 +1,10 @@
 import { TodosActions } from '../';
 import { assign } from '../../helpers/assign';
 import { TodosActionTypes } from './todos.actionTypes';
-import { TodosState } from './todos.state';
+import { DefaultTodosState, TodosState } from './todos.state';
 import { ActionReducer } from '@ngrx/store';
 
-export const TodosReducer: ActionReducer<TodosState> = (state = new TodosState(), action) => {
+export const TodosReducer: ActionReducer<TodosState> = (state = DefaultTodosState, action) => {
 
     switch (action.type) {
 
@@ -21,4 +21,4 @@ export const TodosReducer: ActionReducer<TodosState> = (state = new TodosState()
     }
 
     return state;
-}
+};
