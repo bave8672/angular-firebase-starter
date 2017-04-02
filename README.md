@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/bave8672/angular-firebase-starter.svg?branch=master)](https://travis-ci.org/bave8672/angular-firebase-starter)
+
 # Angular 2 Firebase App
 
 An app boilerplate using:
