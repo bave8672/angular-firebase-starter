@@ -6,8 +6,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "test": "ng test --single-run --code-coverage",
-    "test:debug": "ng test --no-single-run",
+    "test": "ng test --browsers=PhantomJS --single-run --code-coverage",
+    "test:debug": "ng test --browsers=Chrome --no-single-run",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "build": "npm run build:prod",
@@ -53,6 +53,7 @@
     "karma-coverage-istanbul-reporter": "^0.2.0",
     "karma-jasmine": "~1.1.0",
     "karma-jasmine-html-reporter": "^0.2.2",
+    "karma-phantomjs-launcher": "^1.0.4",
     "protractor": "~5.1.0",
     "ts-node": "~2.0.0",
     "tslint": "~4.4.2",
