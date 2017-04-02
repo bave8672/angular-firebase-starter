@@ -1,5 +1,4 @@
 import { FormComponent } from '../helpers/form.component';
-import { UserActions } from '../store';
 import { StateService } from '../store/state-service/state.service';
 import { emailValid } from '../validators';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
@@ -32,7 +31,7 @@ export class ResetPasswordComponent extends FormComponent {
 
     resetPassword() {
         if (this.formGroup.valid) {
-            this.state.dispatch(new UserActions.ResetPassword(this.getFormValue<string>(this.controlNames.email)));
+            // this.state.dispatch(new UserActions.ResetPassword(this.getFormValue<string>(this.controlNames.email)));
         }
     }
 }

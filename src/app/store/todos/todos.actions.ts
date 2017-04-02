@@ -14,10 +14,7 @@ export namespace TodosActions {
 
     export class CloseEdit implements Action {
         type = TodosActionTypes.CloseEdit;
-        /**
-         * payload: uid
-         */
-        constructor(public payload: string | null) {}
+        payload: void;
     }
 
     export class Update implements Action {

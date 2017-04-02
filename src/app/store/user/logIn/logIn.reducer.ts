@@ -1,4 +1,4 @@
-import { assign } from '../../../helpers';
+import { assign, getErrorMessage } from '../../../helpers';
 import { FormState, FormStates } from '../../formState';
 import { LogInActionTypes } from './logIn.actionTypes';
 import { routerActions } from '@ngrx/router-store';
@@ -28,7 +28,7 @@ export const LogInReducer: ActionReducer<FormState> = (state = FormStates.Defaul
         }
 
         case LogInActionTypes.Failure: {
-            return assign(state, FormStates.Failure(''));
+            return assign(state, FormStates.Failure(getErrorMessage(action.payload)));
         }
 
         case LogInActionTypes.Success: {

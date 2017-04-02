@@ -19,6 +19,11 @@ export namespace LogInActions {
         constructor(public payload: AuthConfiguration | EmailPasswordCredentials) {};
     }
 
+    export class LogOut implements Action {
+        type = LogInActionTypes.LogOut;
+        payload: void;
+    }
+
     export class Failure implements Action {
         type = LogInActionTypes.Failure;
         constructor(public payload: any) {};

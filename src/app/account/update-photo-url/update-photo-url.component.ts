@@ -1,7 +1,7 @@
 import { FormBuilder } from '@angular/forms';
 import { StateService } from '../../store/state-service/state.service';
 import { FormComponent } from '../../helpers/form.component';
-import { UserActions, FormState } from '../../store';
+import { UpdatePhotoUrlActions, FormState } from '../../store';
 import { validUrl } from '../../validators/validUrl';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
@@ -34,6 +34,6 @@ export class UpdatePhotoUrlComponent extends FormComponent {
     }
 
     onSubmitPhoto() {
-        this.state.dispatch(new UserActions.UpdatePhotoUrl(this.newPhotoUrl));
+        this.state.dispatch(new UpdatePhotoUrlActions.Update(this.newPhotoUrl));
     }
 }

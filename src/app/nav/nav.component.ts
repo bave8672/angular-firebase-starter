@@ -1,5 +1,5 @@
 import { IsLoggedInGuard } from '../guards/isLoggedIn.guard';
-import { LogInActions, NavActions, UserActions } from '../store';
+import { LogInActions, NavActions } from '../store';
 import { StateService } from '../store/state-service/state.service';
 import { Component } from '@angular/core';
 
@@ -30,6 +30,6 @@ export class NavComponent {
     }
 
     logOut() {
-        this.state.dispatch(new UserActions.LogOut());
+        this.state.dispatch(new LogInActions.LogOut());
     }
 }

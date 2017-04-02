@@ -49,6 +49,6 @@ export class EditTodoComponent extends FormComponent implements OnInit {
     }
 
     cancel() {
-        this.state.dispatch(new TodosActions.CloseEdit(this.todo.uid));
+        this.state.dispatch(new TodosActions.CloseEdit());
     }
 }

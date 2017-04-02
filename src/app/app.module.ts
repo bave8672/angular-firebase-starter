@@ -16,13 +16,10 @@ import { SharedModule } from './shared/shared.module';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { DefaultAppState } from './store/app.state';
 import { StateService } from './store/state-service/state.service';
-import { Reducer } from './store/store.config';
-import { TodosEffects } from './store/todos/todos.effects';
-import { UserEffects } from './store/user';
+import { Reducer, RunEffects } from './store/store.config';
 import { TodosModule } from './todos/todos.module';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { EffectsModule } from '@ngrx/effects';
 import { RouterStoreModule } from '@ngrx/router-store';
 import { StoreModule } from '@ngrx/store';
 import { AngularFireModule } from 'angularfire2';
@@ -44,8 +41,7 @@ import { AngularFireModule } from 'angularfire2';
         RouterModule.forRoot(AppRoutes),
         StoreModule.provideStore(Reducer, DefaultAppState),
         RouterStoreModule.connectRouter(),
-        EffectsModule.run(UserEffects),
-        EffectsModule.run(TodosEffects),
+        ...RunEffects(),
         AngularFireModule.initializeApp(environment.firebaseConfig),
         AccountModule
     ],

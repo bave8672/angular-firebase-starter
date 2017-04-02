@@ -1,5 +1,5 @@
 import { FormComponent } from '../../helpers/form.component';
-import { UserActions } from '../../store';
+import { UpdateEmailActions } from '../../store';
 import { StateService } from '../../store/state-service/state.service';
 import { emailValid } from '../../validators';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
@@ -33,6 +33,6 @@ export class UpdateEmailComponent extends FormComponent implements OnInit {
     }
 
     updateEmail() {
-        this.state.dispatch(new UserActions.UpdateEmail(this.getFormValue(this.controlNames.newEmail)));
+        this.state.dispatch(new UpdateEmailActions.Update(this.getFormValue(this.controlNames.newEmail)));
     }
 }

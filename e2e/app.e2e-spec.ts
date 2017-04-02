@@ -7,8 +7,8 @@ describe('firebase App', () => {
         page = new FirebasePage();
     });
 
-    it('should display message saying app works', () => {
-        page.navigateTo();
-        expect(page.getParagraphText()).toEqual('app works!');
+    it('Should display the title header WHEN on the landing page', () => {
+        page.navigateTo('/');
+        expect(page.text('title')).toEqual('Hello, world!');
     });
 });

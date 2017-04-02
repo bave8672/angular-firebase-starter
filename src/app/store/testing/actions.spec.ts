@@ -1,4 +1,4 @@
-import * as Store from './';
+import * as Store from '../';
 
 describe('Actions', () => {
 

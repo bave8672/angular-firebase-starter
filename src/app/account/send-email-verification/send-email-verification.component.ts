@@ -1,5 +1,5 @@
 import { FormComponent } from '../../helpers/form.component';
-import { UserActions } from '../../store';
+import { ResendEmailVerificationActions } from '../../store';
 import { StateService } from '../../store/state-service/state.service';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 
@@ -20,6 +20,6 @@ export class SendEmailVerificationComponent extends FormComponent {
     }
 
     send() {
-        this.state.dispatch(new UserActions.SendEmailVerification());
+        this.state.dispatch(new ResendEmailVerificationActions.Resend());
     }
 }

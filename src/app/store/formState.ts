@@ -21,7 +21,7 @@ export namespace FormStates {
         failureMessage: ''
     };
 
-    export const Success = (message: string): FormState => {
+    export const Success = (message = ''): FormState => {
         return {
             showForm: true,
             isRequesting: false,

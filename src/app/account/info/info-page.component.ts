@@ -1,4 +1,10 @@
-import { UserActions, UserSelectors } from '../../store';
+import {
+    ResendEmailVerificationActions,
+    UpdateEmailActions,
+    UpdatePasswordActions,
+    UpdatePhotoUrlActions,
+    UserSelectors
+} from '../../store';
 import { StateService } from '../../store/state-service/state.service';
 import { UserState } from '../../store/user/user.state';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
@@ -30,18 +36,18 @@ export class InfoPageComponent implements OnInit {
     }
 
     toggleUpdatePhotoUrl() {
-        this.state.dispatch(new UserActions.ToggleUpdatePhotoUrl());
+        this.state.dispatch(new UpdatePhotoUrlActions.ToggleForm());
     }
 
     toggleUpdatePasswordForm() {
-        this.state.dispatch(new UserActions.ToggleUpdatePasswordForm());
+        this.state.dispatch(new UpdatePasswordActions.ToggleForm());
     }
 
     toggleUpdateEmailForm() {
-        this.state.dispatch(new UserActions.ToggleUpdateEmailForm());
+        this.state.dispatch(new UpdateEmailActions.ToggleForm());
     }
 
     resendEmailVerification() {
-        this.state.dispatch(new UserActions.SendEmailVerification());
+        this.state.dispatch(new ResendEmailVerificationActions.Resend());
     }
 }

@@ -1,11 +1,16 @@
 import { browser, element, by } from 'protractor';
 
 export class FirebasePage {
-    navigateTo() {
-        return browser.get('/');
+
+    navigateTo(path: string) {
+        return browser.get(path);
     }
 
-    getParagraphText() {
-        return element(by.css('app-root h1')).getText();
+    element(name: string) {
+        return element(by.css(`[data-e2e="${name}"]`));
+    }
+
+    text(name: string) {
+        return this.element(name).getText();
     }
 }
