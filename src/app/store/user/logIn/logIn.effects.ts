@@ -2,7 +2,7 @@ import { StateService } from '../../state-service/state.service';
 import { LogInActions, LogInActionTypes } from './';
 import { Injectable } from '@angular/core';
 import { Effect } from '@ngrx/effects';
-import { go } from '@ngrx/router-store';
+import { go, routerActions } from '@ngrx/router-store';
 import { AngularFire } from 'angularfire2';
 import {
     AuthConfiguration,
@@ -33,9 +33,14 @@ export class LogInEffects {
     });
 
     @Effect()
+    redirectToProfileOnLoginSuccess = this.state.actions$.ofType(LogInActionTypes.Success)
+        .map(() => go('/account/profile'));
+
+    // TODO: Move logout into it's own store category + add spinner etc
+    @Effect()
     logOut$ = this.state.actions$.ofType(LogInActionTypes.LogOut)
-        .switchMap(() => Observable.from(this.firebase.auth.logout()))
-        .map(() => go('/'));
+        .switchMap(() => Observable.from(this.firebase.auth.logout())
+            .map(() => go('/')));
 
     constructor(
         private state: StateService,
