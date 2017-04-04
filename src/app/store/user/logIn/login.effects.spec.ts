@@ -1,3 +1,4 @@
+import { AuthConfiguration, AuthMethods, AuthProviders, EmailPasswordCredentials } from 'angularfire2/auth';
 import { go } from '@ngrx/router-store';
 import { assignDeep } from '../../../helpers';
 import { DefaultAppState } from '../../app.state';
@@ -11,6 +12,21 @@ import { AngularFire } from 'angularfire2';
 
 describe('log in effects', () => {
 
+    class MockFirebase {
+        get auth() {
+            return {
+                login: MockFirebase.prototype.login,
+                logout: MockFirebase.prototype.logout
+            };
+        }
+        login() {
+            return Promise.resolve('logged in');
+        }
+        logout() {
+             return Promise.resolve('logged out');
+        }
+    };
+
     let state = assignDeep(DefaultAppState);
 
     beforeEach(() => TestBed.configureTestingModule({
@@ -20,7 +36,7 @@ describe('log in effects', () => {
         providers: [
             LogInEffects,
             { provide: StateService, useClass: mockStateService(state) },
-            { provide: AngularFire, useValue: {} }
+            { provide: AngularFire, useClass: MockFirebase }
         ]
     }));
 
@@ -38,8 +54,40 @@ describe('log in effects', () => {
 
     it('Redirects To Profile On Login Success', (done) => {
         runner.queue(new LogInActions.Success({} as any));
-        logInEffects.redirectToProfileOnLoginSuccess.subscribe(result => {
+        logInEffects.redirectToProfileOnLoginSuccess$.subscribe(result => {
             expect(result).toEqual(go('/account/profile'));
+            done();
+        });
+    });
+
+    it('Redirects to / on logout', (done) => {
+        runner.queue(new LogInActions.LogOut());
+        logInEffects.logOut$.subscribe(result => {
+            expect(result).toEqual(go('/'));
+            done();
+        });
+    });
+
+    it(`Logs in to firebase using the EmailPasswordCredentials signature
+        WHEN the action payload mtches that signature`, (done) => {
+
+        spyOn(MockFirebase.prototype, 'login').and.callThrough();
+
+        const emailPassword: EmailPasswordCredentials = {
+            email: 'email@example.com',
+            password: 'password123'
+        };
+        const passwordConfig: AuthConfiguration = {
+            provider: AuthProviders.Password,
+            method: AuthMethods.Password
+        };
+
+        runner.queue(new LogInActions.LogIn(emailPassword));
+
+        logInEffects.logIn$.subscribe(result => {
+            expect(MockFirebase.prototype.login).toHaveBeenCalledTimes(1);
+            expect(MockFirebase.prototype.login).toHaveBeenCalledWith(emailPassword, passwordConfig);
+            expect(result).toEqual(new LogInActions.Success('logged in' as any));
             done();
         });
     });

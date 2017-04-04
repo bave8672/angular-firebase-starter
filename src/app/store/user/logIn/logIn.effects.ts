@@ -22,7 +22,10 @@ export class LogInEffects {
         .switchMap((action: LogInActions.LogIn) => {
             let request: firebase.Promise<FirebaseAuthState>;
             if ((action.payload as EmailPasswordCredentials).email) {
-                const passwordConfig: AuthConfiguration = { provider: AuthProviders.Password, method: AuthMethods.Password };
+                const passwordConfig: AuthConfiguration = {
+                    provider: AuthProviders.Password,
+                    method: AuthMethods.Password
+                };
                 request = this.firebase.auth.login(action.payload as EmailPasswordCredentials, passwordConfig);
             } else {
                 request = this.firebase.auth.login(action.payload as AuthConfiguration);
@@ -33,7 +36,7 @@ export class LogInEffects {
     });
 
     @Effect()
-    redirectToProfileOnLoginSuccess = this.state.actions$.ofType(LogInActionTypes.Success)
+    redirectToProfileOnLoginSuccess$ = this.state.actions$.ofType(LogInActionTypes.Success)
         .map(() => go('/account/profile'));
 
     // TODO: Move logout into it's own store category + add spinner etc
