@@ -1,25 +1,10 @@
+import { ResendEmailVerificationActionTypes } from './resendEmailVerification.actionTypes';
 import { Messages } from '../../../resources/messages';
-import { getErrorMessage } from '../../../helpers/getErrorMessage';
-import { FormState, FormStates, ResendEmailVerificationActionTypes } from '../..';
-import { assign } from '../../../helpers';
-import { ActionReducer } from '@ngrx/store';
+import { FormReducer } from '../../forms';
 
-export const ResendEmailVerificationReducer: ActionReducer<FormState> = (state = FormStates.Default, action) => {
-
-    switch (action.type) {
-
-        case ResendEmailVerificationActionTypes.Resend: {
-            return assign(state, FormStates.Requesting);
-        }
-
-        case ResendEmailVerificationActionTypes.Failure: {
-            return assign(state, FormStates.Failure(getErrorMessage(action.payload)));
-        }
-
-        case ResendEmailVerificationActionTypes.Success: {
-            return assign(state, FormStates.Success(Messages.ApiResponse.SendVerificationEmailSuccess));
-        }
-    }
-
-    return state;
-};
+export const ResendEmailVerificationReducer = FormReducer({
+    request: ResendEmailVerificationActionTypes.Resend,
+    failure: ResendEmailVerificationActionTypes.Failure,
+    success: ResendEmailVerificationActionTypes.Success,
+    successMessage: Messages.ApiResponse.SendVerificationEmailSuccess
+});

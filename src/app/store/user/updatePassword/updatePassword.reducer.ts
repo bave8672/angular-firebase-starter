@@ -1,30 +1,12 @@
+import { FormReducer } from '../../';
+import { UpdatePasswordActionTypes } from './updatePassword.actionTypes';
 import { Messages } from '../../../resources/messages';
-import { getErrorMessage } from '../../../helpers/getErrorMessage';
-import { assign } from '../../../helpers';
-import { FormState, FormStates } from '../../formState';
-import { ActionReducer } from '@ngrx/store';
-import { UpdatePasswordActionTypes } from '../../';
 
-export const UpdatePasswordReducer: ActionReducer<FormState> = (state = FormStates.Default, action) =>  {
-
-    switch (action.type) {
-
-        case UpdatePasswordActionTypes.ToggleForm: {
-            return assign(state, { showForm: !state.showForm });
-        }
-
-        case UpdatePasswordActionTypes.Update: {
-            return assign(state, FormStates.Requesting);
-        }
-
-        case UpdatePasswordActionTypes.Failure: {
-            return assign(state, FormStates.Failure(getErrorMessage(action.payload)));
-        }
-
-        case UpdatePasswordActionTypes.Success: {
-            return assign(state, FormStates.Success(Messages.ApiResponse.UpdatePasswordSuccess));
-        }
-    }
-
-    return state;
-};
+export const UpdatePasswordReducer = FormReducer({
+    toggle: UpdatePasswordActionTypes.ToggleForm,
+    request: UpdatePasswordActionTypes.Update,
+    failure: UpdatePasswordActionTypes.Failure,
+    success: UpdatePasswordActionTypes.Success,
+    successMessage: Messages.ApiResponse.UpdatePasswordSuccess,
+    failureMessage: Messages.ApiResponse.ServerError
+});

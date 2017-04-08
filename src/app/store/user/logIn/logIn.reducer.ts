@@ -1,40 +1,22 @@
 import { assign, getErrorMessage } from '../../../helpers';
-import { FormState, FormStates } from '../../formState';
+import { FormState, FormStates, FormReducer } from '../../';
 import { LogInActionTypes } from './logIn.actionTypes';
 import { routerActions } from '@ngrx/router-store';
 import { ActionReducer } from '@ngrx/store';
 
-export const LogInReducer: ActionReducer<FormState> = (state = FormStates.Default, action) => {
-
-    switch (action.type) {
-
-        case routerActions.UPDATE_LOCATION: {
+export const LogInReducer = FormReducer({
+    show: LogInActionTypes.ShowModal,
+    hide: LogInActionTypes.HideModal,
+    request: LogInActionTypes.LogIn,
+    success: LogInActionTypes.Success,
+    failure: LogInActionTypes.Failure,
+    extras: [{
+        type: routerActions.UPDATE_LOCATION,
+        func: (state, _) => {
             if (state.showForm) {
                 return assign(state, { showForm: false });
             }
             return state;
         }
-
-        case LogInActionTypes.ShowModal: {
-            return assign(state, { showForm: true });
-        }
-
-        case LogInActionTypes.HideModal: {
-            return assign(state, { showForm: false });
-        }
-
-        case LogInActionTypes.LogIn: {
-            return assign(state, FormStates.Requesting);
-        }
-
-        case LogInActionTypes.Failure: {
-            return assign(state, FormStates.Failure(getErrorMessage(action.payload)));
-        }
-
-        case LogInActionTypes.Success: {
-            return assign(state, FormStates.Default);
-        }
-    }
-
-    return state;
-};
+    }]
+});

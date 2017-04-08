@@ -1,4 +1,4 @@
-import { FormState } from '../store/formState';
+import { FormState } from '../store';
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs/Rx';
