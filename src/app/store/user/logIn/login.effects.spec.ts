@@ -12,22 +12,22 @@ import { AngularFire } from 'angularfire2';
 
 describe('log in effects', () => {
 
-    class MockFirebase {
+    let state = assignDeep(DefaultAppState);
+
+    class MockAngularFire {
         get auth() {
             return {
-                login: MockFirebase.prototype.login,
-                logout: MockFirebase.prototype.logout
+                login: MockAngularFire.prototype.login,
+                logout: MockAngularFire.prototype.logout
             };
         }
         login() {
             return Promise.resolve('logged in');
         }
         logout() {
-             return Promise.resolve('logged out');
+                return Promise.resolve('logged out');
         }
-    };
-
-    let state = assignDeep(DefaultAppState);
+    }
 
     beforeEach(() => TestBed.configureTestingModule({
         imports: [
@@ -36,7 +36,7 @@ describe('log in effects', () => {
         providers: [
             LogInEffects,
             { provide: StateService, useClass: mockStateService(state) },
-            { provide: AngularFire, useClass: MockFirebase }
+            { provide: AngularFire, useClass: MockAngularFire }
         ]
     }));
 
@@ -71,7 +71,7 @@ describe('log in effects', () => {
     it(`Logs in to firebase using the EmailPasswordCredentials signature
         WHEN the action payload mtches that signature`, (done) => {
 
-        spyOn(MockFirebase.prototype, 'login').and.callThrough();
+        spyOn(MockAngularFire.prototype, 'login').and.callThrough();
 
         const emailPassword: EmailPasswordCredentials = {
             email: 'email@example.com',
@@ -85,8 +85,8 @@ describe('log in effects', () => {
         runner.queue(new LogInActions.LogIn(emailPassword));
 
         logInEffects.logIn$.subscribe(result => {
-            expect(MockFirebase.prototype.login).toHaveBeenCalledTimes(1);
-            expect(MockFirebase.prototype.login).toHaveBeenCalledWith(emailPassword, passwordConfig);
+            expect(MockAngularFire.prototype.login).toHaveBeenCalledTimes(1);
+            expect(MockAngularFire.prototype.login).toHaveBeenCalledWith(emailPassword, passwordConfig);
             expect(result).toEqual(new LogInActions.Success('logged in' as any));
             done();
         });
