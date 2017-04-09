@@ -13,7 +13,7 @@ describe('Form reducer factory', () => {
         success: 'success',
         failure: 'failure',
         extras: [{
-            type: 'setExtraProp',
+            types: 'setExtraProp',
             func: (state, action) => assign(state, { extraProp: action.payload })
         }],
         successMessage: 'success!'
