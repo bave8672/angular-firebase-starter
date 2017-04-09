@@ -31,6 +31,7 @@
     "@ngrx/store": "latest",
     "angularfire2": "latest",
     "bootstrap": "^3.3.7",
+    "bootstrap-social": "^5.1.1",
     "core-js": "^2.4.1",
     "firebase": "^3.6.9",
     "font-awesome": "^4.7.0",

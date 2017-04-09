@@ -1,3 +1,4 @@
+import { GooglePlusAuthButtonComponent } from './google/google-plus-auth-button';
 import { ModalComponent } from './modal/modal.component';
 import { OutletComponent } from './outlet/outlet.component';
 import { PanelComponent } from './panel/panel.component';
@@ -24,7 +25,8 @@ import { RouterModule } from '@angular/router';
         ValidationMessageComponent,
         OutletComponent,
         PanelComponent,
-        SubmitButtonComponent
+        SubmitButtonComponent,
+        GooglePlusAuthButtonComponent
     ],
     exports: [
         CommonModule,
@@ -36,7 +38,8 @@ import { RouterModule } from '@angular/router';
         ValidationMessageComponent,
         OutletComponent,
         PanelComponent,
-        SubmitButtonComponent
+        SubmitButtonComponent,
+        GooglePlusAuthButtonComponent
     ]
 })
 

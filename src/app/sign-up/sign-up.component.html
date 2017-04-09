@@ -1,5 +1,8 @@
 <div class="container">
     <h1>Sign Up</h1>
+    <hr>
+    <app-google-plus-auth-button></app-google-plus-auth-button>
+    <hr>
     <form novalidate [formGroup]="formGroup" (submit)="signUp()">
         <div class="form-group">
             <label for="email">Email address</label>

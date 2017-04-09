@@ -39,20 +39,6 @@ export class LogInComponent extends FormComponent {
         this.state.dispatch(new LogInActions.HideModal());
     }
 
-    facebookLogIn() {
-        this.state.dispatch(new LogInActions.LogIn({
-            provider: AuthProviders.Facebook,
-            method: AuthMethods.Popup
-        }));
-    }
-
-    googleLogIn() {
-        this.state.dispatch(new LogInActions.LogIn({
-            provider: AuthProviders.Google,
-            method: AuthMethods.Popup
-        }));
-    }
-
     emailPasswordLogin() {
         if (this.formGroup.valid) {
             this.state.dispatch(new LogInActions.LogIn({
