@@ -9,4 +9,3 @@ export const UpdateEmailReducer = FormReducer({
     failure: UpdateEmailActionTypes.Failure,
     successMessage: Messages.ApiResponse.UpdateEmailSuccess
 });
-

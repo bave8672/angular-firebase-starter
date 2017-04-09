@@ -26,8 +26,7 @@ export class InfoPageComponent implements OnInit {
     constructor(
         protected state: StateService,
         protected firebase: AngularFire
-    ) {
-    }
+    ) {}
 
     ngOnInit() {
         this.user$ = this.firebase.auth.map(auth => auth ? auth.auth : null);

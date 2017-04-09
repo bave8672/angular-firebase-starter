@@ -2,19 +2,26 @@ import { Action, ActionReducer } from '@ngrx/store';
 import { FormState, FormStates } from './';
 import { assign, getErrorMessage } from '../../helpers';
 
+type MaybeCollection<T> = T | T[];
+
+export interface ActionCaseInput<T> {
+    types: MaybeCollection<string>;
+    func: ActionReducer<T>;
+}
+
 export interface ActionCase<T> {
-    type: string;
+    types: string[];
     func: ActionReducer<T>;
 };
 
 export interface FormReducerOptions<T> {
-    show?: string;
-    hide?: string;
-    toggle?: string;
-    request?: string;
-    success?: string;
-    failure?: string;
-    extras?: ActionCase<T>[];
+    show?: MaybeCollection<string>;
+    hide?: MaybeCollection<string>;
+    toggle?: MaybeCollection<string>;
+    request?: MaybeCollection<string>;
+    success?: MaybeCollection<string>;
+    failure?: MaybeCollection<string>;
+    extras?: ActionCaseInput<T>[];
     successMessage?: string;
     failureMessage?: string;
     defaultState?: T;
@@ -24,50 +31,28 @@ export function FormReducer<T extends FormState>(config: FormReducerOptions<T>):
 
     const cases: ActionCase<T>[] = [];
 
-    if (config.show) {
-        cases.push({
-            type: config.show,
-            func: (state, action) => assign(state, { showForm: true })
-        });
+    function addCase(types: string | string[] | undefined, func: ActionReducer<T>) {
+        if (types == null) {
+            return;
+        }
+        if (Array.isArray(types)) {
+            return cases.push({ types: types, func: func });
+        } else {
+            return cases.push({ types: [types], func: func });
+        }
     }
 
-    if (config.hide) {
-        cases.push({
-            type: config.hide,
-            func: (state, action) => assign(state, { showForm: false })
-        });
-    }
-
-    if (config.toggle) {
-        cases.push({
-            type: config.toggle,
-            func: (state, action) => assign(state, { showForm: !state.showForm })
-        });
-    }
-
-    if (config.request) {
-        cases.push({
-            type: config.request,
-            func: (state, action) => assign(state, FormStates.Requesting)
-        });
-    }
-
-    if (config.success) {
-        cases.push({
-            type: config.success,
-            func: (state, action) => assign(state, FormStates.Success(config.successMessage))
-        });
-    }
-
-    if (config.failure) {
-        cases.push({
-            type: config.failure,
-            func: (state, action) => assign(state, FormStates.Failure(getErrorMessage(action.payload, config.failureMessage)))
-        });
-    }
+    addCase(config.show, (state, action) => assign(state, { showForm: true }));
+    addCase(config.hide, (state, action) => assign(state, { showForm: false }));
+    addCase(config.toggle, (state, action) => assign(state, { showForm: !state.showForm }));
+    addCase(config.request, (state, action) => assign(state, FormStates.Requesting));
+    addCase(config.success, (state, action) => assign(state, FormStates.Success(config.successMessage)));
+    addCase(config.failure,
+        (state, action) =>
+            assign(state, FormStates.Failure(getErrorMessage(action.payload, config.failureMessage))));
 
     if (config.extras) {
-        config.extras.forEach(c => cases.push(c));
+        config.extras.forEach(c => addCase(c.types, c.func));
     }
 
     const defaultState = config.defaultState ? config.defaultState : FormStates.Default;
@@ -75,7 +60,7 @@ export function FormReducer<T extends FormState>(config: FormReducerOptions<T>):
     return (state = defaultState as T, action) => {
 
         for (const c of cases) {
-            if (action.type === c.type) {
+            if (c.types.some(type => type === action.type)) {
                 return c.func(state, action);
             }
         }

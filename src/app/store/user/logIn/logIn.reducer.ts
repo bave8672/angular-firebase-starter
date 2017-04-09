@@ -11,8 +11,11 @@ export const LogInReducer = FormReducer({
     success: LogInActionTypes.Success,
     failure: LogInActionTypes.Failure,
     extras: [{
-        type: routerActions.UPDATE_LOCATION,
-        func: (state, _) => {
+        types: [
+            routerActions.UPDATE_LOCATION,
+            routerActions.GO
+        ],
+        func: (state: FormState, _) => {
             if (state.showForm) {
                 return assign(state, { showForm: false });
             }

@@ -7,7 +7,7 @@
     <p>
         <small *ngIf="!(user$ | async)?.photoURL">No profile picture</small>
         <button class="btn btn-link" *ngIf="isPasswordUser$ | async" (click)="toggleUpdatePhotoUrl()">
-            {{(userState$ | async)?.updatePhotoUrl.showForm ? 'close' : 'edit'}}
+            {{(userState$ | async)?.updatePhotoUrl?.showForm ? 'close' : 'edit'}}
         </button>
     </p>
     <app-panel title="Update Profile Picture" *ngIf="(userState$ | async)?.updatePhotoUrl.showForm">
@@ -19,7 +19,7 @@
     <p>
         {{ (user$ | async)?.email }}
         <button class="btn btn-link" *ngIf="isPasswordUser$ | async" (click)="toggleUpdateEmailForm()">
-            {{(userState$ | async)?.updateEmail.showForm ? 'close' : 'edit'}}
+            {{(userState$ | async)?.updateEmail?.showForm ? 'close' : 'edit'}}
         </button>
     </p>
     <div *ngIf="isPasswordUser$ | async">
@@ -31,10 +31,10 @@
         </label>
         <p>
             <button class="btn btn-link" (click)="toggleUpdatePasswordForm()">
-                {{(userState$ | async)?.updatePassword.showForm ? 'close' : 'edit'}}
+                {{(userState$ | async)?.updatePassword?.showForm ? 'close' : 'edit'}}
             </button>
         </p>
-        <app-panel title="Update Password" *ngIf="(userState$ | async)?.updatePassword.showForm">
+        <app-panel title="Update Password" *ngIf="(userState$ | async)?.updatePassword?.showForm">
             <app-account-update-password></app-account-update-password>
         </app-panel>
         <label>Email Verified</label>
