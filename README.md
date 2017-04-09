@@ -9,7 +9,7 @@ An app boilerplate using:
 - [Firebase (angularfire2)](https://github.com/angular/angularfire2)
 - [Ngrx Store](https://github.com/ngrx/store) and [Ngrx Effects](https://github.com/ngrx/effects)
 
-featuring:
+Featuring:
 
 - A full authentication pipeline including both Google and email authentication
 - User accounts
@@ -26,11 +26,10 @@ The template is designed to be easy to build upon and extend to suit your app.
 ## Quickstart
 
 ```bash
-# clone the repo
+# Clone the repo
 git clone https://github.com/bave8672/angular-firebase-starter.git
 
-
-# change directory to repo
+# Change directory to repo
 cd angular-firebase-starter
 
 # Use npm or yarn to install the dependencies:
@@ -39,7 +38,7 @@ npm install
 # OR
 yarn
 
-# start the server
+# Start the server
 npm run start
 ```
 
@@ -101,4 +100,15 @@ In production mode the app's [custom error handler](./src/app/error-handler/cust
 
 ### Testing
 
-Todo: Description (also actually write tests...)
+```bash
+# Run unit tests with coverage in PhantomJS
+npm run test
+
+# Debug unit tests in Chrome
+npm run test:debug
+```
+
+Planned:
+
+- Better test coverage (currently ~70%)
+- E2E Tests
