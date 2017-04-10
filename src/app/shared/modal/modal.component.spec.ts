@@ -39,7 +39,7 @@ describe('ModalComponent', () => {
     it('should emit a close attempt event WHEN an enter is intercepted on the backdrop element', () => {
         spyOn(fixture.componentInstance.cancel, 'emit');
         (fixture.nativeElement as HTMLElement)
-            .dispatchEvent(new KeyboardEvent('keydown', { code: 'Enter', bubbles: true }));
+            .dispatchEvent(new KeyboardEvent('keydown', { code: 'Tab', bubbles: true }));
         expect(fixture.componentInstance.cancel.emit)
             .toHaveBeenCalled();
     });
