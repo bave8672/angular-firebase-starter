@@ -10,7 +10,7 @@ export class ModalComponent {
 
     @HostListener('document:keydown', ['$event'])
     onEscape(event: KeyboardEvent) {
-        if (event.code === 'Escape') {
+        if (event.code === 'Escape' || event.code === 'Tab') {
             this.onCancel();
         }
     }

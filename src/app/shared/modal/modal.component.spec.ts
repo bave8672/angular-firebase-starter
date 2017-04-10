@@ -19,7 +19,28 @@ describe('ModalComponent', () => {
         fixture.detectChanges();
     });
 
-    it('should create', () => {
-        expect(component).toBeTruthy();
+    it('should emit a close attempt event WHEN a click is intercepted on the backdrop element', () => {
+        spyOn(fixture.componentInstance.cancel, 'emit');
+        (fixture.nativeElement as HTMLElement)
+            .querySelector('.modal-open')
+            .dispatchEvent(new MouseEvent('click'));
+        expect(fixture.componentInstance.cancel.emit)
+            .toHaveBeenCalled();
+    });
+
+    it('should emit a close attempt event WHEN an escape is intercepted on the backdrop element', () => {
+        spyOn(fixture.componentInstance.cancel, 'emit');
+        (fixture.nativeElement as HTMLElement)
+            .dispatchEvent(new KeyboardEvent('keydown', { code: 'Escape', bubbles: true }));
+        expect(fixture.componentInstance.cancel.emit)
+            .toHaveBeenCalled();
+    });
+
+    it('should emit a close attempt event WHEN an enter is intercepted on the backdrop element', () => {
+        spyOn(fixture.componentInstance.cancel, 'emit');
+        (fixture.nativeElement as HTMLElement)
+            .dispatchEvent(new KeyboardEvent('keydown', { code: 'Enter', bubbles: true }));
+        expect(fixture.componentInstance.cancel.emit)
+            .toHaveBeenCalled();
     });
 });
