@@ -28,7 +28,7 @@ describe('Form reducer factory', () => {
     let oldState: ExtendedFormState;
 
     beforeEach(() => {
-        oldState = assignDeep(FormStates.Default as any, { otherProp: 'hello' });
+        oldState = assignDeep(FormStates.Default as any, { extraProp: 'hello' });
     });
 
     shouldNotAlterStateOnUnknownAction(reducer);
