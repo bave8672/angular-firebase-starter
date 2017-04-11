@@ -13,7 +13,7 @@ describe('Form reducer factory', () => {
         success: 'success',
         failure: 'failure',
         extras: [{
-            type: 'setExtraProp',
+            types: 'setExtraProp',
             func: (state, action) => assign(state, { extraProp: action.payload })
         }],
         successMessage: 'success!'
@@ -35,36 +35,36 @@ describe('Form reducer factory', () => {
 
     it('applies the form visibility WHEN show is called', () => {
         oldState.showForm = false;
-        const newState = reducer(oldState, action(config.show));
+        const newState = reducer(oldState, action(config.show as string));
         expect(newState).toEqual(assign(oldState, { showForm: true }));
     });
 
     it('applies the form visibility WHEN hide is called', () => {
         oldState.showForm = true;
-        const newState = reducer(oldState, action(config.hide));
+        const newState = reducer(oldState, action(config.hide as string));
         expect(newState).toEqual(assign(oldState, { showForm: false }));
     });
 
     it('applies the form visibility WHEN toggle is called', () => {
         oldState.showForm = false;
-        let newState = reducer(oldState, action(config.toggle));
+        let newState = reducer(oldState, action(config.toggle as string));
         expect(newState).toEqual(assign(oldState, { showForm: true }));
-        newState = reducer(newState, action(config.toggle));
+        newState = reducer(newState, action(config.toggle as string));
         expect(newState).toEqual(assign(oldState, { showForm: false }));
     });
 
     it('applies the requesting state WHEN request is called', () => {
-        const newState = reducer(oldState, action(config.request));
+        const newState = reducer(oldState, action(config.request as string));
         expect(newState).toEqual(assign(oldState, FormStates.Requesting));
     });
 
     it('applies the success state WHEN success is called', () => {
-        const newState = reducer(oldState, action(config.success));
+        const newState = reducer(oldState, action(config.success as string));
         expect(newState).toEqual(assign(oldState, FormStates.Success(config.successMessage)));
     });
 
     it('applies the failure state WHEN failure is called', () => {
-        const newState = reducer(oldState, action(config.failure));
+        const newState = reducer(oldState, action(config.failure as string));
         expect(newState).toEqual(assign(oldState, FormStates.Failure(getErrorMessage(undefined))));
     });
 

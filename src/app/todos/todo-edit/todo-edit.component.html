@@ -1,9 +1,9 @@
 <form novalidate class="form-inline" onsubmit="event.preventDefault()" [formGroup]="formGroup">
     <div class="form-group">
         <label for="todo">{{ todo.uid ? 'Update' : 'New' }} Task</label>
-        <input type="text" class="form-control" placeholder="Task name" [formControlName]="controlNames.name" />
+        <input type="text" class="form-control" placeholder="Task name" attr.data-e2e="todo-edit-{{todo.uid ? todo.uid : 'new'}}" [formControlName]="controlNames.name" onclick="this.select()" />
     </div>
-    <button type="submit" class="btn btn-default" [class.disabled]="!formGroup.valid" (click)="save()">Save</button>
-    <button type="submit" class="btn btn-danger" (click)="cancel()" *ngIf="cancelable">Cancel</button>
+    <button type="submit" class="btn btn-default" [class.disabled]="!formGroup.valid" attr.data-e2e="todo-save-{{todo.uid ? todo.uid : 'new'}}" (click)="save()">Save</button>
+    <button type="submit" class="btn btn-danger" data-e2e="todo-edit-cancel" (click)="cancel()" *ngIf="cancelable">Cancel</button>
     <app-validation-message [control]="formGroup.controls[controlNames.name]"></app-validation-message>
 </form>

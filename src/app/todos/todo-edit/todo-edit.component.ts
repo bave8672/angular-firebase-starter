@@ -6,7 +6,7 @@ import { StateService } from '../../store/state-service/state.service';
 import { minLength } from '../../validators';
 import { Todo } from '../todo';
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 
 @Component({
     selector: 'app-todo-edit',

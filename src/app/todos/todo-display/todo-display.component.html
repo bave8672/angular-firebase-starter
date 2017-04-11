@@ -1,8 +1,8 @@
 <div class="btn-group">
-    <button class="btn btn-default btn-lg"(click)="edit()">
+    <button class="btn btn-default btn-lg" attr.data-e2e="todo-name-{{todo?.uid}}" (click)="edit()">
         {{ todo?.name }}
     </button>
-    <button class="btn btn-default btn-lg" (click)="delete()">
+    <button class="btn btn-default btn-lg" attr.data-e2e="delete-todo-{{todo?.uid}}" (click)="delete()">
         <span class="glyphicon glyphicon-remove text-danger"></span>
     </button>
 </div>
