@@ -1,6 +1,8 @@
+import { useDefaultState } from '../../helpers/useDefaultState';
 import { Action, ActionReducer } from '@ngrx/store';
 import { FormState, FormStates } from './';
-import { assign, getErrorMessage } from '../../helpers';
+import { assign, getErrorMessage, ActionMap, hashReducer } from '../../helpers';
+import { compose } from '@ngrx/core';
 
 type MaybeCollection<T> = T | T[];
 
@@ -29,16 +31,16 @@ export interface FormReducerOptions<T> {
 
 export function FormReducer<T extends FormState>(config: FormReducerOptions<T>): ActionReducer<T> {
 
-    const cases: ActionCase<T>[] = [];
+    const actionMap: ActionMap<T> = {};
 
     function addCase(types: string | string[] | undefined, func: ActionReducer<T>) {
         if (types == null) {
             return;
         }
         if (Array.isArray(types)) {
-            return cases.push({ types: types, func: func });
+            types.forEach(type => actionMap[type] = func);
         } else {
-            return cases.push({ types: [types], func: func });
+            actionMap[types] = func;
         }
     }
 
@@ -57,14 +59,8 @@ export function FormReducer<T extends FormState>(config: FormReducerOptions<T>):
 
     const defaultState = config.defaultState ? config.defaultState : FormStates.Default;
 
-    return (state = defaultState as T, action) => {
-
-        for (const c of cases) {
-            if (c.types.some(type => type === action.type)) {
-                return c.func(state, action);
-            }
-        }
-
-        return state;
-    };
+    return compose(
+        useDefaultState(defaultState),
+        hashReducer
+    )(actionMap);
 };

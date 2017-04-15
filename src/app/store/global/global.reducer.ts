@@ -1,16 +1,16 @@
+import { AppState, DefaultAppState } from '../';
+import { GlobalActionTypes} from './global.actionTypes';
+import { hashReducer, useDefaultState } from '../../helpers';
 import { assignDeep } from '../../helpers/';
-import { GlobalActionTypes, AppState, DefaultAppState } from '../';
+import { ActionMap } from '../../helpers/actionMap';
+import { compose } from '@ngrx/core';
 import { ActionReducer } from '@ngrx/store';
 
-export const GlobalReducer: ActionReducer<AppState> = (state = DefaultAppState, action) => {
+export const GlobalReducer = compose<ActionMap<AppState>, ActionReducer<AppState>, ActionReducer<AppState>>(
+    useDefaultState(DefaultAppState),
+    hashReducer
+)({
+    [GlobalActionTypes.AppStart]:
 
-    switch (action.type) {
-
-        case GlobalActionTypes.AppStart: {
-            // Ensure app state includes all properties, including any ones that may be new.
-            return assignDeep(DefaultAppState, state);
-        }
-    }
-
-    return state;
-};
+        (state, _) => assignDeep(DefaultAppState, state)
+});

@@ -1,24 +1,30 @@
 import { TodosActions } from '../';
+import { hashReducer, useDefaultState } from '../../helpers';
+import { ActionMap } from '../../helpers/actionMap';
 import { assign } from '../../helpers/assign';
 import { TodosActionTypes } from './todos.actionTypes';
 import { DefaultTodosState, TodosState } from './todos.state';
-import { ActionReducer } from '@ngrx/store';
+import { compose } from '@ngrx/core';
+import { Action, ActionReducer } from '@ngrx/store';
 
-export const TodosReducer: ActionReducer<TodosState> = (state = DefaultTodosState, action) => {
+const closeEdit = (state: TodosState, action: Action) => assign(state, { editing: '' });
 
-    switch (action.type) {
+export const TodosReducer = compose<ActionMap<TodosState>, ActionReducer<TodosState>, ActionReducer<TodosState>>(
+    useDefaultState(DefaultTodosState),
+    hashReducer
+)({
+    [TodosActionTypes.Edit]:
 
-        case TodosActionTypes.Edit: {
+        (state, action) => {
             const uid = (action as TodosActions.Edit).payload;
             return assign(state, { editing: uid });
-        }
+        },
 
-        case TodosActionTypes.Update:
-        case TodosActionTypes.CloseEdit: {
-            const uid = (action as TodosActions.Edit).payload;
-            return assign(state, { editing: '' });
-        }
-    }
+    [TodosActionTypes.Update]:
 
-    return state;
-};
+        closeEdit,
+
+    [TodosActionTypes.CloseEdit]:
+
+        closeEdit,
+});

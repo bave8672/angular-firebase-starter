@@ -1,22 +1,27 @@
-import { DefaultNavState, NavActionTypes, NavState } from '../';
+import { DefaultNavState, NavState } from '../';
+import { NavActionTypes } from './nav.actionTypes';
+import { hashReducer, useDefaultState } from '../../helpers';
+import { ActionMap } from '../../helpers/actionMap';
 import { assign } from '../../helpers/assign';
+import { compose } from '@ngrx/core';
 import { routerActions } from '@ngrx/router-store';
 import { ActionReducer } from '@ngrx/store';
 
-export const NavReducer: ActionReducer<NavState> = (state = DefaultNavState, action) => {
 
-    switch (action.type) {
+export const NavReducer = compose<ActionMap<NavState>, ActionReducer<NavState>, ActionReducer<NavState>>(
+    useDefaultState(DefaultNavState),
+    hashReducer
+)({
+    [NavActionTypes.ToggleNavigation]:
 
-        case NavActionTypes.ToggleNavigation: {
-            return assign(state, { showNavigation: !state.showNavigation });
-        }
+        (state, _) => assign(state, { showNavigation: !state.showNavigation }),
 
-        case routerActions.UPDATE_LOCATION: {
+    [routerActions.UPDATE_LOCATION]:
+
+        (state, _) => {
             if (state.showNavigation) {
                 return assign(state, { showNavigation: false });
             }
+            return state;
         }
-    }
-
-    return state;
-};
+});
