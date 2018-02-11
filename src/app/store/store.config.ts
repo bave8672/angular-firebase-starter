@@ -1,7 +1,6 @@
-import { ActionReducer, combineReducers, compose } from '@ngrx/store';
+import { ActionReducer, combineReducers } from '@ngrx/store';
+import { UserState } from 'app/store/user/user.state';
 
-import { AppState, UserState } from './';
-import { GlobalReducer } from './global/global.reducer';
 import { NavReducer } from './nav/nav.reducer';
 import { TodosEffects } from './todos/todos.effects';
 import { TodosReducer } from './todos/todos.reducer';
@@ -22,17 +21,16 @@ import { UpdatePhotoUrlReducer } from './user/updatePhotoUrl/updatePhotoUrl.redu
  * Transforms reducers into composable meta-reducers
  */
 export function composify<T>(a: ActionReducer<T>) {
-    return (b: ActionReducer<T>): ActionReducer<T> =>
-        (state, action) => a(b(state, action), action);
+    return (b: ActionReducer<T>): ActionReducer<T> => (state, action) =>
+        a(b(state, action), action);
 }
 
 /**
  * Enforce type safety when combining reducers
  */
 export function combineTypedReducers<T>(
-    reducers: {
-        readonly [key in keyof T]: ActionReducer<T[key]>
-    }): ActionReducer<T> {
+    reducers: { readonly [key in keyof T]: ActionReducer<T[key]> }
+): ActionReducer<T> {
     return combineReducers(reducers);
 }
 
@@ -43,10 +41,10 @@ export const CombinedReducers = {
         updateEmail: UpdateEmailReducer,
         updatePassword: UpdatePasswordReducer,
         updatePhotoUrl: UpdatePhotoUrlReducer,
-        sendEmailVerification: ResendEmailVerificationReducer
+        sendEmailVerification: ResendEmailVerificationReducer,
     }),
     nav: NavReducer,
-    todos: TodosReducer
+    todos: TodosReducer,
 };
 
 export function Effects() {

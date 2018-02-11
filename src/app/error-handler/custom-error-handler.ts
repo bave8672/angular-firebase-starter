@@ -1,6 +1,7 @@
-import { environment } from '../../environments/environment';
 import { ErrorHandler, Injectable } from '@angular/core';
-import { AngularFire } from 'angularfire2';
+import { AngularFireDatabase } from 'angularfire2/database';
+
+import { environment } from '../../environments/environment';
 
 /**
  * Override for the globlal angular error handler.
@@ -10,17 +11,19 @@ import { AngularFire } from 'angularfire2';
  */
 @Injectable()
 export class CustomErrorHandler extends ErrorHandler {
-
-    constructor(private firebase: AngularFire) {
-        // Don't rethrow errors
-        super(false);
+    constructor(private db: AngularFireDatabase) {
+        super();
     }
 
-    handleError(error: any) {
+    handleError(error: Error) {
         if (!environment.production) {
             super.handleError(error);
         } else {
-            this.firebase.database.list('/errors').push(error);
+            const errorString = JSON.stringify(
+                error,
+                Object.getOwnPropertyNames(error)
+            );
+            this.db.list('/errors').push(errorString);
         }
     }
 }

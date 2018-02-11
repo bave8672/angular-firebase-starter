@@ -1,9 +1,9 @@
 import { AuthProvider } from '@firebase/auth-types';
 import { Action } from '@ngrx/store';
-import { EmailPasswordCredentials, LogInActionTypes } from 'app/store';
+import { LogInActionTypes } from 'app/store/user/logIn/logIn.actionTypes';
+import { EmailPasswordCredentials } from 'app/store/user/signUp/signUp.actions';
 
 export namespace LogInActions {
-
     export class ShowModal implements Action {
         readonly type = LogInActionTypes.ShowModal;
     }
@@ -14,7 +14,9 @@ export namespace LogInActions {
 
     export class LogIn implements Action {
         readonly type = LogInActionTypes.LogIn;
-        constructor(public readonly payload: AuthProvider | EmailPasswordCredentials) {};
+        constructor(
+            public readonly payload: AuthProvider | EmailPasswordCredentials
+        ) {}
     }
 
     export class LogOut implements Action {
@@ -23,17 +25,12 @@ export namespace LogInActions {
 
     export class Failure implements Action {
         readonly type = LogInActionTypes.Failure;
-        constructor(public readonly payload: any) {};
+        constructor(public readonly payload: any) {}
     }
 
     export class Success implements Action {
         readonly type = LogInActionTypes.Success;
     }
 
-    export type LogInAction =
-        ShowModal
-        | HideModal
-        | LogIn
-        | Failure
-        | Success;
+    export type LogInAction = ShowModal | HideModal | LogIn | Failure | Success;
 }

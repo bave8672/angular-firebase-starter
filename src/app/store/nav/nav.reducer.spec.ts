@@ -1,7 +1,8 @@
-import { FormState, FormStates, NavActions, NavState, DefaultNavState } from '../';
 import { assignDeep } from '../../helpers/assignDeep';
 import { NavReducer } from './nav.reducer';
 import { shouldNotAlterStateOnUnknownAction } from '../testing/reducerTestHelpers';
+import { NavState, DefaultNavState } from 'app/store/nav/nav.state';
+import { NavActions } from 'app/store/nav/nav.actions';
 
 describe('Nav Reducer', () => {
 

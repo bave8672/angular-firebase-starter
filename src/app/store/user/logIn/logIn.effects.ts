@@ -5,9 +5,10 @@ import { Effect } from '@ngrx/effects';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Observable } from 'rxjs/Observable';
 
-import { EmailPasswordCredentials } from '..';
 import { StateService } from '../../state-service/state.service';
-import { LogInActions, LogInActionTypes } from './';
+import { LogInActions } from 'app/store/user/logIn/logIn.actions';
+import { LogInActionTypes } from 'app/store/user/logIn/logIn.actionTypes';
+import { EmailPasswordCredentials } from 'app/store/user/signUp/signUp.actions';
 
 @Injectable()
 export class LogInEffects {

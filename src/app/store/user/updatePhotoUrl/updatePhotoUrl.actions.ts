@@ -1,9 +1,7 @@
 import { Action } from '@ngrx/store';
-
-import { UpdatePhotoUrlActionTypes } from './';
+import { UpdatePhotoUrlActionTypes } from 'app/store/user/updatePhotoUrl/updatePhotoUrl.actionTypes';
 
 export namespace UpdatePhotoUrlActions {
-
     export class ToggleForm implements Action {
         readonly type = UpdatePhotoUrlActionTypes.ToggleForm;
         payload: void;
@@ -23,4 +21,4 @@ export namespace UpdatePhotoUrlActions {
         readonly type = UpdatePhotoUrlActionTypes.Success;
         constructor(public readonly payload: any) {}
     }
-};
+}

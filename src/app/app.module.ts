@@ -2,7 +2,7 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { StoreModule } from '@ngrx/store';
 import { AngularFireModule } from 'angularfire2';
-import { GlobalReducer } from 'app/store';
+import { GlobalReducer } from 'app/store/global/global.reducer';
 
 import { environment } from '../environments/environment';
 import { AccountModule } from './account/account.module';
@@ -13,7 +13,6 @@ import { CustomErrorHandler } from './error-handler/custom-error-handler';
 import { FooterComponent } from './footer/footer.component';
 import { IsLoggedInGuard } from './guards/isLoggedIn.guard';
 import { IsNotLoggedInGuard } from './guards/isNotLoggedIn.guard';
-import { IsPasswordUserGuard } from './guards/isPasswordUser.guard';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { LogInComponent } from './log-in/log-in.component';
 import { NavComponent } from './nav/nav.component';
@@ -34,24 +33,26 @@ import { TodosModule } from './todos/todos.module';
         NavComponent,
         SignUpComponent,
         LogInComponent,
-        ResetPasswordComponent
+        ResetPasswordComponent,
     ],
     imports: [
         SharedModule,
         TodosModule,
         RouterModule.forRoot(AppRoutes),
-        StoreModule.forRoot(CombinedReducers, { metaReducers: [GlobalReducer], initialState: DefaultAppState }),
+        StoreModule.forRoot(CombinedReducers, {
+            metaReducers: [GlobalReducer],
+            initialState: DefaultAppState,
+        }),
         ...Effects(),
         AngularFireModule.initializeApp(environment.firebaseConfig),
-        AccountModule
+        AccountModule,
     ],
     providers: [
         StateService,
         IsLoggedInGuard,
         IsNotLoggedInGuard,
-        IsPasswordUserGuard,
-        { provide: ErrorHandler, useClass: CustomErrorHandler }
+        { provide: ErrorHandler, useClass: CustomErrorHandler },
     ],
-    bootstrap: [AppComponent]
+    bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

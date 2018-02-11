@@ -1,10 +1,10 @@
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { StateService } from '../../store/state-service/state.service';
+import { UpdatePhotoUrlActions } from 'app/store/user/updatePhotoUrl/updatePhotoUrl.actions';
+
 import { FormComponent } from '../../helpers/form.component';
-import { UpdatePhotoUrlActions, FormState } from '../../store';
+import { StateService } from '../../store/state-service/state.service';
 import { validUrl } from '../../validators/validUrl';
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs/Rx';
 
 @Component({
     selector: 'app-account-update-photo-url',

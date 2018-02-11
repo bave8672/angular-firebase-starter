@@ -1,10 +1,10 @@
-import { FormComponent } from '../helpers/form.component';
-import { LogInActions } from '../store';
-import { StateService } from '../store/state-service/state.service';
-import { emailValid, passwordValid } from '../validators';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { AuthMethods, AuthProviders } from 'angularfire2/auth';
+import { LogInActions } from 'app/store/user/logIn/logIn.actions';
+
+import { FormComponent } from '../helpers/form.component';
+import { StateService } from '../store/state-service/state.service';
+import { emailValid, passwordValid } from '../validators';
 
 @Component({
     selector: 'app-log-in',

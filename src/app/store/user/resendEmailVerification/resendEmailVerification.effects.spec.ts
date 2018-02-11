@@ -1,6 +1,6 @@
 // import { inject, TestBed } from '@angular/core/testing';
 // import { provideMockActions } from '@ngrx/effects/testing';
-// import { Observable } from 'rxjs/Rx';
+// import { Observable } from 'rxjs/Observable';
 
 // import { assignDeep } from '../../../helpers';
 // import { DefaultAppState } from '../../app.state';

@@ -1,6 +1,7 @@
 import { Action } from '@ngrx/store';
-import { TodosActionTypes } from 'app/store';
 import { Todo } from 'app/todos/todo';
+
+import { TodosActionTypes } from './todos.actionTypes';
 
 export namespace TodosActions {
 

@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Effect } from '@ngrx/effects';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
 
 import { StateService } from '../../state-service/state.service';
-import { UpdatePhotoUrlActions, UpdatePhotoUrlActionTypes } from './';
+import { UpdatePhotoUrlActionTypes } from 'app/store/user/updatePhotoUrl/updatePhotoUrl.actionTypes';
+import { UpdatePhotoUrlActions } from 'app/store/user/updatePhotoUrl/updatePhotoUrl.actions';
 
 @Injectable()
 export class UpdatePhotoUrlEffects {

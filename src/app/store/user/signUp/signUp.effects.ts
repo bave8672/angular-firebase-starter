@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Effect } from '@ngrx/effects';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
 
-import { LogInActions, SignUpActions, SignUpActionTypes } from '../';
 import { StateService } from '../../state-service/state.service';
+import { SignUpActionTypes } from 'app/store/user/signUp/signUp.actionTypes';
+import { SignUpActions } from './signUp.actions';
+import { LogInActions } from '../logIn/logIn.actions';
 
 @Injectable()
 export class SignUpEffects {

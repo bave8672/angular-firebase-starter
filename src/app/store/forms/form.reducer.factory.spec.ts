@@ -2,7 +2,8 @@ import { Action } from '@ngrx/store';
 
 import { assign, assignDeep, getErrorMessage } from '../../helpers';
 import { shouldNotAlterStateOnUnknownAction } from '../testing';
-import { FormReducer, FormReducerOptions, FormState, FormStates } from './';
+import { FormReducerOptions, FormReducer } from 'app/store/forms/form.reducer.factory';
+import { FormState, FormStates } from 'app/store/forms/formState';
 
 describe('Form reducer factory', () => {
 

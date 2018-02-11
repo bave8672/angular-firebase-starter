@@ -1,12 +1,12 @@
 import { assign } from '../../helpers/assign';
 import { FormComponent } from '../../helpers/form.component';
 import { Messages } from '../../resources/messages';
-import { TodosActions } from '../../store';
 import { StateService } from '../../store/state-service/state.service';
 import { minLength } from '../../validators';
 import { Todo } from '../todo';
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
+import { TodosActions } from '../../store/todos/todos.actions';
 
 @Component({
     selector: 'app-todo-edit',

@@ -1,15 +1,18 @@
-import * as Store from '../';
+import { GlobalActions } from 'app/store/global/global.actions';
+import { LogInActions } from 'app/store/user/logIn/logIn.actions';
+import { NavActions } from 'app/store/nav/nav.actions';
+import { SignUpActions } from 'app/store/user/signUp/signUp.actions';
+import { TodosActions } from 'app/store/todos/todos.actions';
 
 describe('Actions', () => {
-
     it('actions have unique types', () => {
         const hash = {};
         [
-            Store.GlobalActions,
-            Store.LogInActions,
-            Store.NavActions,
-            Store.SignUpActions,
-            Store.TodosActions
+            GlobalActions,
+            LogInActions,
+            NavActions,
+            SignUpActions,
+            TodosActions,
         ].forEach(ns => {
             for (const key in ns) {
                 if (ns.hasOwnProperty(key)) {
@@ -23,4 +26,3 @@ describe('Actions', () => {
         });
     });
 });
-

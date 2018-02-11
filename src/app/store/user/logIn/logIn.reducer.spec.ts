@@ -1,11 +1,12 @@
-import { FormState, FormStates, LogInActions } from '../..';
+import { FormState, FormStates } from 'app/store/forms/formState';
+import { LogInActions } from 'app/store/user/logIn/logIn.actions';
+
 import { assignDeep } from '../../../helpers';
 import { Messages } from '../../../resources/messages';
 import { shouldNotAlterStateOnUnknownAction } from '../../testing/reducerTestHelpers';
 import { LogInReducer } from './logIn.reducer';
 
 describe('Log In Reducer', () => {
-
     shouldNotAlterStateOnUnknownAction(LogInReducer);
 
     let oldState: FormState;
@@ -27,13 +28,18 @@ describe('Log In Reducer', () => {
     });
 
     it('Assigns the requesting state WHEN UpdatePassword is called', () => {
-        const newState = LogInReducer(oldState, new LogInActions.LogIn({} as any));
+        const newState = LogInReducer(
+            oldState,
+            new LogInActions.LogIn({} as any)
+        );
         expect(newState).toEqual(FormStates.Requesting);
     });
 
     it('Displays the correct error message WHEN failure is called', () => {
         const newState = LogInReducer(oldState, new LogInActions.Failure({}));
-        expect(newState).toEqual(FormStates.Failure(Messages.ApiResponse.ServerError));
+        expect(newState).toEqual(
+            FormStates.Failure(Messages.ApiResponse.ServerError)
+        );
     });
 
     it('Displays the correct message WHEN success is called', () => {

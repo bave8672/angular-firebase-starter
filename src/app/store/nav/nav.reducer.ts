@@ -1,5 +1,6 @@
-import { NavActions, NavState } from '../';
 import { NavActionTypes } from './nav.actionTypes';
+import { NavState } from 'app/store/nav/nav.state';
+import { NavActions } from 'app/store/nav/nav.actions';
 
 export function NavReducer(
     state: NavState,

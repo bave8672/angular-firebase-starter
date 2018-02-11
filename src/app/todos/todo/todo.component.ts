@@ -1,7 +1,7 @@
 import { StateService } from '../../store/state-service/state.service';
 import { Todo } from '../todo';
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
     selector: 'app-todo',

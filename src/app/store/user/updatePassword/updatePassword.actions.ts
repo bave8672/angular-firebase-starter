@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { UpdatePasswordActionTypes } from 'app/store';
+import { UpdatePasswordActionTypes } from 'app/store/user/updatePassword/updatePassword.actionTypes';
 
 export namespace UpdatePasswordActions {
 

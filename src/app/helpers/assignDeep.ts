@@ -1,4 +1,4 @@
-import { assign } from './';
+import { assign } from './assign';
 
 export function assignDeep<T extends U, U extends Object>(target: T, source: U = {} as any) {
     const result = assign(target, source);
