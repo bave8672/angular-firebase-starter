@@ -1,9 +1,8 @@
-import { FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
-import { IsLoggedInGuard } from '../guards/isLoggedIn.guard';
-import { Todo } from './todo';
-import { Observable } from 'rxjs/Rx';
 import { Injectable } from '@angular/core';
-import { AngularFire } from 'angularfire2';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFireDatabase, AngularFireList, AngularFireObject } from 'angularfire2/database';
+
+import { Todo } from './todo';
 
 /**
  * Standardises how todos are accessed
@@ -13,19 +12,20 @@ import { AngularFire } from 'angularfire2';
 
 export class TodosService {
 
-    authUid = '';
+    private authUid = '';
 
     constructor(
-        private firebase: AngularFire
+        private db: AngularFireDatabase,
+        private auth: AngularFireAuth,
     ) {
-        this.firebase.auth.subscribe(a => this.authUid = a ? a.uid : '');
+        this.auth.authState.subscribe(a => this.authUid = a ? a.uid : '');
     }
 
-    todos(): FirebaseListObservable<Todo[]> {
-        return this.firebase.database.list(`/todos/${this.authUid}`);
+    todos(): AngularFireList<Todo> {
+        return this.db.list(`/todos/${this.authUid}`);
     }
 
-    todo(uid: string): FirebaseObjectObservable<Todo> {
-        return this.firebase.database.object(`/todos/${this.authUid}/${uid}`);
+    todo(uid: string): AngularFireObject<Todo> {
+        return this.db.object<Todo>(`/todos/${this.authUid}/${uid}`);
     }
 }

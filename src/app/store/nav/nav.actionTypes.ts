@@ -1,3 +1,3 @@
-export const NavActionTypes = {
-    ToggleNavigation: '[Nav] Toggle Navigation'
-};
+export namespace NavActionTypes {
+    export const ToggleNavigation = '[Nav] Toggle Navigation';
+}

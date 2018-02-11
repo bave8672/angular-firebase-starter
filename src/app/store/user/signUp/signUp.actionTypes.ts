@@ -1,4 +1,4 @@
-export const SignUpActionTypes = {
-    SignUp: '[SignUp] Sign Up',
-    Failure: '[SignUp] Sign Up Failure',
-};
+export namespace SignUpActionTypes {
+    export const SignUp = '[SignUp] Sign Up';
+    export const Failure = '[SignUp] Sign Up Failure';
+}

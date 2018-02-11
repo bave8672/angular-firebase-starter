@@ -1,8 +1,10 @@
-import { GlobalActions, GlobalReducer, shouldNotAlterStateOnUnknownAction, FormStates } from '../';
-import { AppState, DefaultAppState } from '../app.state';
+import { FormStates, GlobalActions, GlobalReducer, shouldNotAlterStateOnUnknownAction } from '../';
 import { assignDeep } from '../../helpers';
+import { AppState, DefaultAppState } from '../app.state';
 
 describe('Global Reducer', () => {
+
+    const globalReducer = GlobalReducer(state => state);
 
     let oldState: AppState;
 
@@ -10,7 +12,7 @@ describe('Global Reducer', () => {
         oldState = assignDeep(DefaultAppState, {});
     });
 
-    shouldNotAlterStateOnUnknownAction(GlobalReducer);
+    shouldNotAlterStateOnUnknownAction(globalReducer);
 
     it(`Assigns missing properties to the state tree
         ON App Start
@@ -18,7 +20,7 @@ describe('Global Reducer', () => {
 
         oldState.todos = undefined;
 
-        const newState = GlobalReducer(oldState, new GlobalActions.AppStart());
+        const newState = globalReducer(oldState, new GlobalActions.AppStart());
 
         expect(newState).toEqual(DefaultAppState);
     });
@@ -29,7 +31,7 @@ describe('Global Reducer', () => {
         oldState.user.logIn = undefined;
         oldState.user.sendEmailVerification.failureMessage = 'Example';
 
-        const newState = GlobalReducer(oldState, new GlobalActions.AppStart());
+        const newState = globalReducer(oldState, new GlobalActions.AppStart());
 
         expect(newState.user.logIn).toEqual(FormStates.Default);
         expect(newState.user.sendEmailVerification.failureMessage).toBe('Example');

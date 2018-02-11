@@ -3,7 +3,7 @@ import { Action } from '@ngrx/store';
 export namespace NavActions {
 
     export class ToggleNavigation implements Action {
-        type = NavActionTypes.ToggleNavigation;
+        readonly type = NavActionTypes.ToggleNavigation;
         payload: void;
     }
 

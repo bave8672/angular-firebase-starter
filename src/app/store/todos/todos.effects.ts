@@ -1,9 +1,10 @@
+import { Injectable } from '@angular/core';
+import { Effect } from '@ngrx/effects';
+
 import { TodosService } from '../../todos/todos.service';
 import { StateService } from '../state-service/state.service';
 import { TodosActions } from './todos.actions';
 import { TodosActionTypes } from './todos.actionTypes';
-import { Injectable } from '@angular/core';
-import { Effect } from '@ngrx/effects';
 
 @Injectable()
 
@@ -15,7 +16,8 @@ export class TodosEffects {
         .switchMap(todo => {
             if (!todo.uid) {
                 const ref = this.todosService.todos().push({
-                    name: todo.name
+                    name: todo.name,
+                    uid: ''
                 });
                 return ref.set({
                     name: todo.name,

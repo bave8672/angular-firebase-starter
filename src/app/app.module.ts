@@ -1,3 +1,9 @@
+import { ErrorHandler, NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { StoreModule } from '@ngrx/store';
+import { AngularFireModule } from 'angularfire2';
+import { GlobalReducer } from 'app/store';
+
 import { environment } from '../environments/environment';
 import { AccountModule } from './account/account.module';
 import { AppComponent } from './app.component';
@@ -16,13 +22,8 @@ import { SharedModule } from './shared/shared.module';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { DefaultAppState } from './store/app.state';
 import { StateService } from './store/state-service/state.service';
-import { Reducer, RunEffects } from './store/store.config';
+import { CombinedReducers, Effects } from './store/store.config';
 import { TodosModule } from './todos/todos.module';
-import { ErrorHandler, NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { RouterStoreModule } from '@ngrx/router-store';
-import { StoreModule } from '@ngrx/store';
-import { AngularFireModule } from 'angularfire2';
 
 @NgModule({
     declarations: [
@@ -39,9 +40,8 @@ import { AngularFireModule } from 'angularfire2';
         SharedModule,
         TodosModule,
         RouterModule.forRoot(AppRoutes),
-        StoreModule.provideStore(Reducer, DefaultAppState),
-        RouterStoreModule.connectRouter(),
-        ...RunEffects(),
+        StoreModule.forRoot(CombinedReducers, { metaReducers: [GlobalReducer], initialState: DefaultAppState }),
+        ...Effects(),
         AngularFireModule.initializeApp(environment.firebaseConfig),
         AccountModule
     ],

@@ -1,28 +1,28 @@
-import { UpdatePasswordActionTypes } from './updatePassword.actionTypes';
 import { Action } from '@ngrx/store';
+import { UpdatePasswordActionTypes } from 'app/store';
 
 export namespace UpdatePasswordActions {
 
     export class ToggleForm implements Action {
-        type = UpdatePasswordActionTypes.ToggleForm;
+        readonly type = UpdatePasswordActionTypes.ToggleForm;
         payload: void;
     }
 
     export class Update implements Action {
-        type = UpdatePasswordActionTypes.Update;
-        constructor(public payload: {
+        readonly type = UpdatePasswordActionTypes.Update;
+        constructor(public readonly payload: {
             old: string,
             new: string
         }) {}
     }
 
     export class Failure implements Action {
-        type = UpdatePasswordActionTypes.Failure;
-        constructor(public payload: any) {}
+        readonly type = UpdatePasswordActionTypes.Failure;
+        constructor(public readonly payload: any) {}
     }
 
     export class Success implements Action {
-        type = UpdatePasswordActionTypes.Success;
-        constructor(public payload: any) {}
+        readonly type = UpdatePasswordActionTypes.Success;
+        constructor(public readonly payload: any) {}
     }
 }

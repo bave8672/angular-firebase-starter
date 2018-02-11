@@ -1,4 +1,4 @@
-import { FirebaseAppConfig } from 'angularfire2/interfaces';
+import { FirebaseAppConfig } from 'angularfire2';
 
 export interface IEnvironmentConfig {
     production: boolean;

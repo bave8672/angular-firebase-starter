@@ -1,8 +1,8 @@
+import { ActionReducer, compose } from '@ngrx/store';
+
+import { ActionMap, assign, getErrorMessage, hashReducer } from '../../helpers';
 import { useDefaultState } from '../../helpers/useDefaultState';
-import { Action, ActionReducer } from '@ngrx/store';
 import { FormState, FormStates } from './';
-import { assign, getErrorMessage, ActionMap, hashReducer } from '../../helpers';
-import { compose } from '@ngrx/core';
 
 type MaybeCollection<T> = T | T[];
 
@@ -13,7 +13,7 @@ export interface ActionCaseInput<T> {
 
 export interface ActionCase<T> {
     types: string[];
-    func: ActionReducer<T>;
+    func: ActionReducer<T, any>;
 };
 
 export interface FormReducerOptions<T> {
@@ -29,11 +29,11 @@ export interface FormReducerOptions<T> {
     defaultState?: T;
 };
 
-export function FormReducer<T extends FormState>(config: FormReducerOptions<T>): ActionReducer<T> {
+export function FormReducer<T extends FormState>(config: FormReducerOptions<T>): ActionReducer<any, any> {
 
     const actionMap: ActionMap<T> = {};
 
-    function addCase(types: string | string[] | undefined, func: ActionReducer<T>) {
+    function addCase(types: string | string[] | undefined, func: ActionReducer<T, any>) {
         if (types == null) {
             return;
         }

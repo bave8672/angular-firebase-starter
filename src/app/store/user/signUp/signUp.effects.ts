@@ -1,9 +1,10 @@
-import { LogInActions, SignUpActions, SignUpActionTypes } from '../';
-import { StateService } from '../../state-service/state.service';
 import { Injectable } from '@angular/core';
 import { Effect } from '@ngrx/effects';
-import { AngularFire } from 'angularfire2';
+import { AngularFireAuth } from 'angularfire2/auth';
 import { Observable } from 'rxjs/Rx';
+
+import { LogInActions, SignUpActions, SignUpActionTypes } from '../';
+import { StateService } from '../../state-service/state.service';
 
 @Injectable()
 export class SignUpEffects {
@@ -11,15 +12,15 @@ export class SignUpEffects {
     @Effect()
     signUp$ = this.state.actions$.ofType(SignUpActionTypes.SignUp)
         .switchMap((action: SignUpActions.SignUp) =>
-            Observable.from(this.firebase.auth.createUser(action.payload))
-                .switchMap(authState => this.firebase.auth.map(a => {
-                    a.auth.sendEmailVerification();
-                    return new LogInActions.Success(authState);
+            Observable.from(this.auth.auth.createUserWithEmailAndPassword(action.payload.email, action.payload.password))
+                .switchMap(authState => this.auth.authState.map(a => {
+                    a.sendEmailVerification();
+                    return new LogInActions.Success();
                 }))
                 .catch(error => Observable.of(new SignUpActions.Failure(error))));
 
     constructor(
         private state: StateService,
-        private firebase: AngularFire
-    ) {}
+        private auth: AngularFireAuth
+    ) { }
 }

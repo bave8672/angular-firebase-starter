@@ -37,7 +37,7 @@ describe('Log In Reducer', () => {
     });
 
     it('Displays the correct message WHEN success is called', () => {
-        const newState = LogInReducer(oldState, new LogInActions.Success({} as any));
+        const newState = LogInReducer(oldState, new LogInActions.Success());
         expect(newState).toEqual(FormStates.Success(''));
     });
 });

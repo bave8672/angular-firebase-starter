@@ -4,17 +4,17 @@ import { Action } from '@ngrx/store';
 export namespace ResendEmailVerificationActions {
 
     export class Resend implements Action {
-        type = ResendEmailVerificationActionTypes.Resend;
+        readonly type = ResendEmailVerificationActionTypes.Resend;
         payload: void;
     }
 
     export class Failure implements Action {
-        type = ResendEmailVerificationActionTypes.Failure;
-        constructor(public payload: any) {}
+        readonly type = ResendEmailVerificationActionTypes.Failure;
+        constructor(public readonly payload: any) {}
     }
 
     export class Success implements Action {
-        type = ResendEmailVerificationActionTypes.Success;
-        constructor(public payload: any) {}
+        readonly type = ResendEmailVerificationActionTypes.Success;
+        constructor(public readonly payload: any) {}
     }
 }

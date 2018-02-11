@@ -1,8 +1,8 @@
-import { StateService } from '../../store/state-service/state.service';
-import { Input } from '@angular/core/core';
 import { Component } from '@angular/core';
-import { LogInActions} from '../../store';
-import { AuthMethods, AuthProviders } from 'angularfire2/auth';
+import * as firebase from 'firebase/app';
+
+import { LogInActions } from '../../store';
+import { StateService } from '../../store/state-service/state.service';
 
 @Component({
     selector: 'app-google-plus-auth-button',
@@ -19,7 +19,7 @@ export class GooglePlusAuthButtonComponent {
 
     login() {
         this.state.dispatch(new LogInActions.LogIn({
-            provider: AuthProviders.Google,
+            provider: new firebase.auth.GoogleAuthProvider(),
             method: AuthMethods.Popup
         }));
     }

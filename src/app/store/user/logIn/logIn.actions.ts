@@ -1,37 +1,33 @@
-import { AuthConfiguration, EmailPasswordCredentials, FirebaseAuthState } from 'angularfire2/auth';
+import { AuthProvider } from '@firebase/auth-types';
 import { Action } from '@ngrx/store';
-import { LogInActionTypes } from './logIn.actionTypes';
+import { EmailPasswordCredentials, LogInActionTypes } from 'app/store';
 
 export namespace LogInActions {
 
     export class ShowModal implements Action {
-        type = LogInActionTypes.ShowModal;
-        payload: void;
+        readonly type = LogInActionTypes.ShowModal;
     }
 
     export class HideModal implements Action {
-        type = LogInActionTypes.HideModal;
-        payload: void;
+        readonly type = LogInActionTypes.HideModal;
     }
 
     export class LogIn implements Action {
-        type = LogInActionTypes.LogIn;
-        constructor(public payload: AuthConfiguration | EmailPasswordCredentials) {};
+        readonly type = LogInActionTypes.LogIn;
+        constructor(public readonly payload: AuthProvider | EmailPasswordCredentials) {};
     }
 
     export class LogOut implements Action {
-        type = LogInActionTypes.LogOut;
-        payload: void;
+        readonly type = LogInActionTypes.LogOut;
     }
 
     export class Failure implements Action {
-        type = LogInActionTypes.Failure;
-        constructor(public payload: any) {};
+        readonly type = LogInActionTypes.Failure;
+        constructor(public readonly payload: any) {};
     }
 
     export class Success implements Action {
-        type = LogInActionTypes.Success;
-        constructor(public payload: FirebaseAuthState) {};
+        readonly type = LogInActionTypes.Success;
     }
 
     export type LogInAction =

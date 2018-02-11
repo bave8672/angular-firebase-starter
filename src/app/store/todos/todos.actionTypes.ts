@@ -1,7 +1,7 @@
-export const TodosActionTypes = {
-    Edit: '[Todos] Edit',
-    CloseEdit: '[Todos] Close Edit',
-    Update: '[Todos] Update',
-    Remove: '[Todos] Remove',
-    Delete: '[Todos] Delete'
-};
+export namespace TodosActionTypes {
+    export const Edit = '[Todos] Edit';
+    export const CloseEdit = '[Todos] Close Edit';
+    export const Update = '[Todos] Update';
+    export const Remove = '[Todos] Remove';
+    export const Delete = '[Todos] Delete';
+}

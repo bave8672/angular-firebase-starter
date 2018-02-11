@@ -1,16 +1,21 @@
-import { EmailPasswordCredentials } from 'angularfire2/auth';
 import { Action } from '@ngrx/store';
+
 import { SignUpActionTypes } from './signUp.actionTypes';
+
+export interface EmailPasswordCredentials {
+    readonly email: string;
+    readonly password: string;
+}
 
 export namespace SignUpActions {
 
     export class SignUp implements Action {
-        type = SignUpActionTypes.SignUp;
-        constructor(public payload: EmailPasswordCredentials) {}
+        readonly type = SignUpActionTypes.SignUp;
+        constructor(public readonly payload: EmailPasswordCredentials) {}
     }
 
     export class Failure implements Action {
-        type = SignUpActionTypes.Failure;
-        constructor(public payload: any) {}
+        readonly type = SignUpActionTypes.Failure;
+        constructor(public readonly payload: any) {}
     }
 }

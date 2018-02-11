@@ -1,7 +1,8 @@
+import { Action } from '@ngrx/store';
+
 import { assign, assignDeep, getErrorMessage } from '../../helpers';
 import { shouldNotAlterStateOnUnknownAction } from '../testing';
 import { FormReducer, FormReducerOptions, FormState, FormStates } from './';
-import { Action } from '@ngrx/store';
 
 describe('Form reducer factory', () => {
 
@@ -14,7 +15,7 @@ describe('Form reducer factory', () => {
         failure: 'failure',
         extras: [{
             types: 'setExtraProp',
-            func: (state, action) => assign(state, { extraProp: action.payload })
+            func: (state, action) => assign(state, { extraProp: (action as any).payload })
         }],
         successMessage: 'success!'
     };
@@ -74,7 +75,7 @@ describe('Form reducer factory', () => {
     });
 });
 
-function action(type: string, payload = undefined): Action {
+function action(type: string, payload = undefined): Action & { payload: any } {
     return {
         type: type,
         payload: payload

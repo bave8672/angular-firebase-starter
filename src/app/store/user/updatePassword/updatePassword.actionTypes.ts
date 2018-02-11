@@ -1,6 +1,6 @@
-export const UpdatePasswordActionTypes = {
-    ToggleForm: '[UpdatePassword] Toggle Form',
-    Update: '[UpdatePassword] Send Request',
-    Failure: '[UpdatePassword] Failure',
-    Success: '[UpdatePassword] Success',
-};
+export namespace UpdatePasswordActionTypes {
+    export const ToggleForm = '[UpdatePassword] Toggle Form';
+    export const Update = '[UpdatePassword] Send Request';
+    export const Failure = '[UpdatePassword] Failure';
+    export const Success = '[UpdatePassword] Success';
+}
