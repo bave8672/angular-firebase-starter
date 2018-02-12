@@ -12,6 +12,7 @@ import { StateService } from '../../state-service/state.service';
 import { mockStateService } from '../../state-service/state.service.mock';
 import { LogInEffects } from './logIn.effects';
 import { EmailPasswordCredentials } from 'app/store/user/signUp/signUp.actions';
+import { Observable } from 'rxjs/Observable';
 
 describe('log in effects', () => {
     let state: AppState;
@@ -35,6 +36,7 @@ describe('log in effects', () => {
     }
 
     class MockRouter {
+        events = Observable.of();
         navigateByUrl() {}
     }
 

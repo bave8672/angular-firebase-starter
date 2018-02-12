@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import { AuthProvider } from '@firebase/auth-types';
 import { Effect } from '@ngrx/effects';
 import { AngularFireAuth } from 'angularfire2/auth';
@@ -49,6 +49,11 @@ export class LogInEffects {
                 this.router.navigateByUrl('/')
             )
         );
+
+    @Effect()
+    hideOnNavigation$ = this.router.events
+        .filter(e => e instanceof NavigationEnd)
+        .map(() => new LogInActions.HideModal());
 
     constructor(
         private state: StateService,

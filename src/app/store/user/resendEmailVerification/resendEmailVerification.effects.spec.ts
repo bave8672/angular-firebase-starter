@@ -1,4 +1,4 @@
-import { inject, TestBed } from '@angular/core/testing';
+import { inject, TestBed, async } from '@angular/core/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { Action } from '@ngrx/store';
 import { AngularFireAuth } from 'angularfire2/auth';
@@ -26,11 +26,14 @@ describe('Resend Email Verification Effects', () => {
                           sendEmailVerification:
                               MockAngularFireAuth.prototype
                                   .sendEmailVerification,
+                          isAnonymous: false,
                       }
                     : null
             );
         }
-        sendEmailVerification() {}
+        sendEmailVerification() {
+            return Promise.resolve();
+        }
     }
 
     beforeEach(() => {
@@ -49,11 +52,11 @@ describe('Resend Email Verification Effects', () => {
     });
 
     it(`Calls the firebase sendEmailVerification method
-        And returns a success action containing the result`, done => {
+        And returns a success action containing the result`, async(() => {
         spyOn(
             MockAngularFireAuth.prototype,
             'sendEmailVerification'
-        ).and.callFake(() => Observable.of('success'));
+        ).and.callFake(() => Promise.resolve('success'));
 
         mockActions$.next(new ResendEmailVerificationActions.Resend());
 
@@ -65,18 +68,17 @@ describe('Resend Email Verification Effects', () => {
                 expect(result).toEqual(
                     new ResendEmailVerificationActions.Success('success')
                 );
-                done();
             }
         );
-    });
+    }));
 
     it(`Calls the firebase sendEmailVerification method
         AND returns a failure action containing the result
-        WHEN the request fails`, done => {
+        WHEN the request fails`, async(() => {
         spyOn(
             MockAngularFireAuth.prototype,
             'sendEmailVerification'
-        ).and.callFake(() => Observable.throw('failure'));
+        ).and.callFake(() => Promise.reject('failure'));
 
         mockActions$.next(new ResendEmailVerificationActions.Resend());
 
@@ -85,12 +87,11 @@ describe('Resend Email Verification Effects', () => {
                 expect(result).toEqual(
                     new ResendEmailVerificationActions.Failure('failure')
                 );
-                done();
             }
         );
-    });
+    }));
 
-    it(`Does not call WHEN the auth is null`, done => {
+    it(`Does not call WHEN the auth is null`, async(() => {
         isLoggedin = false;
 
         spyOn(MockAngularFireAuth.prototype, 'sendEmailVerification');
@@ -107,7 +108,6 @@ describe('Resend Email Verification Effects', () => {
             expect(
                 MockAngularFireAuth.prototype.sendEmailVerification
             ).not.toHaveBeenCalled();
-            done();
         }, 200);
-    });
+    }));
 });

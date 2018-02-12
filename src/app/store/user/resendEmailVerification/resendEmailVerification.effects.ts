@@ -15,15 +15,23 @@ export class ResendEmailVerificationEffects {
     sendEmailVerification$ = this.state.actions$
         .ofType(ResendEmailVerificationActionTypes.Resend)
         .switchMap(() =>
-            this.auth.authState.filter(a => !a.isAnonymous).switchMap(a =>
-                Observable.from(a.sendEmailVerification())
-                    .map(res => new ResendEmailVerificationActions.Success(res))
-                    .catch(error =>
-                        Observable.of(
-                            new ResendEmailVerificationActions.Failure(error)
+            this.auth.authState
+                .first()
+                .filter(a => !!a && !a.isAnonymous)
+                .switchMap(a =>
+                    Observable.from(a.sendEmailVerification())
+                        .map(
+                            res =>
+                                new ResendEmailVerificationActions.Success(res)
                         )
-                    )
-            )
+                        .catch(error =>
+                            Observable.of(
+                                new ResendEmailVerificationActions.Failure(
+                                    error
+                                )
+                            )
+                        )
+                )
         );
 
     constructor(private state: StateService, private auth: AngularFireAuth) {}
