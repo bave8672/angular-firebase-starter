@@ -1,3 +1,3 @@
-export const GlobalActionTypes = {
-    AppStart: '[Global] App Start'
-};
+export namespace GlobalActionTypes {
+    export const AppStart = '[Global] App Start';
+}

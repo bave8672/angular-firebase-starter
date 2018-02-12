@@ -1,6 +1,6 @@
-export const UpdateEmailActionTypes = {
-    ToggleForm: '[UpdateEmail] Toggle Form',
-    Update: '[UpdateEmail] Update Email',
-    Success: '[UpdateEmail] Succsess',
-    Failure: '[UpdateEmail] Failure'
-};
+export namespace UpdateEmailActionTypes {
+    export const ToggleForm = '[UpdateEmail] Toggle Form';
+    export const Update = '[UpdateEmail] Update Email';
+    export const Success = '[UpdateEmail] Succsess';
+    export const Failure = '[UpdateEmail] Failure';
+}

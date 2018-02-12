@@ -14,7 +14,7 @@ export class StateService {
         public actions$: Actions
     ) {
         if (!environment.production) {
-            this.actions$.subscribe(a => console.info(a.type, a.payload));
+            this.actions$.subscribe(a => console.info(a));
         }
      }
 

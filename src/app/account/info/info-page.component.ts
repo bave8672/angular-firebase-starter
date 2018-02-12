@@ -1,38 +1,27 @@
-import {
-    ResendEmailVerificationActions,
-    UpdateEmailActions,
-    UpdatePasswordActions,
-    UpdatePhotoUrlActions,
-    UserSelectors
-} from '../../store';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { ResendEmailVerificationActions } from 'app/store/user/resendEmailVerification/resendEmailVerification.actions';
+import { UpdateEmailActions } from 'app/store/user/updateEmail/updateEmail.actions';
+import { UpdatePasswordActions } from 'app/store/user/updatePassword/updatePassword.actions';
+import { UpdatePhotoUrlActions } from 'app/store/user/updatePhotoUrl/updatePhotoUrl.actions';
+import { Observable } from 'rxjs/Observable';
+
 import { StateService } from '../../store/state-service/state.service';
 import { UserState } from '../../store/user/user.state';
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { AngularFire } from 'angularfire2';
-import { Observable } from 'rxjs/Rx';
 
 @Component({
     selector: 'app-account-info-page',
     templateUrl: './info-page.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
-
-export class InfoPageComponent implements OnInit {
-
-    user$: Observable<firebase.User>;
-    isPasswordUser$: Observable<boolean>;
-    userState$: Observable<UserState>;
+export class InfoPageComponent {
+    user$ = this.auth.authState;
+    userState$: Observable<UserState> = this.state.select(s => s.user);
 
     constructor(
         protected state: StateService,
-        protected firebase: AngularFire
+        protected auth: AngularFireAuth
     ) {}
-
-    ngOnInit() {
-        this.user$ = this.firebase.auth.map(auth => auth ? auth.auth : null);
-        this.isPasswordUser$ = UserSelectors.IsPasswordUser(this.firebase);
-        this.userState$ = this.state.select(s => s.user);
-    }
 
     toggleUpdatePhotoUrl() {
         this.state.dispatch(new UpdatePhotoUrlActions.ToggleForm());

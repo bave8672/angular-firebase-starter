@@ -1,16 +1,17 @@
-import { IsLoggedInGuard } from '../guards/isLoggedIn.guard';
-import { LogInActions, NavActions } from '../store';
-import { StateService } from '../store/state-service/state.service';
 import { Component } from '@angular/core';
+import { NavActions } from 'app/store/nav/nav.actions';
+import { LogInActions } from 'app/store/user/logIn/logIn.actions';
+
+import { IsLoggedInGuard } from '../guards/isLoggedIn.guard';
+import { StateService } from '../store/state-service/state.service';
 
 declare const window: Window;
 
 @Component({
     selector: 'app-nav',
-    templateUrl: './nav.component.html'
+    templateUrl: './nav.component.html',
 })
 export class NavComponent {
-
     userState$ = this.state.select(s => s.user);
     navState$ = this.state.select(s => s.nav);
     isLoggedIn$ = this.isLoggedInGuard.isLoggedIn();

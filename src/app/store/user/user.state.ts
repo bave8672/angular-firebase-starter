@@ -1,4 +1,4 @@
-import { FormState, FormStates } from '../';
+import { FormState, FormStates } from 'app/store/forms/formState';
 
 export interface UserState {
     logIn: FormState;
@@ -15,5 +15,5 @@ export const DefaultUserState: UserState = {
     updatePhotoUrl: FormStates.Default,
     updatePassword: FormStates.Default,
     updateEmail: FormStates.Default,
-    sendEmailVerification: FormStates.Default
+    sendEmailVerification: FormStates.Default,
 };

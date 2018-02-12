@@ -1,7 +1,8 @@
-import { TodosActions } from '../../store';
-import { StateService } from '../../store/state-service/state.service';
-import { Todo } from '../todo';
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+
+import { StateService } from '../../store/state-service/state.service';
+import { TodosActions } from '../../store/todos/todos.actions';
+import { Todo } from '../todo';
 
 @Component({
     selector: 'app-todo-display',
