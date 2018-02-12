@@ -1,8 +1,8 @@
 import { ErrorHandler, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { StoreModule } from '@ngrx/store';
 import { AngularFireModule } from 'angularfire2';
-import { GlobalReducer } from 'app/store/global/global.reducer';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
 
 import { environment } from '../environments/environment';
 import { AccountModule } from './account/account.module';
@@ -19,9 +19,8 @@ import { NavComponent } from './nav/nav.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { SharedModule } from './shared/shared.module';
 import { SignUpComponent } from './sign-up/sign-up.component';
-import { DefaultAppState } from './store/app.state';
 import { StateService } from './store/state-service/state.service';
-import { CombinedReducers, Effects } from './store/store.config';
+import { StateModule } from './store/state.module';
 import { TodosModule } from './todos/todos.module';
 
 @NgModule({
@@ -39,12 +38,10 @@ import { TodosModule } from './todos/todos.module';
         SharedModule,
         TodosModule,
         RouterModule.forRoot(AppRoutes),
-        StoreModule.forRoot(CombinedReducers, {
-            metaReducers: [GlobalReducer],
-            initialState: DefaultAppState,
-        }),
-        ...Effects(),
         AngularFireModule.initializeApp(environment.firebaseConfig),
+        AngularFireDatabaseModule,
+        AngularFireAuthModule,
+        StateModule,
         AccountModule,
     ],
     providers: [
