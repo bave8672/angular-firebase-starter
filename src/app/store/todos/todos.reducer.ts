@@ -7,23 +7,8 @@ import { assign } from '../../helpers/assign';
 import { TodosActionTypes } from './todos.actionTypes';
 import { DefaultTodosState, TodosState } from './todos.state';
 
-const closeEdit = (state: TodosState, action: Action) =>
+const closeEdit = (state: TodosState) =>
     assign(state, { editing: '' });
-
-export const _TodosReducer = compose<
-    ActionMap<TodosState>,
-    ActionReducer<TodosState>,
-    ActionReducer<TodosState>
->(useDefaultState(DefaultTodosState), hashReducer)({
-    [TodosActionTypes.Edit]: (state, action) => {
-        const uid = (action as TodosActions.Edit).payload;
-        return assign(state, { editing: uid });
-    },
-
-    [TodosActionTypes.Update]: closeEdit,
-
-    [TodosActionTypes.CloseEdit]: closeEdit,
-});
 
 export function TodosReducer(
     state: TodosState,
@@ -31,10 +16,11 @@ export function TodosReducer(
 ): TodosState {
     switch (action.type) {
         case TodosActionTypes.Edit:
-            return {
-                ...state,
-                editing: action.payload,
-            };
+            return { ...state, editing: action.payload };
+
+        case TodosActionTypes.CloseEdit:
+        case TodosActionTypes.Update:
+            return closeEdit(state);
 
         default:
             return state;

@@ -1,94 +1,106 @@
-// import { AuthConfiguration, AuthMethods, AuthProviders, EmailPasswordCredentials } from 'angularfire2/auth';
-// import { go } from '@ngrx/router-store';
-// import { assignDeep } from '../../../helpers';
-// import { DefaultAppState } from '../../app.state';
-// import { StateService } from '../../state-service/state.service';
-// import { mockStateService } from '../../state-service/state.service.mock';
-// import { LogInActions } from './';
-// import { LogInEffects } from './logIn.effects';
-// import { inject, TestBed } from '@angular/core/testing';
-// import { EffectsRunner, EffectsTestingModule } from '@ngrx/effects/testing';
-// import { AngularFire } from 'angularfire2';
+import { TestBed } from '@angular/core/testing';
+import { Router } from '@angular/router';
+import { provideMockActions } from '@ngrx/effects/testing';
+import { Action } from '@ngrx/store';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { LogInActions } from 'app/store/user/logIn/logIn.actions';
+import { ReplaySubject } from 'rxjs/ReplaySubject';
 
-// describe('log in effects', () => {
+import { assignDeep } from '../../../helpers';
+import { AppState, DefaultAppState } from '../../app.state';
+import { StateService } from '../../state-service/state.service';
+import { mockStateService } from '../../state-service/state.service.mock';
+import { LogInEffects } from './logIn.effects';
+import { EmailPasswordCredentials } from 'app/store/user/signUp/signUp.actions';
 
-//     let state = assignDeep(DefaultAppState);
+describe('log in effects', () => {
+    let state: AppState;
+    const mockActions$ = new ReplaySubject<Action>(1);
+    let logInEffects: LogInEffects;
 
-//     class MockAngularFire {
-//         get auth() {
-//             return {
-//                 login: MockAngularFire.prototype.login,
-//                 logout: MockAngularFire.prototype.logout
-//             };
-//         }
-//         login() {
-//             return Promise.resolve('logged in');
-//         }
-//         logout() {
-//                 return Promise.resolve('logged out');
-//         }
-//     }
+    class MockAngularFireAuth {
+        get auth() {
+            return {
+                signInWithEmailAndPassword:
+                    MockAngularFireAuth.prototype.signInWithEmailAndPassword,
+                signOut: MockAngularFireAuth.prototype.signOut,
+            };
+        }
+        signInWithEmailAndPassword() {
+            return Promise.resolve('logged in');
+        }
+        signOut() {
+            return Promise.resolve('logged out');
+        }
+    }
 
-//     beforeEach(() => TestBed.configureTestingModule({
-//         imports: [
-//             EffectsTestingModule
-//         ],
-//         providers: [
-//             LogInEffects,
-//             { provide: StateService, useClass: mockStateService(state) },
-//             { provide: AngularFire, useClass: MockAngularFire }
-//         ]
-//     }));
+    class MockRouter {
+        navigateByUrl() {}
+    }
 
-//     let runner: EffectsRunner;
-//     let logInEffects: LogInEffects;
+    beforeEach(() => {
+        state = assignDeep(DefaultAppState);
+        TestBed.configureTestingModule({
+            providers: [
+                LogInEffects,
+                provideMockActions(() => mockActions$),
+                {
+                    provide: StateService,
+                    useClass: mockStateService(state),
+                },
+                { provide: AngularFireAuth, useClass: MockAngularFireAuth },
+                { provide: Router, useClass: MockRouter },
+            ],
+        });
 
-//     beforeEach(inject([
-//             EffectsRunner, LogInEffects
-//         ],
-//         (_runner, _logInEffects) => {
-//             runner = _runner;
-//             logInEffects = _logInEffects;
-//             state = assignDeep(DefaultAppState);
-//         }));
+        logInEffects = TestBed.get(LogInEffects);
+    });
 
-//     it('Redirects To Profile On Login Success', (done) => {
-//         runner.queue(new LogInActions.Success({} as any));
-//         logInEffects.redirectToProfileOnLoginSuccess$.subscribe(result => {
-//             expect(result).toEqual(go('/account/profile'));
-//             done();
-//         });
-//     });
+    it('Redirects To Profile On Login Success', done => {
+        spyOn(MockRouter.prototype, 'navigateByUrl');
+        mockActions$.next(new LogInActions.Success());
+        logInEffects.redirectToProfileOnLoginSuccess$.subscribe(result => {
+            expect(MockRouter.prototype.navigateByUrl).toHaveBeenCalledWith(
+                '/account/profile'
+            );
+            done();
+        });
+    });
 
-//     it('Redirects to / on logout', (done) => {
-//         runner.queue(new LogInActions.LogOut());
-//         logInEffects.logOut$.subscribe(result => {
-//             expect(result).toEqual(go('/'));
-//             done();
-//         });
-//     });
+    it('Redirects to / on logout', done => {
+        spyOn(MockRouter.prototype, 'navigateByUrl');
+        mockActions$.next(new LogInActions.LogOut());
+        logInEffects.logOut$.subscribe(result => {
+            expect(MockRouter.prototype.navigateByUrl).toHaveBeenCalledWith(
+                '/'
+            );
+            done();
+        });
+    });
 
-//     it(`Logs in to firebase using the EmailPasswordCredentials signature
-//         WHEN the action payload mtches that signature`, (done) => {
+    it(`Logs in to firebase using the EmailPasswordCredentials signature
+        WHEN the action payload mtches that signature`, done => {
+        spyOn(
+            MockAngularFireAuth.prototype,
+            'signInWithEmailAndPassword'
+        ).and.callThrough();
 
-//         spyOn(MockAngularFire.prototype, 'login').and.callThrough();
+        const emailPassword: EmailPasswordCredentials = {
+            email: 'email@example.com',
+            password: 'password123',
+        };
 
-//         const emailPassword: EmailPasswordCredentials = {
-//             email: 'email@example.com',
-//             password: 'password123'
-//         };
-//         const passwordConfig: AuthConfiguration = {
-//             provider: AuthProviders.Password,
-//             method: AuthMethods.Password
-//         };
+        mockActions$.next(new LogInActions.LogIn(emailPassword));
 
-//         runner.queue(new LogInActions.LogIn(emailPassword));
-
-//         logInEffects.logIn$.subscribe(result => {
-//             expect(MockAngularFire.prototype.login).toHaveBeenCalledTimes(1);
-//             expect(MockAngularFire.prototype.login).toHaveBeenCalledWith(emailPassword, passwordConfig);
-//             expect(result).toEqual(new LogInActions.Success('logged in' as any));
-//             done();
-//         });
-//     });
-// });
+        logInEffects.logIn$.subscribe(result => {
+            expect(
+                MockAngularFireAuth.prototype.signInWithEmailAndPassword
+            ).toHaveBeenCalledTimes(1);
+            expect(
+                MockAngularFireAuth.prototype.signInWithEmailAndPassword
+            ).toHaveBeenCalledWith(emailPassword.email, emailPassword.password);
+            expect(result).toEqual(new LogInActions.Success());
+            done();
+        });
+    });
+});

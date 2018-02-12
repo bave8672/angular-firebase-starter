@@ -1,95 +1,113 @@
-// import { inject, TestBed } from '@angular/core/testing';
-// import { provideMockActions } from '@ngrx/effects/testing';
-// import { Observable } from 'rxjs/Observable';
+import { inject, TestBed } from '@angular/core/testing';
+import { provideMockActions } from '@ngrx/effects/testing';
+import { Action } from '@ngrx/store';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { ResendEmailVerificationActions } from 'app/store/user/resendEmailVerification/resendEmailVerification.actions';
+import { ResendEmailVerificationEffects } from 'app/store/user/resendEmailVerification/resendEmailVerification.effects';
+import { Observable } from 'rxjs/Observable';
+import { ReplaySubject } from 'rxjs/ReplaySubject';
 
-// import { assignDeep } from '../../../helpers';
-// import { DefaultAppState } from '../../app.state';
-// import { StateService } from '../../state-service/state.service';
-// import { mockStateService } from '../../state-service/state.service.mock';
-// import { ResendEmailVerificationActions, ResendEmailVerificationEffects } from './';
+import { assignDeep } from '../../../helpers';
+import { DefaultAppState } from '../../app.state';
+import { StateService } from '../../state-service/state.service';
+import { mockStateService } from '../../state-service/state.service.mock';
 
-// describe('Resend Email Verification Effects', () => {
+describe('Resend Email Verification Effects', () => {
+    let resendEmailVerificationEffects: ResendEmailVerificationEffects;
+    let state = assignDeep(DefaultAppState);
+    const mockActions$ = new ReplaySubject<Action>(1);
+    let isLoggedin = true;
 
-//     let state = assignDeep(DefaultAppState);
+    class MockAngularFireAuth {
+        get authState() {
+            return Observable.of(
+                isLoggedin
+                    ? {
+                          sendEmailVerification:
+                              MockAngularFireAuth.prototype
+                                  .sendEmailVerification,
+                      }
+                    : null
+            );
+        }
+        sendEmailVerification() {}
+    }
 
-//     let isLoggedin = true;
+    beforeEach(() => {
+        state = assignDeep(DefaultAppState);
+        TestBed.configureTestingModule({
+            providers: [
+                ResendEmailVerificationEffects,
+                provideMockActions(() => mockActions$),
+                { provide: StateService, useClass: mockStateService(state) },
+                { provide: AngularFireAuth, useClass: MockAngularFireAuth },
+            ],
+        });
+        resendEmailVerificationEffects = TestBed.get(
+            ResendEmailVerificationEffects
+        );
+    });
 
-//     class MockAngularFire {
-//         get auth() {
-//             return Observable.of(isLoggedin ? {
-//                 auth: {
-//                     sendEmailVerification: MockAngularFire.prototype.sendEmailVerification
-//                 }
-//             } : null);
-//         }
-//         sendEmailVerification() {}
-//     }
+    it(`Calls the firebase sendEmailVerification method
+        And returns a success action containing the result`, done => {
+        spyOn(
+            MockAngularFireAuth.prototype,
+            'sendEmailVerification'
+        ).and.callFake(() => Observable.of('success'));
 
-//     beforeEach(() => TestBed.configureTestingModule({
-//         imports: [
-//             EffectsTestingModule
-//         ],
-//         providers: [
-//             ResendEmailVerificationEffects,
-//             { provide: StateService, useClass: mockStateService(state) },
-//             { provide: AngularFire, useClass: MockAngularFire }
-//         ]
-//     }));
+        mockActions$.next(new ResendEmailVerificationActions.Resend());
 
-//     let effects: ResendEmailVerificationEffects;
+        resendEmailVerificationEffects.sendEmailVerification$.subscribe(
+            result => {
+                expect(
+                    MockAngularFireAuth.prototype.sendEmailVerification
+                ).toHaveBeenCalledTimes(1);
+                expect(result).toEqual(
+                    new ResendEmailVerificationActions.Success('success')
+                );
+                done();
+            }
+        );
+    });
 
-//     beforeEach(inject([
-//             ResendEmailVerificationEffects
-//         ],
-//         (_runner, _effects) => {
-//             effects = _effects;
-//             state = assignDeep(DefaultAppState);
-//         }));
+    it(`Calls the firebase sendEmailVerification method
+        AND returns a failure action containing the result
+        WHEN the request fails`, done => {
+        spyOn(
+            MockAngularFireAuth.prototype,
+            'sendEmailVerification'
+        ).and.callFake(() => Observable.throw('failure'));
 
-//     it(`Calls the firebase sendEmailVerification method
-//         And returns a success action containing the result`, (done) => {
+        mockActions$.next(new ResendEmailVerificationActions.Resend());
 
-//         spyOn(MockAngularFire.prototype, 'sendEmailVerification')
-//             .and.callFake(() => Observable.of('success'));
+        resendEmailVerificationEffects.sendEmailVerification$.subscribe(
+            result => {
+                expect(result).toEqual(
+                    new ResendEmailVerificationActions.Failure('failure')
+                );
+                done();
+            }
+        );
+    });
 
-//         runner.queue(new ResendEmailVerificationActions.Resend());
+    it(`Does not call WHEN the auth is null`, done => {
+        isLoggedin = false;
 
-//         effects.sendEmailVerification$.subscribe(result => {
-//             expect(MockAngularFire.prototype.sendEmailVerification).toHaveBeenCalledTimes(1);
-//             expect(result).toEqual(new ResendEmailVerificationActions.Success('success'));
-//             done();
-//         });
-//     });
+        spyOn(MockAngularFireAuth.prototype, 'sendEmailVerification');
 
-//     it(`Calls the firebase sendEmailVerification method
-//         AND returns a failure action containing the result
-//         WHEN the request fails`, (done) => {
+        mockActions$.next(new ResendEmailVerificationActions.Resend());
 
-//         spyOn(MockAngularFire.prototype, 'sendEmailVerification')
-//             .and.callFake(() => Observable.throw('failure'));
+        resendEmailVerificationEffects.sendEmailVerification$.subscribe(
+            result => {
+                throw new Error('effect should not have an output.');
+            }
+        );
 
-//         runner.queue(new ResendEmailVerificationActions.Resend());
-
-//         effects.sendEmailVerification$.subscribe(result => {
-//             expect(result).toEqual(new ResendEmailVerificationActions.Failure('failure'));
-//             done();
-//         });
-//     });
-
-//     it(`Does not call WHEN the auth is null`, (done) => {
-//         isLoggedin = false;
-
-//         spyOn(MockAngularFire.prototype, 'sendEmailVerification');
-
-//         runner.queue(new ResendEmailVerificationActions.Resend());
-
-//         effects.sendEmailVerification$.subscribe(result => {
-//             throw new Error('effect should not have an output.');
-//         });
-
-//         setTimeout(() => {
-//             expect(MockAngularFire.prototype.sendEmailVerification).not.toHaveBeenCalled();
-//             done();
-//         }, 200);
-//     });
-// });
+        setTimeout(() => {
+            expect(
+                MockAngularFireAuth.prototype.sendEmailVerification
+            ).not.toHaveBeenCalled();
+            done();
+        }, 200);
+    });
+});
