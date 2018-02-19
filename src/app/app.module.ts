@@ -12,12 +12,11 @@ import { FooterComponent } from './footer/footer.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { LogInComponent } from './log-in/log-in.component';
 import { NavComponent } from './nav/nav.component';
-import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { SharedModule } from './shared/shared.module';
-import { SignUpComponent } from './sign-up/sign-up.component';
 import { Store } from '@ngrx/store';
 import { StateModule } from './store/state.module';
 import { AppRoutingModule } from 'app/routing/appRouting.module';
+import { BrowserModule } from '@angular/platform-browser';
 
 @NgModule({
     declarations: [
@@ -25,11 +24,10 @@ import { AppRoutingModule } from 'app/routing/appRouting.module';
         FooterComponent,
         LandingPageComponent,
         NavComponent,
-        SignUpComponent,
         LogInComponent,
-        ResetPasswordComponent,
     ],
     imports: [
+        BrowserModule,
         SharedModule,
         AppRoutingModule,
         AngularFireModule.initializeApp(environment.firebaseConfig),

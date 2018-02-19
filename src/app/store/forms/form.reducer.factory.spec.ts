@@ -2,7 +2,7 @@ import { Action } from '@ngrx/store';
 
 import { assign, assignDeep, getErrorMessage } from '../../helpers';
 import { shouldNotAlterStateOnUnknownAction } from '../testing';
-import { FormReducerOptions, FormReducer } from 'app/store/forms/form.reducer.factory';
+import { FormReducerOptions, formReducer } from 'app/store/forms/form.reducer.factory';
 import { FormState, FormStates } from 'app/store/forms/formState';
 
 describe('Form reducer factory', () => {
@@ -25,7 +25,7 @@ describe('Form reducer factory', () => {
         extraProp: any;
     }
 
-    const reducer = FormReducer<ExtendedFormState>(config);
+    const reducer = formReducer<ExtendedFormState>(config);
 
     let oldState: ExtendedFormState;
 

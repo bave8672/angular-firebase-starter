@@ -10,7 +10,6 @@ import { assignDeep } from '../../../helpers';
 import { AppState, DefaultAppState } from '../../app.state';
 import { Store } from '@ngrx/store';
 import { LogInEffects } from './logIn.effects';
-import { EmailPasswordCredentials } from 'app/store/user/signUp/signUp.actions';
 import { Observable } from 'rxjs/Observable';
 
 describe('log in effects', () => {
@@ -90,7 +89,7 @@ describe('log in effects', () => {
             'signInWithEmailAndPassword'
         ).and.callThrough();
 
-        const emailPassword: EmailPasswordCredentials = {
+        const emailPassword = {
             email: 'email@example.com',
             password: 'password123',
         };

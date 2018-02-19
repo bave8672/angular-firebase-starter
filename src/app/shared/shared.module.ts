@@ -7,7 +7,6 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { IsLoggedInGuard } from 'app/shared/guards/isLoggedIn.guard';
 import { IsNotLoggedInGuard } from 'app/shared/guards/isNotLoggedIn.guard';
@@ -15,7 +14,6 @@ import { IsNotLoggedInGuard } from 'app/shared/guards/isNotLoggedIn.guard';
 @NgModule({
     imports: [
         CommonModule,
-        BrowserModule,
         FormsModule,
         ReactiveFormsModule,
         HttpModule,
@@ -30,7 +28,6 @@ import { IsNotLoggedInGuard } from 'app/shared/guards/isNotLoggedIn.guard';
     ],
     exports: [
         CommonModule,
-        BrowserModule,
         FormsModule,
         ReactiveFormsModule,
         HttpModule,

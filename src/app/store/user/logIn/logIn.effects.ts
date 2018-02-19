@@ -8,7 +8,6 @@ import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 import { LogInActions } from 'app/store/user/logIn/logIn.actions';
 import { LogInActionTypes } from 'app/store/user/logIn/logIn.actionTypes';
-import { EmailPasswordCredentials } from 'app/store/user/signUp/signUp.actions';
 import { AppState } from 'app/store/app.state';
 
 @Injectable()
@@ -17,8 +16,8 @@ export class LogInEffects {
     logIn$: Observable<
         LogInActions.Failure | LogInActions.Success
     > = this.actions$
-        .ofType(LogInActionTypes.LogIn)
-        .switchMap((action: LogInActions.LogIn) => {
+        .ofType<LogInActions.LogIn>(LogInActionTypes.LogIn)
+        .switchMap(action => {
             let request;
 
             if ((action.payload as any).providerId) {
@@ -27,8 +26,8 @@ export class LogInEffects {
                 );
             } else {
                 request = this.auth.auth.signInWithEmailAndPassword(
-                    (action.payload as EmailPasswordCredentials).email,
-                    (action.payload as EmailPasswordCredentials).password
+                    (action.payload as any).email,
+                    (action.payload as any).password
                 );
             }
             return Observable.from(request)

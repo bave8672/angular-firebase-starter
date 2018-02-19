@@ -1,7 +1,6 @@
 import { AuthProvider } from '@firebase/auth-types';
 import { Action } from '@ngrx/store';
 import { LogInActionTypes } from 'app/store/user/logIn/logIn.actionTypes';
-import { EmailPasswordCredentials } from 'app/store/user/signUp/signUp.actions';
 
 export namespace LogInActions {
     export class ShowModal implements Action {
@@ -15,7 +14,9 @@ export namespace LogInActions {
     export class LogIn implements Action {
         readonly type = LogInActionTypes.LogIn;
         constructor(
-            public readonly payload: AuthProvider | EmailPasswordCredentials
+            public readonly payload:
+                | AuthProvider
+                | { email: string; password: string }
         ) {}
     }
 

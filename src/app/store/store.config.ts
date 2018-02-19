@@ -6,8 +6,6 @@ import { LogInEffects } from './user/logIn/logIn.effects';
 import { LogInReducer } from './user/logIn/logIn.reducer';
 import { ResendEmailVerificationEffects } from './user/resendEmailVerification/resendEmailVerification.effects';
 import { ResendEmailVerificationReducer } from './user/resendEmailVerification/resendEmailVerification.reducer';
-import { SignUpEffects } from './user/signUp/signUp.effects';
-import { SignUpReducer } from './user/signUp/signUp.reducer';
 import { UpdateEmailEffects } from './user/updateEmail/updateEmail.effects';
 import { UpdateEmailReducer } from './user/updateEmail/updateEmail.reducer';
 import { UpdatePasswordEffects } from './user/updatePassword/updatePassword.effects';
@@ -37,7 +35,6 @@ export function combineTypedReducers<T>(
 export const combinedReducers: ActionReducerMap<AppState> = {
     user: combineTypedReducers<UserState>({
         logIn: LogInReducer,
-        signUp: SignUpReducer,
         updateEmail: UpdateEmailReducer,
         updatePassword: UpdatePasswordReducer,
         updatePhotoUrl: UpdatePhotoUrlReducer,
@@ -49,7 +46,6 @@ export const combinedReducers: ActionReducerMap<AppState> = {
 export function effects() {
     return [
         LogInEffects,
-        SignUpEffects,
         UpdatePhotoUrlEffects,
         UpdatePasswordEffects,
         UpdateEmailEffects,

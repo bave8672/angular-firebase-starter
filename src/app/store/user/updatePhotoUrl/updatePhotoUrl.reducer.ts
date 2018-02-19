@@ -1,9 +1,9 @@
-import { FormReducer } from 'app/store/forms/form.reducer.factory';
+import { formReducer } from 'app/store/forms/form.reducer.factory';
 
 import { Messages } from '../../../resources/messages';
 import { UpdatePhotoUrlActionTypes } from './updatePhotoUrl.actionTypes';
 
-export const UpdatePhotoUrlReducer = FormReducer({
+export const UpdatePhotoUrlReducer = formReducer({
     toggle: UpdatePhotoUrlActionTypes.ToggleForm,
     request: UpdatePhotoUrlActionTypes.Update,
     failure: UpdatePhotoUrlActionTypes.Failure,

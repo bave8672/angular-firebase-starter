@@ -2,7 +2,6 @@ import { FormState, FormStates } from 'app/store/forms/formState';
 
 export interface UserState {
     logIn: FormState;
-    signUp: FormState;
     updatePhotoUrl: FormState;
     updatePassword: FormState;
     updateEmail: FormState;
@@ -11,7 +10,6 @@ export interface UserState {
 
 export const DefaultUserState: UserState = {
     logIn: FormStates.Default,
-    signUp: FormStates.Default,
     updatePhotoUrl: FormStates.Default,
     updatePassword: FormStates.Default,
     updateEmail: FormStates.Default,
