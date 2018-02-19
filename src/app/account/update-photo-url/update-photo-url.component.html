@@ -1,14 +1,17 @@
-<form novalidate *ngIf="(formState$ | async).showForm" [formGroup]="formGroup">
+<form novalidate
+      *ngIf="(formState$ | async).showForm"
+      [formGroup]="formGroup">
     <div>
         <app-account-profile-picture [src]="newPhotoUrl"></app-account-profile-picture>
     </div>
     <div class="form-group">
         <label for="newPhotoUrl">Photo URL</label>
-        <input type="text" 
-               class="form-control" 
-               [formControlName]="controlNames.newPhotoUrl"
-               placeholder="e.g https://www.google.com.au/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png" 
-               [(ngModel)]="newPhotoUrl" />
+        <input type="text"
+               class="form-control"
+               [formControl]="formGroup.controls.newPhotoUrl"
+               placeholder="e.g https://www.google.com.au/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png" />
     </div>
-    <app-submit-button [requesting]="(formState$ | async).isRequesting" [disabled]="!formGroup.valid" (click)="onSubmitPhoto()">Save Profile Picture</app-submit-button>
+    <app-submit-button [requesting]="(formState$ | async).isRequesting"
+                       [disabled]="!formGroup.valid"
+                       (click)="onSubmitPhoto()">Save Profile Picture</app-submit-button>
 </form>

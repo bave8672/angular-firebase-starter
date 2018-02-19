@@ -2,8 +2,6 @@ import { ActionReducer, combineReducers } from '@ngrx/store';
 import { UserState } from 'app/store/user/user.state';
 
 import { NavReducer } from './nav/nav.reducer';
-import { TodosEffects } from './todos/todos.effects';
-import { TodosReducer } from './todos/todos.reducer';
 import { LogInEffects } from './user/logIn/logIn.effects';
 import { LogInReducer } from './user/logIn/logIn.reducer';
 import { ResendEmailVerificationEffects } from './user/resendEmailVerification/resendEmailVerification.effects';
@@ -16,6 +14,8 @@ import { UpdatePasswordEffects } from './user/updatePassword/updatePassword.effe
 import { UpdatePasswordReducer } from './user/updatePassword/updatePassword.reducer';
 import { UpdatePhotoUrlEffects } from './user/updatePhotoUrl/updatePhotoUrl.effects';
 import { UpdatePhotoUrlReducer } from './user/updatePhotoUrl/updatePhotoUrl.reducer';
+import { ActionReducerMap } from '@ngrx/store/src/models';
+import { AppState } from 'app/store/app.state';
 
 /**
  * Transforms reducers into composable meta-reducers
@@ -34,7 +34,7 @@ export function combineTypedReducers<T>(
     return combineReducers(reducers);
 }
 
-export const CombinedReducers = {
+export const combinedReducers: ActionReducerMap<AppState> = {
     user: combineTypedReducers<UserState>({
         logIn: LogInReducer,
         signUp: SignUpReducer,
@@ -44,10 +44,9 @@ export const CombinedReducers = {
         sendEmailVerification: ResendEmailVerificationReducer,
     }),
     nav: NavReducer,
-    todos: TodosReducer,
 };
 
-export function Effects() {
+export function effects() {
     return [
         LogInEffects,
         SignUpEffects,
@@ -55,6 +54,5 @@ export function Effects() {
         UpdatePasswordEffects,
         UpdateEmailEffects,
         ResendEmailVerificationEffects,
-        TodosEffects,
     ];
 }

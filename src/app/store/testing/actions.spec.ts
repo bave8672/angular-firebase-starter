@@ -2,7 +2,7 @@ import { GlobalActions } from 'app/store/global/global.actions';
 import { LogInActions } from 'app/store/user/logIn/logIn.actions';
 import { NavActions } from 'app/store/nav/nav.actions';
 import { SignUpActions } from 'app/store/user/signUp/signUp.actions';
-import { TodosActions } from 'app/store/todos/todos.actions';
+import { TodosActions } from 'app/account/state/todos/todos.actions';
 
 describe('Actions', () => {
     it('actions have unique types', () => {

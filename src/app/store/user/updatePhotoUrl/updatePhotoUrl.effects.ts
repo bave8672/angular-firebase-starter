@@ -3,15 +3,17 @@ import { Effect } from '@ngrx/effects';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Observable } from 'rxjs/Observable';
 
-import { StateService } from '../../state-service/state.service';
+import { Store } from '@ngrx/store';
 import { UpdatePhotoUrlActionTypes } from 'app/store/user/updatePhotoUrl/updatePhotoUrl.actionTypes';
 import { UpdatePhotoUrlActions } from 'app/store/user/updatePhotoUrl/updatePhotoUrl.actions';
+import { AccountAppState } from 'app/account/state/store.config';
+import { Actions } from '@ngrx/effects';
 
 @Injectable()
 export class UpdatePhotoUrlEffects {
 
     @Effect()
-    updatePhotoUrl$ = this.state.actions$.ofType(UpdatePhotoUrlActionTypes.Update)
+    updatePhotoUrl$ = this.actions$.ofType(UpdatePhotoUrlActionTypes.Update)
         .map((action: UpdatePhotoUrlActions.Update) => action.payload)
         .switchMap(url => this.auth.authState
             .switchMap(authState => {
@@ -24,7 +26,7 @@ export class UpdatePhotoUrlEffects {
             .catch(error => Observable.of(new UpdatePhotoUrlActions.Failure(error))));
 
     constructor(
-        private state: StateService,
+        private actions$: Actions,
         private auth: AngularFireAuth
     ) { }
 }

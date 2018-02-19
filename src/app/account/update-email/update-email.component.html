@@ -1,8 +1,8 @@
 <form novalidate [formGroup]="formGroup" (submit)="updateEmail()">
     <div class="form-group">
         <label for="email">New Email</label>
-        <input type="text" class="form-control" [formControlName]="controlNames.newEmail" placeholder="New email">
-        <app-validation-message [control]="formGroup.controls[controlNames.newEmail]"></app-validation-message>
+        <input type="text" class="form-control" [formControl]="formGroup. controls.newEmail" placeholder="New email">
+        <app-validation-message [control]="formGroup.controls.newEmail"></app-validation-message>
     </div>
     <app-validation-message [control]="formGroup"></app-validation-message>
     <app-submit-button extraClasses="btn-lg btn-block" *ngIf="!(formState$ | async).successMessage" [requesting]="(formState$ | async).isRequesting">

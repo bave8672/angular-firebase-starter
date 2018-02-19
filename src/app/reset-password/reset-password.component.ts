@@ -1,33 +1,24 @@
-import { FormComponent } from '../helpers/form.component';
-import { StateService } from '../store/state-service/state.service';
+import { Store } from '@ngrx/store';
 import { emailValid } from '../validators';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { AccountAppState } from 'app/account/state/store.config';
+import { TypedFormGroup } from 'app/shared/forms/typedFormGroup';
+import { TypedFormControl } from 'app/shared/forms/typedFormControl';
 
 @Component({
     selector: 'app-password-reset',
     templateUrl: './reset-password.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
-
-export class ResetPasswordComponent extends FormComponent {
-
-    controlNames = {
-        email: 'email'
-    };
-
-    formGroup = this.formBuilder.group({
-        [this.controlNames.email]: ['', emailValid]
+export class ResetPasswordComponent {
+    formGroup = new TypedFormGroup({
+        email: new TypedFormControl(''),
     });
 
     // formState = this.state.select(s => s.user.resetPassword);
 
-    constructor(
-        private formBuilder: FormBuilder,
-        private state: StateService
-    ) {
-        super();
-    }
+    constructor() /* private state: Store<AccountAppState> */
+    {}
 
     resetPassword() {
         if (this.formGroup.valid) {

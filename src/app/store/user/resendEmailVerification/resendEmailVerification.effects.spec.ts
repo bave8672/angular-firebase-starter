@@ -9,8 +9,7 @@ import { ReplaySubject } from 'rxjs/ReplaySubject';
 
 import { assignDeep } from '../../../helpers';
 import { DefaultAppState } from '../../app.state';
-import { StateService } from '../../state-service/state.service';
-import { mockStateService } from '../../state-service/state.service.mock';
+import { Store } from '@ngrx/store';
 
 describe('Resend Email Verification Effects', () => {
     let resendEmailVerificationEffects: ResendEmailVerificationEffects;
@@ -36,13 +35,15 @@ describe('Resend Email Verification Effects', () => {
         }
     }
 
+    class MockStore {}
+
     beforeEach(() => {
         state = assignDeep(DefaultAppState);
         TestBed.configureTestingModule({
             providers: [
                 ResendEmailVerificationEffects,
                 provideMockActions(() => mockActions$),
-                { provide: StateService, useClass: mockStateService(state) },
+                { provide: Store, useClass: MockStore },
                 { provide: AngularFireAuth, useClass: MockAngularFireAuth },
             ],
         });

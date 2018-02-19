@@ -6,8 +6,9 @@ import { UpdatePasswordActions } from 'app/store/user/updatePassword/updatePassw
 import { UpdatePhotoUrlActions } from 'app/store/user/updatePhotoUrl/updatePhotoUrl.actions';
 import { Observable } from 'rxjs/Observable';
 
-import { StateService } from '../../store/state-service/state.service';
+import { Store } from '@ngrx/store';
 import { UserState } from '../../store/user/user.state';
+import { AccountAppState } from 'app/account/state/store.config';
 
 @Component({
     selector: 'app-account-info-page',
@@ -19,7 +20,7 @@ export class InfoPageComponent {
     userState$: Observable<UserState> = this.state.select(s => s.user);
 
     constructor(
-        protected state: StateService,
+        protected state: Store<AccountAppState>,
         protected auth: AngularFireAuth
     ) {}
 

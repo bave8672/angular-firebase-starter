@@ -8,8 +8,7 @@ import { ReplaySubject } from 'rxjs/ReplaySubject';
 
 import { assignDeep } from '../../../helpers';
 import { AppState, DefaultAppState } from '../../app.state';
-import { StateService } from '../../state-service/state.service';
-import { mockStateService } from '../../state-service/state.service.mock';
+import { Store } from '@ngrx/store';
 import { LogInEffects } from './logIn.effects';
 import { EmailPasswordCredentials } from 'app/store/user/signUp/signUp.actions';
 import { Observable } from 'rxjs/Observable';
@@ -40,6 +39,10 @@ describe('log in effects', () => {
         navigateByUrl() {}
     }
 
+    class MockStore {
+
+    }
+
     beforeEach(() => {
         state = assignDeep(DefaultAppState);
         TestBed.configureTestingModule({
@@ -47,8 +50,8 @@ describe('log in effects', () => {
                 LogInEffects,
                 provideMockActions(() => mockActions$),
                 {
-                    provide: StateService,
-                    useClass: mockStateService(state),
+                    provide: Store,
+                    useClass: MockStore,
                 },
                 { provide: AngularFireAuth, useClass: MockAngularFireAuth },
                 { provide: Router, useClass: MockRouter },

@@ -1,5 +1,5 @@
-import { TodosService } from '../../todos/todos.service';
 import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
+import { TodosService } from 'app/account/todos/todos.service';
 
 @Component({
     templateUrl: './profile-page.component.html',

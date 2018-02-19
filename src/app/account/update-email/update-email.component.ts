@@ -1,38 +1,29 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
 import { UpdateEmailActions } from 'app/store/user/updateEmail/updateEmail.actions';
 
-import { FormComponent } from '../../helpers/form.component';
-import { StateService } from '../../store/state-service/state.service';
+import { Store } from '@ngrx/store';
 import { emailValid } from '../../validators';
+import { AccountAppState } from 'app/account/state/store.config';
+import { TypedFormGroup } from 'app/shared/forms/typedFormGroup';
+import { TypedFormControl } from 'app/shared/forms/typedFormControl';
 
 @Component({
     selector: 'app-account-update-email',
     templateUrl: './update-email.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class UpdateEmailComponent extends FormComponent implements OnInit {
-    controlNames = {
-        newEmail: 'newEmail',
-    };
+export class UpdateEmailComponent {
+    formGroup = new TypedFormGroup({
+        newEmail: new TypedFormControl('', emailValid),
+    });
 
     formState$ = this.state.select(s => s.user.updateEmail);
 
-    constructor(private state: StateService, private formBuilder: FormBuilder) {
-        super();
-    }
-
-    ngOnInit() {
-        this.formGroup = this.formBuilder.group({
-            [this.controlNames.newEmail]: ['', emailValid],
-        });
-    }
+    constructor(private state: Store<AccountAppState>) {}
 
     updateEmail() {
         this.state.dispatch(
-            new UpdateEmailActions.Update(
-                this.getFormValue(this.controlNames.newEmail)
-            )
+            new UpdateEmailActions.Update(this.formGroup.value.newEmail)
         );
     }
 }

@@ -5,7 +5,7 @@ import { GlobalActions } from 'app/store/global/global.actions';
 import { assignDeep } from '../../helpers/';
 import { GlobalActionTypes } from './global.actionTypes';
 
-export function GlobalReducer(
+export function globalReducer(
     reducer: ActionReducer<AppState>
 ): ActionReducer<AppState> {
     return function(

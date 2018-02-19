@@ -1,15 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { NavActions } from 'app/store/nav/nav.actions';
 import { LogInActions } from 'app/store/user/logIn/logIn.actions';
 
-import { IsLoggedInGuard } from '../guards/isLoggedIn.guard';
-import { StateService } from '../store/state-service/state.service';
+import { Store } from '@ngrx/store';
+import { IsLoggedInGuard } from 'app/shared/guards/isLoggedIn.guard';
+import { AppState } from 'app/store/app.state';
 
 declare const window: Window;
 
 @Component({
     selector: 'app-nav',
     templateUrl: './nav.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NavComponent {
     userState$ = this.state.select(s => s.user);
@@ -18,7 +20,7 @@ export class NavComponent {
     window = window;
 
     constructor(
-        private state: StateService,
+        private state: Store<AppState>,
         private isLoggedInGuard: IsLoggedInGuard
     ) {}
 

@@ -1,16 +1,17 @@
 import { Injectable } from '@angular/core';
-import { Effect } from '@ngrx/effects';
+import { Effect, Actions } from '@ngrx/effects';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { UpdateEmailActions } from 'app/store/user/updateEmail/updateEmail.actions';
 import { UpdateEmailActionTypes } from 'app/store/user/updateEmail/updateEmail.actionTypes';
 import { Observable } from 'rxjs/Observable';
 
-import { StateService } from '../../state-service/state.service';
+import { Store } from '@ngrx/store';
+import { AccountAppState } from 'app/account/state/store.config';
 
 @Injectable()
 export class UpdateEmailEffects {
     @Effect()
-    updateEmail$ = this.state.actions$
+    updateEmail$ = this.actions$
         .ofType(UpdateEmailActionTypes.Update)
         .switchMap((action: UpdateEmailActions.Update) => action.payload)
         .switchMap(newEmail =>
@@ -24,5 +25,9 @@ export class UpdateEmailEffects {
                 )
         );
 
-    constructor(private state: StateService, private auth: AngularFireAuth) {}
+    constructor(
+        private actions$: Actions,
+        private state: Store<AccountAppState>,
+        private auth: AngularFireAuth
+    ) {}
 }

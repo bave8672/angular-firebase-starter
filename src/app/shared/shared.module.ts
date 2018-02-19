@@ -1,6 +1,5 @@
 import { GooglePlusAuthButtonComponent } from './google/google-plus-auth-button';
 import { ModalComponent } from './modal/modal.component';
-import { OutletComponent } from './outlet/outlet.component';
 import { PanelComponent } from './panel/panel.component';
 import { SubmitButtonComponent } from './submit-button/submit-button.component';
 import { ValidationMessageComponent } from './validation-message/validation-message.component';
@@ -10,6 +9,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
+import { IsLoggedInGuard } from 'app/shared/guards/isLoggedIn.guard';
+import { IsNotLoggedInGuard } from 'app/shared/guards/isNotLoggedIn.guard';
 
 @NgModule({
     imports: [
@@ -18,15 +19,14 @@ import { RouterModule } from '@angular/router';
         FormsModule,
         ReactiveFormsModule,
         HttpModule,
-        RouterModule
+        RouterModule,
     ],
     declarations: [
         ModalComponent,
         ValidationMessageComponent,
-        OutletComponent,
         PanelComponent,
         SubmitButtonComponent,
-        GooglePlusAuthButtonComponent
+        GooglePlusAuthButtonComponent,
     ],
     exports: [
         CommonModule,
@@ -36,11 +36,10 @@ import { RouterModule } from '@angular/router';
         HttpModule,
         ModalComponent,
         ValidationMessageComponent,
-        OutletComponent,
         PanelComponent,
         SubmitButtonComponent,
-        GooglePlusAuthButtonComponent
-    ]
+        GooglePlusAuthButtonComponent,
+    ],
+    providers: [IsLoggedInGuard, IsNotLoggedInGuard],
 })
-
 export class SharedModule {}

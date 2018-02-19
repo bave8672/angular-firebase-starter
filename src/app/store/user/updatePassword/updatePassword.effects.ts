@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Effect } from '@ngrx/effects';
+import { Effect, Actions } from '@ngrx/effects';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { LogInActions } from 'app/store/user/logIn/logIn.actions';
 import { LogInActionTypes } from 'app/store/user/logIn/logIn.actionTypes';
@@ -7,12 +7,13 @@ import { UpdatePasswordActions } from 'app/store/user/updatePassword/updatePassw
 import { UpdatePasswordActionTypes } from 'app/store/user/updatePassword/updatePassword.actionTypes';
 import { Observable } from 'rxjs/Observable';
 
-import { StateService } from '../../state-service/state.service';
+import { Store } from '@ngrx/store';
+import { AccountAppState } from 'app/account/state/store.config';
 
 @Injectable()
 export class UpdatePasswordEffects {
     @Effect()
-    updatePassword$ = this.state.actions$
+    updatePassword$ = this.actions$
         .ofType(UpdatePasswordActionTypes.Update)
         .map((action: UpdatePasswordActions.Update) => action.payload)
         .switchMap(passwords => {
@@ -24,7 +25,7 @@ export class UpdatePasswordEffects {
             );
 
             return Observable.race(
-                this.state.actions$
+                this.actions$
                     .ofType<LogInActions.Success>(LogInActionTypes.Success)
                     .switchMap(() =>
                         Observable.from(
@@ -39,7 +40,7 @@ export class UpdatePasswordEffects {
                                 )
                             )
                     ),
-                this.state.actions$
+                this.actions$
                     .ofType<LogInActions.Failure>(LogInActionTypes.Failure)
                     .map(
                         action =>
@@ -48,5 +49,5 @@ export class UpdatePasswordEffects {
             );
         });
 
-    constructor(private state: StateService, private auth: AngularFireAuth) {}
+    constructor(private actions$: Actions, private state: Store<AccountAppState>, private auth: AngularFireAuth) {}
 }
