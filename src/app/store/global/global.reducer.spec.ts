@@ -28,12 +28,12 @@ describe('Global Reducer', () => {
     it(`Does not alter existing state properties
         IF they are part of the correct schema`, () => {
         oldState.user.logIn = undefined;
-        oldState.user.sendEmailVerification.failureMessage = 'Example';
+        oldState.user.updateEmail.failureMessage = 'Example';
 
         const newState = reducer(oldState, new GlobalActions.AppStart());
 
         expect(newState.user.logIn).toEqual(FormStates.Default);
-        expect(newState.user.sendEmailVerification.failureMessage).toBe(
+        expect(newState.user.updateEmail.failureMessage).toBe(
             'Example'
         );
     });

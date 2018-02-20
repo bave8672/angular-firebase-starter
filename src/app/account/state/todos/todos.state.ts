@@ -2,6 +2,6 @@ export interface TodosState {
     editing: string; // uid
 }
 
-export const DefaultTodosState: TodosState = {
+export const initialTodosState: TodosState = {
     editing: ''
 };

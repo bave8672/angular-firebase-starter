@@ -1,5 +1,5 @@
 import { TodosActionTypes } from './todos.actionTypes';
-import { DefaultTodosState, TodosState } from './todos.state';
+import { initialTodosState, TodosState } from './todos.state';
 import { TodosActions } from 'app/account/state/todos/todos.actions';
 import { assign } from 'app/helpers';
 

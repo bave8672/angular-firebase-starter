@@ -5,7 +5,6 @@ export interface UserState {
     updatePhotoUrl: FormState;
     updatePassword: FormState;
     updateEmail: FormState;
-    sendEmailVerification: FormState;
 }
 
 export const DefaultUserState: UserState = {
@@ -13,5 +12,4 @@ export const DefaultUserState: UserState = {
     updatePhotoUrl: FormStates.Default,
     updatePassword: FormStates.Default,
     updateEmail: FormStates.Default,
-    sendEmailVerification: FormStates.Default,
 };

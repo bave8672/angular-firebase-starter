@@ -2,10 +2,8 @@ import { ResendEmailVerificationActionTypes } from './resendEmailVerification.ac
 import { Action } from '@ngrx/store';
 
 export namespace ResendEmailVerificationActions {
-
     export class Resend implements Action {
         readonly type = ResendEmailVerificationActionTypes.Resend;
-        payload: void;
     }
 
     export class Failure implements Action {

@@ -4,10 +4,10 @@ import { UpdatePasswordActions } from 'app/store/user/updatePassword/updatePassw
 import { assignDeep } from '../../../helpers';
 import { Messages } from '../../../resources/messages';
 import { shouldNotAlterStateOnUnknownAction } from '../../testing/reducerTestHelpers';
-import { UpdatePasswordReducer } from './updatePassword.reducer';
+import { updatePasswordReducer } from './updatePassword.reducer';
 
 describe('Update Password Reducer', () => {
-    shouldNotAlterStateOnUnknownAction(UpdatePasswordReducer);
+    shouldNotAlterStateOnUnknownAction(updatePasswordReducer);
 
     let oldState: FormState;
 
@@ -18,13 +18,13 @@ describe('Update Password Reducer', () => {
     it('Toggles the form visibility WHEN Toggle is called', () => {
         oldState.showForm = false;
 
-        let newState = UpdatePasswordReducer(
+        let newState = updatePasswordReducer(
             oldState,
             new UpdatePasswordActions.ToggleForm()
         );
         expect(newState.showForm).toBe(true);
 
-        newState = UpdatePasswordReducer(
+        newState = updatePasswordReducer(
             newState,
             new UpdatePasswordActions.ToggleForm()
         );
@@ -32,7 +32,7 @@ describe('Update Password Reducer', () => {
     });
 
     it('Assigns the requesting state WHEN UpdatePassword is called', () => {
-        const newState = UpdatePasswordReducer(
+        const newState = updatePasswordReducer(
             oldState,
             new UpdatePasswordActions.Update({} as any)
         );
@@ -40,7 +40,7 @@ describe('Update Password Reducer', () => {
     });
 
     it('Displays the correct error message WHEN failure is called', () => {
-        const newState = UpdatePasswordReducer(
+        const newState = updatePasswordReducer(
             oldState,
             new UpdatePasswordActions.Failure({})
         );
@@ -50,7 +50,7 @@ describe('Update Password Reducer', () => {
     });
 
     it('Displays the correct message WHEN success is called', () => {
-        const newState = UpdatePasswordReducer(
+        const newState = updatePasswordReducer(
             oldState,
             new UpdatePasswordActions.Success({})
         );

@@ -1,4 +1,4 @@
-import { DefaultTodosState, TodosState } from './todos.state';
+import { initialTodosState, TodosState } from './todos.state';
 import { shouldNotAlterStateOnUnknownAction } from 'app/store/testing';
 import { todosReducer } from 'app/account/state/todos/todos.reducer';
 import { assignDeep } from 'app/helpers';
@@ -10,7 +10,7 @@ describe('Todos Reducer', () => {
     let oldState: TodosState;
 
     beforeEach(() => {
-        oldState = assignDeep(DefaultTodosState);
+        oldState = assignDeep(initialTodosState);
     });
 
     it(`Assigns the uid of the edited todo to the editing prop

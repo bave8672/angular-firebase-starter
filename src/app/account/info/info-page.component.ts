@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { ResendEmailVerificationActions } from 'app/store/user/resendEmailVerification/resendEmailVerification.actions';
 import { UpdateEmailActions } from 'app/store/user/updateEmail/updateEmail.actions';
 import { UpdatePasswordActions } from 'app/store/user/updatePassword/updatePassword.actions';
 import { UpdatePhotoUrlActions } from 'app/store/user/updatePhotoUrl/updatePhotoUrl.actions';
@@ -9,6 +8,7 @@ import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 import { UserState } from '../../store/user/user.state';
 import { AccountAppState } from 'app/account/state/store.config';
+import { ResendEmailVerificationActions } from 'app/account/send-email-verification/state/resendEmailVerification.actions';
 
 @Component({
     selector: 'app-account-info-page',

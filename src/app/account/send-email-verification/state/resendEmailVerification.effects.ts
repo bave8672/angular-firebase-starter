@@ -3,12 +3,12 @@ import 'rxjs/add/operator/filter';
 import { Injectable } from '@angular/core';
 import { Effect, Actions } from '@ngrx/effects';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { ResendEmailVerificationActions } from 'app/store/user/resendEmailVerification/resendEmailVerification.actions';
-import { ResendEmailVerificationActionTypes } from 'app/store/user/resendEmailVerification/resendEmailVerification.actionTypes';
 import { Observable } from 'rxjs/Observable';
 
 import { Store } from '@ngrx/store';
 import { AccountAppState } from 'app/account/state/store.config';
+import { ResendEmailVerificationActionTypes } from 'app/account/send-email-verification/state/resendEmailVerification.actionTypes';
+import { ResendEmailVerificationActions } from 'app/account/send-email-verification/state/resendEmailVerification.actions';
 
 @Injectable()
 export class ResendEmailVerificationEffects {
@@ -35,5 +35,9 @@ export class ResendEmailVerificationEffects {
                 )
         );
 
-    constructor(private actions$: Actions, private state: Store<AccountAppState>, private auth: AngularFireAuth) {}
+    constructor(
+        private actions$: Actions,
+        private state: Store<AccountAppState>,
+        private auth: AngularFireAuth
+    ) {}
 }

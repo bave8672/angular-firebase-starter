@@ -4,10 +4,10 @@ import { UpdateEmailActions } from 'app/store/user/updateEmail/updateEmail.actio
 import { assignDeep } from '../../../helpers';
 import { Messages } from '../../../resources/messages';
 import { shouldNotAlterStateOnUnknownAction } from '../../testing';
-import { UpdateEmailReducer } from './updateEmail.reducer';
+import { updateEmailReducer } from './updateEmail.reducer';
 
 describe('Update Email Reducer', () => {
-    shouldNotAlterStateOnUnknownAction(UpdateEmailReducer);
+    shouldNotAlterStateOnUnknownAction(updateEmailReducer);
 
     let oldState: FormState;
 
@@ -17,12 +17,12 @@ describe('Update Email Reducer', () => {
 
     it('Should toggle the form visibility when toggle is called', () => {
         oldState.showForm = false;
-        let newState = UpdateEmailReducer(
+        let newState = updateEmailReducer(
             oldState,
             new UpdateEmailActions.ToggleForm()
         );
         expect(newState.showForm).toBe(true);
-        newState = UpdateEmailReducer(
+        newState = updateEmailReducer(
             newState,
             new UpdateEmailActions.ToggleForm()
         );
@@ -30,7 +30,7 @@ describe('Update Email Reducer', () => {
     });
 
     it('Should show the requesting status WHEN update is called', () => {
-        const newState = UpdateEmailReducer(
+        const newState = updateEmailReducer(
             oldState,
             new UpdateEmailActions.Update('example@gmail.com')
         );
@@ -38,7 +38,7 @@ describe('Update Email Reducer', () => {
     });
 
     it('Should show the failure status WHEN failure is called', () => {
-        const newState = UpdateEmailReducer(
+        const newState = updateEmailReducer(
             oldState,
             new UpdateEmailActions.Failure({})
         );
@@ -48,7 +48,7 @@ describe('Update Email Reducer', () => {
     });
 
     it('Should show the success status WHEN failure is called', () => {
-        const newState = UpdateEmailReducer(
+        const newState = updateEmailReducer(
             oldState,
             new UpdateEmailActions.Success({})
         );

@@ -3,11 +3,11 @@ import { UpdatePhotoUrlActions } from 'app/store/user/updatePhotoUrl/updatePhoto
 import { assignDeep } from '../../../helpers';
 import { Messages } from '../../../resources/messages';
 import { shouldNotAlterStateOnUnknownAction } from '../../testing';
-import { UpdatePhotoUrlReducer } from './updatePhotoUrl.reducer';
+import { updatePhotoUrlReducer } from './updatePhotoUrl.reducer';
 import { FormState, FormStates } from 'app/store/forms/formState';
 
 describe('Update Photo Url Reducer', () => {
-    shouldNotAlterStateOnUnknownAction(UpdatePhotoUrlReducer);
+    shouldNotAlterStateOnUnknownAction(updatePhotoUrlReducer);
 
     let oldState: FormState;
 
@@ -18,13 +18,13 @@ describe('Update Photo Url Reducer', () => {
     it('Toggles the form visibility WHEN Toggle is called', () => {
         oldState.showForm = false;
 
-        let newState = UpdatePhotoUrlReducer(
+        let newState = updatePhotoUrlReducer(
             oldState,
             new UpdatePhotoUrlActions.ToggleForm()
         );
         expect(newState.showForm).toBe(true);
 
-        newState = UpdatePhotoUrlReducer(
+        newState = updatePhotoUrlReducer(
             newState,
             new UpdatePhotoUrlActions.ToggleForm()
         );
@@ -32,7 +32,7 @@ describe('Update Photo Url Reducer', () => {
     });
 
     it('Assigns the requesting state WHEN UpdatePhotoUrl is called', () => {
-        const newState = UpdatePhotoUrlReducer(
+        const newState = updatePhotoUrlReducer(
             oldState,
             new UpdatePhotoUrlActions.Update('')
         );
@@ -40,7 +40,7 @@ describe('Update Photo Url Reducer', () => {
     });
 
     it('Displays the correct error message WHEN failure is called', () => {
-        const newState = UpdatePhotoUrlReducer(
+        const newState = updatePhotoUrlReducer(
             oldState,
             new UpdatePhotoUrlActions.Failure({})
         );
@@ -50,7 +50,7 @@ describe('Update Photo Url Reducer', () => {
     });
 
     it('Displays the correct message WHEN success is called', () => {
-        const newState = UpdatePhotoUrlReducer(
+        const newState = updatePhotoUrlReducer(
             oldState,
             new UpdatePhotoUrlActions.Success({})
         );

@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { ResendEmailVerificationActions } from '../../store/user/resendEmailVerification/resendEmailVerification.actions';
 import { Store } from '@ngrx/store';
 import { AppState } from 'app/store/app.state';
 import { AccountAppState } from 'app/account/state/store.config';
+import { ResendEmailVerificationActions } from 'app/account/send-email-verification/state/resendEmailVerification.actions';
 
 @Component({
     selector: 'app-account-send-email-verification',
@@ -10,7 +10,7 @@ import { AccountAppState } from 'app/account/state/store.config';
     templateUrl: './send-email-verification.component.html',
 })
 export class SendEmailVerificationComponent {
-    formState$ = this.state.select(s => s.user.sendEmailVerification);
+    formState$ = this.state.select(s => s.account.resendEmailVerification);
 
     constructor(private state: Store<AccountAppState>) {}
 
