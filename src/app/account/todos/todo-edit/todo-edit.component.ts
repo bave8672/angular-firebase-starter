@@ -9,10 +9,10 @@ import { FormBuilder } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { minLength } from 'app/validators';
 import { Messages } from 'app/resources/messages';
-import { TodosActions } from 'app/account/state/todos/todos.actions';
 import { AccountAppState } from 'app/account/state/store.config';
 import { TypedFormGroup } from 'app/shared/forms/typedFormGroup';
 import { TypedFormControl } from 'app/shared/forms/typedFormControl';
+import { TodosActions } from 'app/account/todos/state/todos.actions';
 
 @Component({
     selector: 'app-todo-edit',

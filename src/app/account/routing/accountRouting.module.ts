@@ -10,7 +10,7 @@ import { IsLoggedInGuard } from 'app/shared/guards/isLoggedIn.guard';
         RouterModule.forChild([
             { path: '', component: ProfilePageComponent },
             { path: 'profile', component: ProfilePageComponent },
-            { path: 'info', component: InfoPageComponent },
+            { path: 'info', loadChildren: '../info/user.module#UserModule' },
             { path: '**', component: ProfilePageComponent },
         ]),
     ],
