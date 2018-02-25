@@ -1,7 +1,9 @@
-import { NgModule } from '@angular/core/src/metadata/ng_module';
+import { NgModule } from '@angular/core';
 import { ProfilePictureComponent } from 'app/account/shared/profilePicture/profilePicture.component';
+import { SharedModule } from 'app/shared/shared.module';
 
 @NgModule({
+    imports: [SharedModule],
     declarations: [ProfilePictureComponent],
     exports: [ProfilePictureComponent],
 })

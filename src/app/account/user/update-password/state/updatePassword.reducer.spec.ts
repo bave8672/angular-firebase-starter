@@ -1,10 +1,9 @@
 import { FormState, FormStates } from 'app/store/forms/formState';
-import { UpdatePasswordActions } from 'app/store/user/updatePassword/updatePassword.actions';
-
-import { assignDeep } from '../../../helpers';
-import { Messages } from '../../../resources/messages';
-import { shouldNotAlterStateOnUnknownAction } from '../../testing/reducerTestHelpers';
 import { updatePasswordReducer } from './updatePassword.reducer';
+import { shouldNotAlterStateOnUnknownAction } from 'app/store/testing';
+import { assignDeep } from 'app/helpers';
+import { UpdatePasswordActions } from 'app/account/user/update-password/state/updatePassword.actions';
+import { Messages } from 'app/resources/messages';
 
 describe('Update Password Reducer', () => {
     shouldNotAlterStateOnUnknownAction(updatePasswordReducer);

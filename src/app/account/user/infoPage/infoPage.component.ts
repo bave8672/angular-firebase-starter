@@ -1,14 +1,14 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { UpdateEmailActions } from 'app/store/user/updateEmail/updateEmail.actions';
-import { UpdatePasswordActions } from 'app/store/user/updatePassword/updatePassword.actions';
-import { UpdatePhotoUrlActions } from 'app/store/user/updatePhotoUrl/updatePhotoUrl.actions';
 import { Observable } from 'rxjs/Observable';
 
 import { Store } from '@ngrx/store';
 import { AccountAppState } from 'app/account/state/store.config';
-import { ResendEmailVerificationActions } from 'app/account/send-email-verification/state/resendEmailVerification.actions';
 import { UserState } from 'app/store/user/user.state';
+import { UpdatePhotoUrlActions } from 'app/account/user/update-photo-url/state/updatePhotoUrl.actions';
+import { UpdatePasswordActions } from 'app/account/user/update-password/state/updatePassword.actions';
+import { UpdateEmailActions } from 'app/account/user/update-email/state/updateEmail.actions';
+import { ResendEmailVerificationActions } from 'app/account/user/send-email-verification/state/resendEmailVerification.actions';
 
 @Component({
     selector: 'app-account-info-page',

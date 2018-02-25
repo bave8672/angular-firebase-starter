@@ -1,7 +1,7 @@
 import { TodosActionTypes } from './todos.actionTypes';
 import { initialTodosState, TodosState } from './todos.state';
-import { TodosActions } from 'app/account/state/todos/todos.actions';
 import { assign } from 'app/helpers';
+import { TodosActions } from 'app/account/todos/state/todos.actions';
 
 export function todosReducer(
     state: TodosState,

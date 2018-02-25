@@ -9,7 +9,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 @Component({
     selector: 'app-google-plus-auth-button',
     template: `
-        <a class="btn btn-lg btn-block btn-social btn-twitter" (click)="login()">
+        <a class="btn btn-lg btn-block btn-social btn-google" (click)="login()">
             <span class="fa fa-google"></span>
             Sign in with Google
         </a>`,

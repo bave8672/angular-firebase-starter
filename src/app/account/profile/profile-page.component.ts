@@ -7,7 +7,7 @@ import { TodosService } from 'app/account/todos/todos.service';
 })
 export class ProfilePageComponent {
 
-    todos$ = this.todosService.todos();
+    todos$ = this.todosService.todos().valueChanges();
 
     constructor(private todosService: TodosService) {}
 }

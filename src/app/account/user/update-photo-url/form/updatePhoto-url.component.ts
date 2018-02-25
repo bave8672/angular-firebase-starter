@@ -1,12 +1,13 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { UpdatePhotoUrlActions } from 'app/store/user/updatePhotoUrl/updatePhotoUrl.actions';
 
 import { Store } from '@ngrx/store';
 import { AccountAppState } from 'app/account/state/store.config';
 import { TypedFormGroup } from 'app/shared/forms/typedFormGroup';
 import { TypedFormControl } from 'app/shared/forms/typedFormControl';
 import { validUrl } from 'app/validators/validUrl';
+import { UpdatePhotoUrlActions } from 'app/account/user/update-photo-url/state/updatePhotoUrl.actions';
+import { UserAppState } from 'app/account/user/state/store.config';
 
 @Component({
     selector: 'app-account-update-photo-url',
@@ -25,7 +26,7 @@ export class UpdatePhotoUrlComponent {
 
     formState$ = this.state.select(s => s.user.updatePhotoUrl);
 
-    constructor(private state: Store<AccountAppState>) {}
+    constructor(private state: Store<UserAppState>) {}
 
     onSubmitPhoto() {
         this.state.dispatch(new UpdatePhotoUrlActions.Update(this.newPhotoUrl));

@@ -1,7 +1,7 @@
 import { formReducer } from 'app/store/forms/form.reducer.factory';
 
-import { Messages } from '../../../resources/messages';
 import { UpdatePasswordActionTypes } from './updatePassword.actionTypes';
+import { Messages } from 'app/resources/messages';
 
 export const updatePasswordReducer = formReducer({
     toggle: UpdatePasswordActionTypes.ToggleForm,

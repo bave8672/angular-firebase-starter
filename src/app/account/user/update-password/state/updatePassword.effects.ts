@@ -3,12 +3,12 @@ import { Effect, Actions } from '@ngrx/effects';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { LogInActions } from 'app/store/user/logIn/logIn.actions';
 import { LogInActionTypes } from 'app/store/user/logIn/logIn.actionTypes';
-import { UpdatePasswordActions } from 'app/store/user/updatePassword/updatePassword.actions';
-import { UpdatePasswordActionTypes } from 'app/store/user/updatePassword/updatePassword.actionTypes';
 import { Observable } from 'rxjs/Observable';
 
 import { Store } from '@ngrx/store';
 import { AccountAppState } from 'app/account/state/store.config';
+import { UpdatePasswordActionTypes } from 'app/account/user/update-password/state/updatePassword.actionTypes';
+import { UpdatePasswordActions } from 'app/account/user/update-password/state/updatePassword.actions';
 
 @Injectable()
 export class UpdatePasswordEffects {
@@ -49,5 +49,9 @@ export class UpdatePasswordEffects {
             );
         });
 
-    constructor(private actions$: Actions, private state: Store<AccountAppState>, private auth: AngularFireAuth) {}
+    constructor(
+        private actions$: Actions,
+        private state: Store<AccountAppState>,
+        private auth: AngularFireAuth
+    ) {}
 }

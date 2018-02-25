@@ -5,14 +5,15 @@ import { shouldNotAlterStateOnUnknownAction } from 'app/store/testing';
 import { assignDeep } from '../../helpers';
 import { AppState, DefaultAppState } from '../app.state';
 import { FormStates } from '../forms/formState';
+import { UserAppState, initialUserState } from 'app/account/user/state/store.config';
 
 describe('Global Reducer', () => {
     const reducer = globalReducer(state => state);
 
-    let oldState: AppState;
+    let oldState: UserAppState;
 
     beforeEach(() => {
-        oldState = assignDeep(DefaultAppState, {});
+        oldState = assignDeep(DefaultAppState as any, { user: initialUserState });
     });
 
     shouldNotAlterStateOnUnknownAction(reducer);
@@ -30,7 +31,7 @@ describe('Global Reducer', () => {
         oldState.user.logIn = undefined;
         oldState.user.updateEmail.failureMessage = 'Example';
 
-        const newState = reducer(oldState, new GlobalActions.AppStart());
+        const newState = reducer(oldState, new GlobalActions.AppStart()) as UserAppState;
 
         expect(newState.user.logIn).toEqual(FormStates.Default);
         expect(newState.user.updateEmail.failureMessage).toBe(

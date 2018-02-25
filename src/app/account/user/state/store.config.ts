@@ -12,6 +12,7 @@ import { initialResendVerificationEmailState } from 'app/account/user/send-email
 import { initialUpdateEmailState } from 'app/account/user/update-email/state/initialState';
 import { initialUpdatePasswordState } from 'app/account/user/update-password/state/initialState';
 import { initialUpdatePhotoUrlState } from 'app/account/user/update-photo-url/state/initialState';
+import { updatePhotoUrlReducer } from 'app/account/user/update-photo-url/state/updatePhotoUrl.reducer';
 
 export const USER_STORE_KEY = 'user';
 

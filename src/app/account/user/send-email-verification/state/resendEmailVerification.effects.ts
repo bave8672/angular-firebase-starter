@@ -7,9 +7,8 @@ import { Observable } from 'rxjs/Observable';
 
 import { Store } from '@ngrx/store';
 import { AccountAppState } from 'app/account/state/store.config';
-import { ResendEmailVerificationActionTypes } from 'app/account/send-email-verification/state/resendEmailVerification.actionTypes';
-import { ResendEmailVerificationActions } from 'app/account/send-email-verification/state/resendEmailVerification.actions';
-
+import { ResendEmailVerificationActionTypes } from 'app/account/user/send-email-verification/state/resendEmailVerification.actionTypes';
+import { ResendEmailVerificationActions } from 'app/account/user/send-email-verification/state/resendEmailVerification.actions';
 @Injectable()
 export class ResendEmailVerificationEffects {
     @Effect()

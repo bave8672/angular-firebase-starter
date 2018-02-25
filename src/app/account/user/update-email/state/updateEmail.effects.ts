@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Effect, Actions } from '@ngrx/effects';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { UpdateEmailActions } from 'app/store/user/updateEmail/updateEmail.actions';
-import { UpdateEmailActionTypes } from 'app/store/user/updateEmail/updateEmail.actionTypes';
 import { Observable } from 'rxjs/Observable';
 
 import { Store } from '@ngrx/store';
 import { AccountAppState } from 'app/account/state/store.config';
+import { UpdateEmailActionTypes } from 'app/account/user/update-email/state/updateEmail.actionTypes';
+import { UpdateEmailActions } from 'app/account/user/update-email/state/updateEmail.actions';
 
 @Injectable()
 export class UpdateEmailEffects {
@@ -25,9 +25,5 @@ export class UpdateEmailEffects {
                 )
         );
 
-    constructor(
-        private actions$: Actions,
-        private state: Store<AccountAppState>,
-        private auth: AngularFireAuth
-    ) {}
+    constructor(private actions$: Actions, private auth: AngularFireAuth) {}
 }

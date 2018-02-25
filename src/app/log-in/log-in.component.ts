@@ -18,7 +18,7 @@ export class LogInComponent {
 
     formGroup = new TypedFormGroup({
         email: new TypedFormControl('', emailValid),
-        password: new TypedFormControl('', passwordValid),
+        password: new TypedFormControl(''),
     });
 
     constructor(private state: Store<AppState>) {}

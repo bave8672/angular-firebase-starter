@@ -1,6 +1,6 @@
 import { ResendEmailVerificationActionTypes } from './resendEmailVerification.actionTypes';
-import { Messages } from '../../../resources/messages';
 import { formReducer } from 'app/store/forms/form.reducer.factory';
+import { Messages } from 'app/resources/messages';
 
 export const resendEmailVerificationReducer = formReducer({
     request: ResendEmailVerificationActionTypes.Resend,

@@ -1,10 +1,10 @@
 import { FormState, FormStates } from 'app/store/forms/formState';
-import { UpdateEmailActions } from 'app/store/user/updateEmail/updateEmail.actions';
 
 import { updateEmailReducer } from './updateEmail.reducer';
 import { shouldNotAlterStateOnUnknownAction } from 'app/store/testing';
 import { assignDeep } from 'app/helpers';
 import { Messages } from 'app/resources/messages';
+import { UpdateEmailActions } from 'app/account/user/update-email/state/updateEmail.actions';
 
 describe('Update Email Reducer', () => {
     shouldNotAlterStateOnUnknownAction(updateEmailReducer);
