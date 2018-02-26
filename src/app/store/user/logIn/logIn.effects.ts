@@ -1,23 +1,23 @@
 import { Injectable } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { AuthProvider } from '@firebase/auth-types';
-import { Effect } from '@ngrx/effects';
+import { Effect, Actions } from '@ngrx/effects';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Observable } from 'rxjs/Observable';
 
-import { StateService } from '../../state-service/state.service';
+import { Store } from '@ngrx/store';
 import { LogInActions } from 'app/store/user/logIn/logIn.actions';
 import { LogInActionTypes } from 'app/store/user/logIn/logIn.actionTypes';
-import { EmailPasswordCredentials } from 'app/store/user/signUp/signUp.actions';
+import { AppState } from 'app/store/app.state';
 
 @Injectable()
 export class LogInEffects {
     @Effect()
     logIn$: Observable<
         LogInActions.Failure | LogInActions.Success
-    > = this.state.actions$
-        .ofType(LogInActionTypes.LogIn)
-        .switchMap((action: LogInActions.LogIn) => {
+    > = this.actions$
+        .ofType<LogInActions.LogIn>(LogInActionTypes.LogIn)
+        .switchMap(action => {
             let request;
 
             if ((action.payload as any).providerId) {
@@ -26,8 +26,8 @@ export class LogInEffects {
                 );
             } else {
                 request = this.auth.auth.signInWithEmailAndPassword(
-                    (action.payload as EmailPasswordCredentials).email,
-                    (action.payload as EmailPasswordCredentials).password
+                    (action.payload as any).email,
+                    (action.payload as any).password
                 );
             }
             return Observable.from(request)
@@ -36,13 +36,13 @@ export class LogInEffects {
         });
 
     @Effect({ dispatch: false })
-    redirectToProfileOnLoginSuccess$ = this.state.actions$
+    redirectToProfileOnLoginSuccess$ = this.actions$
         .ofType(LogInActionTypes.Success)
         .map(() => this.router.navigateByUrl('/account/profile'));
 
     // TODO: Move logout into it's own store category + add spinner etc
     @Effect({ dispatch: false })
-    logOut$ = this.state.actions$
+    logOut$ = this.actions$
         .ofType(LogInActionTypes.LogOut)
         .switchMap(() =>
             Observable.from(this.auth.auth.signOut()).map(() =>
@@ -56,7 +56,8 @@ export class LogInEffects {
         .map(() => new LogInActions.HideModal());
 
     constructor(
-        private state: StateService,
+        private actions$: Actions,
+        private state: Store<AppState>,
         private auth: AngularFireAuth,
         private router: Router
     ) {}

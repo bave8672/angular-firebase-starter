@@ -2,38 +2,26 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { LogInActions } from 'app/store/user/logIn/logIn.actions';
 
-import { FormComponent } from '../helpers/form.component';
-import { StateService } from '../store/state-service/state.service';
+import { Store } from '@ngrx/store';
 import { emailValid, passwordValid } from '../validators';
+import { AppState } from 'app/store/app.state';
+import { TypedFormGroup } from 'app/shared/forms/typedFormGroup';
+import { TypedFormControl } from 'app/shared/forms/typedFormControl';
 
 @Component({
     selector: 'app-log-in',
     templateUrl: './log-in.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
-
-export class LogInComponent extends FormComponent {
-
-    controlNames = {
-        email: 'email',
-        password: 'password',
-        rememberMe: 'rememberMe'
-    };
-
+export class LogInComponent {
     formState$ = this.state.select(s => s.user.logIn);
 
-    formGroup = this.formBuilder.group({
-        [this.controlNames.email]: ['', emailValid],
-        [this.controlNames.password]: ['', passwordValid],
-        [this.controlNames.rememberMe]: [true]
+    formGroup = new TypedFormGroup({
+        email: new TypedFormControl('', emailValid),
+        password: new TypedFormControl(''),
     });
 
-    constructor(
-        private state: StateService,
-        private formBuilder: FormBuilder
-    ) {
-        super();
-    }
+    constructor(private state: Store<AppState>) {}
 
     hideLogInModal() {
         this.state.dispatch(new LogInActions.HideModal());
@@ -41,10 +29,12 @@ export class LogInComponent extends FormComponent {
 
     emailPasswordLogin() {
         if (this.formGroup.valid) {
-            this.state.dispatch(new LogInActions.LogIn({
-                email: this.getFormValue(this.controlNames.email, ''),
-                password: this.getFormValue(this.controlNames.password, '')
-            }));
+            this.state.dispatch(
+                new LogInActions.LogIn({
+                    email: this.formGroup.value.email,
+                    password: this.formGroup.value.password,
+                })
+            );
         }
     }
 }

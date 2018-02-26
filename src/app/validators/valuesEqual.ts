@@ -1,17 +1,22 @@
-import { FormGroup, ValidatorFn } from '@angular/forms';
+import { FormGroup, ValidatorFn, AbstractControl } from '@angular/forms';
+import { TypedValidatorFn } from 'app/shared/forms/typedValidatorFn';
 
-export const valuesEqual = (a: string, b: string, attachTo: string | null = null) =>
-    (message: string): ValidatorFn =>
-        (fg: FormGroup) => {
-            if (fg.controls[a] &&
-            fg.controls[b] &&
-            fg.controls[a].value !== fg.controls[b].value) {
-                const error = { [`${a}And${b}areEqual`]: message };
-                if (attachTo) {
-                    fg.controls[attachTo].setErrors(error);
-                    return {};
-                }
-                return error;
-            }
-            return {};
-        };
+export interface UnequalValidationError {
+    unequal: string;
+}
+
+export const valuesEqual = <T>(
+    a: () => AbstractControl,
+    b: () => AbstractControl,
+    attachTo?: () => AbstractControl
+) => (
+    message: string = 'Values must be the same'
+): TypedValidatorFn<T, UnequalValidationError> => () => {
+    try {
+        if (a().value !== b().value) {
+            const error: UnequalValidationError = { unequal: message };
+            (attachTo || b)().setErrors(error);
+        }
+    } catch (e) {}
+    return null;
+};

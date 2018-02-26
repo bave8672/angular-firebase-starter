@@ -1,5 +1,5 @@
-import { TodosService } from '../../todos/todos.service';
 import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
+import { TodosService } from 'app/account/todos/todos.service';
 
 @Component({
     templateUrl: './profile-page.component.html',
@@ -7,7 +7,7 @@ import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
 })
 export class ProfilePageComponent {
 
-    todos$ = this.todosService.todos();
+    todos$ = this.todosService.todos().valueChanges();
 
     constructor(private todosService: TodosService) {}
 }

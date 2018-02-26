@@ -1,34 +1,19 @@
-import { TodosModule } from '../todos/todos.module';
-import { SendEmailVerificationComponent } from './send-email-verification/send-email-verification.component';
-import { ProfilePictureComponent } from './profile-picture/profile-picture.component';
 import { SharedModule } from '../shared/shared.module';
-import { AccountRoutes } from './account.routes';
-import { InfoPageComponent } from './info/info-page.component';
 import { ProfilePageComponent } from './profile/profile-page.component';
-import { UpdateEmailComponent } from './update-email/update-email.component';
-import { UpdatePasswordComponent } from './update-password/update-password.component';
-import { UpdatePhotoUrlComponent } from './update-photo-url/update-photo-url.component';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { AccountRoutingModule } from 'app/account/routing/accountRouting.module';
+import { TodosModule } from 'app/account/todos/todos.module';
+import { AccountSharedModule } from 'app/account/shared/accountShared.module';
+import { AccountStateModule } from 'app/account/state/accountState.module';
 
 @NgModule({
     imports: [
-        SharedModule,
+        AccountSharedModule,
+        AccountStateModule,
         TodosModule,
-        RouterModule.forChild(AccountRoutes)
+        AccountRoutingModule,
     ],
-    declarations: [
-        InfoPageComponent,
-        ProfilePageComponent,
-        UpdatePasswordComponent,
-        UpdateEmailComponent,
-        UpdatePhotoUrlComponent,
-        ProfilePictureComponent,
-        SendEmailVerificationComponent
-    ],
-    exports: [
-        ProfilePictureComponent
-    ]
+    declarations: [ProfilePageComponent],
 })
-
 export class AccountModule {}

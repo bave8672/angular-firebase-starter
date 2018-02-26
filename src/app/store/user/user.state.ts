@@ -1,19 +1,11 @@
 import { FormState, FormStates } from 'app/store/forms/formState';
 
+export const GLOBAL_USER_STORE_KEY = 'user';
+
 export interface UserState {
     logIn: FormState;
-    signUp: FormState;
-    updatePhotoUrl: FormState;
-    updatePassword: FormState;
-    updateEmail: FormState;
-    sendEmailVerification: FormState;
 }
 
-export const DefaultUserState: UserState = {
+export const defaultUserState: UserState = {
     logIn: FormStates.Default,
-    signUp: FormStates.Default,
-    updatePhotoUrl: FormStates.Default,
-    updatePassword: FormStates.Default,
-    updateEmail: FormStates.Default,
-    sendEmailVerification: FormStates.Default,
 };

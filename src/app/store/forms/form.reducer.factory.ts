@@ -29,7 +29,7 @@ export interface FormReducerOptions<T> {
     defaultState?: T;
 }
 
-export function FormReducer<T extends FormState>(
+export function formReducer<T extends FormState>(
     config: FormReducerOptions<T>
 ): ActionReducer<any, any> {
     const actionMap: ActionMap<T> = {};

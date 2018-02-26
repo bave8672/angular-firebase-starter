@@ -1,17 +1,19 @@
 import { NgModule } from '@angular/core';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
-import { DefaultAppState } from 'app/store/app.state';
-import { GlobalReducer } from 'app/store/global/global.reducer';
-import { CombinedReducers, Effects } from 'app/store/store.config';
+import { defaultAppState } from 'app/store/app.state';
+import { globalReducer } from 'app/store/global/global.reducer';
+import { appReducers } from 'app/store/store.config';
+import { GlobalUserStateModule } from 'app/store/user/globalUserState.module';
 
 @NgModule({
     imports: [
-        StoreModule.forRoot(CombinedReducers, {
-            metaReducers: [GlobalReducer],
-            initialState: DefaultAppState,
+        StoreModule.forRoot(appReducers, {
+            metaReducers: [globalReducer],
+            initialState: defaultAppState,
         }),
-        EffectsModule.forRoot(Effects()),
+        EffectsModule.forRoot([]),
+        GlobalUserStateModule,
     ],
 })
 export class StateModule {}

@@ -7,11 +7,9 @@ import { LogInActions } from 'app/store/user/logIn/logIn.actions';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
 
 import { assignDeep } from '../../../helpers';
-import { AppState, DefaultAppState } from '../../app.state';
-import { StateService } from '../../state-service/state.service';
-import { mockStateService } from '../../state-service/state.service.mock';
+import { AppState, defaultAppState } from '../../app.state';
+import { Store } from '@ngrx/store';
 import { LogInEffects } from './logIn.effects';
-import { EmailPasswordCredentials } from 'app/store/user/signUp/signUp.actions';
 import { Observable } from 'rxjs/Observable';
 
 describe('log in effects', () => {
@@ -40,15 +38,17 @@ describe('log in effects', () => {
         navigateByUrl() {}
     }
 
+    class MockStore {}
+
     beforeEach(() => {
-        state = assignDeep(DefaultAppState);
+        state = assignDeep(defaultAppState);
         TestBed.configureTestingModule({
             providers: [
                 LogInEffects,
                 provideMockActions(() => mockActions$),
                 {
-                    provide: StateService,
-                    useClass: mockStateService(state),
+                    provide: Store,
+                    useClass: MockStore,
                 },
                 { provide: AngularFireAuth, useClass: MockAngularFireAuth },
                 { provide: Router, useClass: MockRouter },
@@ -87,7 +87,7 @@ describe('log in effects', () => {
             'signInWithEmailAndPassword'
         ).and.callThrough();
 
-        const emailPassword: EmailPasswordCredentials = {
+        const emailPassword = {
             email: 'email@example.com',
             password: 'password123',
         };
