@@ -36,7 +36,7 @@ export class UpdatePasswordComponent {
         )()
     );
 
-    formState$ = this.state.select(s => s.user.updatePassword);
+    formState$ = this.state.select(s => s.accountUser.updatePassword);
 
     constructor(private state: Store<UserAppState>) {}
 

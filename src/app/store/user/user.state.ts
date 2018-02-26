@@ -4,6 +4,6 @@ export interface UserState {
     logIn: FormState;
 }
 
-export const DefaultUserState: UserState = {
+export const defaultUserState: UserState = {
     logIn: FormStates.Default,
 };

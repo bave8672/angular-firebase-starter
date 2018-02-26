@@ -1,3 +1,3 @@
-import { FormState } from "app/store/forms/formState";
+import { FormState } from 'app/store/forms/formState';
 
-export interface UpdatePhotoUrlState extends FormState {}
+export type UpdatePhotoUrlState = FormState;

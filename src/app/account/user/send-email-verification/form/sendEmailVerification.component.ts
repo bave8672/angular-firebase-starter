@@ -11,7 +11,7 @@ import { UserAppState } from 'app/account/user/state/store.config';
     templateUrl: './sendEmailVerification.component.html',
 })
 export class SendEmailVerificationComponent {
-    formState$ = this.state.select(s => s.user.sendEmailVerification);
+    formState$ = this.state.select(s => s.accountUser.sendEmailVerification);
 
     constructor(private state: Store<UserAppState>) {}
 

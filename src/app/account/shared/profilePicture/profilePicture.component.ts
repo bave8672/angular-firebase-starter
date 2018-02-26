@@ -5,7 +5,7 @@ export const DEFAULT_PHOTO_URL =
     'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png';
 
 @Component({
-    selector: 'app-account-profile-picture',
+    selector: 'app-profile-picture',
     changeDetection: ChangeDetectionStrategy.OnPush,
     template: `<img alt="Profile Picture" class="img-rounded" [src]="src ? src : (photoUrl$ | async)" />`,
     styles: ['img { height: 3em; width: 3em; }'],

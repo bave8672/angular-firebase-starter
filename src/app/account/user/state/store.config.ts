@@ -2,7 +2,7 @@ import { ResendEmailVerificationState } from 'app/account/user/send-email-verifi
 import { UpdateEmailState } from 'app/account/user/update-email/state/updateEmailState';
 import { AppFeatureState } from 'app/store/utils/featureState';
 import { AppState } from 'app/store/app.state';
-import { ActionReducerMap } from '@ngrx/store/src/models';
+import { ActionReducerMap } from '@ngrx/store';
 import { resendEmailVerificationReducer } from 'app/account/user/send-email-verification/state/resendEmailVerification.reducer';
 import { updateEmailReducer } from 'app/account/user/update-email/state/updateEmail.reducer';
 import { UpdatePasswordState } from 'app/account/user/update-password/state/updatePasswordState';
@@ -14,7 +14,7 @@ import { initialUpdatePasswordState } from 'app/account/user/update-password/sta
 import { initialUpdatePhotoUrlState } from 'app/account/user/update-photo-url/state/initialState';
 import { updatePhotoUrlReducer } from 'app/account/user/update-photo-url/state/updatePhotoUrl.reducer';
 
-export const USER_STORE_KEY = 'user';
+export const USER_STORE_KEY = 'accountUser';
 
 export interface UserFeatureState {
     sendEmailVerification: ResendEmailVerificationState;

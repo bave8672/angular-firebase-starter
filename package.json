@@ -5,7 +5,7 @@
   "angular-cli": {},
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --environment=dev",
     "test": "ng test --browsers=PhantomJS --single-run --code-coverage",
     "test:debug": "ng test --browsers=Chrome --no-single-run",
     "lint": "ng lint",

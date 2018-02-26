@@ -1,7 +1,7 @@
-<form novalidate [formGroup]="formGroup" (submit)="updateEmail()">
+<form [formGroup]="formGroup" (submit)="updateEmail()">
     <div class="form-group">
         <label for="email">New Email</label>
-        <input type="text" class="form-control" [formControl]="formGroup. controls.newEmail" placeholder="New email">
+        <input id="email" type="email" class="form-control" [formControl]="formGroup. controls.newEmail" placeholder="New email">
         <app-validation-message [control]="formGroup.controls.newEmail"></app-validation-message>
     </div>
     <app-validation-message [control]="formGroup"></app-validation-message>
@@ -12,6 +12,6 @@
         {{(formState$ | async).successMessage}}
     </p>
     <p class="text-danger" *ngIf="(formState$ | async)?.failureMessage">
-        {{(formState$ | async).successMessage}}
+        {{(formState$ | async).failureMessage}}
     </p>
 </form>

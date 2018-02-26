@@ -13,13 +13,13 @@ export class UpdateEmailEffects {
     @Effect()
     updateEmail$ = this.actions$
         .ofType(UpdateEmailActionTypes.Update)
-        .switchMap((action: UpdateEmailActions.Update) => action.payload)
+        .map((action: UpdateEmailActions.Update) => action.payload)
         .switchMap(newEmail =>
             this.auth.authState
                 .first()
                 .filter(a => !a.isAnonymous)
                 .switchMap(a => a.updateEmail(newEmail))
-                .map(res => new UpdateEmailActions.Update(res))
+                .map(res => new UpdateEmailActions.Success(res))
                 .catch(error =>
                     Observable.of(new UpdateEmailActions.Failure(error))
                 )

@@ -1,6 +1,10 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { AngularFireDatabase, AngularFireList, AngularFireObject } from 'angularfire2/database';
+import {
+    AngularFireDatabase,
+    AngularFireList,
+    AngularFireObject,
+} from 'angularfire2/database';
 
 import { Todo } from './todo';
 
@@ -9,23 +13,19 @@ import { Todo } from './todo';
  */
 
 @Injectable()
-
 export class TodosService {
-
-    private authUid = '';
-
     constructor(
         private db: AngularFireDatabase,
-        private auth: AngularFireAuth,
-    ) {
-        this.auth.authState.subscribe(a => this.authUid = a ? a.uid : '');
-    }
+        private auth: AngularFireAuth
+    ) {}
 
     todos(): AngularFireList<Todo> {
-        return this.db.list(`/todos/${this.authUid}`);
+        return this.db.list(`/todos/${this.auth.auth.currentUser.uid}`);
     }
 
     todo(uid: string): AngularFireObject<Todo> {
-        return this.db.object<Todo>(`/todos/${this.authUid}/${uid}`);
+        return this.db.object<Todo>(
+            `/todos/${this.auth.auth.currentUser.uid}/${uid}`
+        );
     }
 }

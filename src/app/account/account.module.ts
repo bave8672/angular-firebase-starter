@@ -5,11 +5,12 @@ import { RouterModule } from '@angular/router';
 import { AccountRoutingModule } from 'app/account/routing/accountRouting.module';
 import { TodosModule } from 'app/account/todos/todos.module';
 import { AccountSharedModule } from 'app/account/shared/accountShared.module';
+import { AccountStateModule } from 'app/account/state/accountState.module';
 
 @NgModule({
     imports: [
-        SharedModule,
         AccountSharedModule,
+        AccountStateModule,
         TodosModule,
         AccountRoutingModule,
     ],

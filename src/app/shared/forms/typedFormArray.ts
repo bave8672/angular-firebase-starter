@@ -7,7 +7,7 @@ import {
 } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 import { TypedAbstractControl } from 'app/shared/forms/typedAbstractControl';
-import { ValidationErrors } from '@angular/forms/src/directives/validators';
+import { ValidationErrors } from '@angular/forms';
 import {
     TypedValidatorFn,
     TypedAsyncValidatorFn,

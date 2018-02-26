@@ -2,7 +2,7 @@
       *ngIf="(formState$ | async).showForm"
       [formGroup]="formGroup">
     <div>
-        <app-account-profile-picture [src]="newPhotoUrl"></app-account-profile-picture>
+        <app-profile-picture [src]="formGroup.value.newPhotoUrl"></app-profile-picture>
     </div>
     <div class="form-group">
         <label for="newPhotoUrl">Photo URL</label>

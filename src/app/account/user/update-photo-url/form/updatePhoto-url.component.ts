@@ -15,8 +15,6 @@ import { UserAppState } from 'app/account/user/state/store.config';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UpdatePhotoUrlComponent {
-    newPhotoUrl = '';
-
     formGroup = new TypedFormGroup({
         newPhotoUrl: new TypedFormControl<string>(
             '',
@@ -24,11 +22,11 @@ export class UpdatePhotoUrlComponent {
         ),
     });
 
-    formState$ = this.state.select(s => s.user.updatePhotoUrl);
+    formState$ = this.state.select(s => s.accountUser.updatePhotoUrl);
 
     constructor(private state: Store<UserAppState>) {}
 
     onSubmitPhoto() {
-        this.state.dispatch(new UpdatePhotoUrlActions.Update(this.newPhotoUrl));
+        this.state.dispatch(new UpdatePhotoUrlActions.Update(this.formGroup.value.newPhotoUrl));
     }
 }

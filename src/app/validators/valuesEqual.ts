@@ -8,13 +8,15 @@ export interface UnequalValidationError {
 export const valuesEqual = <T>(
     a: () => AbstractControl,
     b: () => AbstractControl,
-    attachTo: AbstractControl = b()
+    attachTo?: () => AbstractControl
 ) => (
     message: string = 'Values must be the same'
 ): TypedValidatorFn<T, UnequalValidationError> => () => {
-    if (a().value !== b().value) {
-        const error: UnequalValidationError = { unequal: message };
-        attachTo.setErrors(error);
-    }
+    try {
+        if (a().value !== b().value) {
+            const error: UnequalValidationError = { unequal: message };
+            (attachTo || b)().setErrors(error);
+        }
+    } catch (e) {}
     return null;
 };

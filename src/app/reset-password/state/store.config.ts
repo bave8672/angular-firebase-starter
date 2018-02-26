@@ -1,7 +1,7 @@
 import { FormState } from 'app/store/forms/formState';
 import { AppFeatureState } from 'app/store/utils/featureState';
 import { AppState } from 'app/store/app.state';
-import { ActionReducerMap } from '@ngrx/store/src/models';
+import { ActionReducerMap } from '@ngrx/store';
 import { resetPasswordFormReducer } from 'app/reset-password/state/form/resetPasswordForm.reducer';
 
 export const RESET_PASSWORD_STORE_KEY = 'resetPassword';

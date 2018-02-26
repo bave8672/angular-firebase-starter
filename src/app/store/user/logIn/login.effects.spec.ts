@@ -7,7 +7,7 @@ import { LogInActions } from 'app/store/user/logIn/logIn.actions';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
 
 import { assignDeep } from '../../../helpers';
-import { AppState, DefaultAppState } from '../../app.state';
+import { AppState, defaultAppState } from '../../app.state';
 import { Store } from '@ngrx/store';
 import { LogInEffects } from './logIn.effects';
 import { Observable } from 'rxjs/Observable';
@@ -38,12 +38,10 @@ describe('log in effects', () => {
         navigateByUrl() {}
     }
 
-    class MockStore {
-
-    }
+    class MockStore {}
 
     beforeEach(() => {
-        state = assignDeep(DefaultAppState);
+        state = assignDeep(defaultAppState);
         TestBed.configureTestingModule({
             providers: [
                 LogInEffects,

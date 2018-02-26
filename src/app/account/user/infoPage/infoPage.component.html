@@ -3,7 +3,7 @@
     <label>
         Profile Picture
     </label>
-    <app-account-profile-picture></app-account-profile-picture>
+    <app-profile-picture></app-profile-picture>
     <p>
         <small *ngIf="!(user$ | async)?.photoURL">No profile picture</small>
         <button class="btn btn-link" (click)="toggleUpdatePhotoUrl()">

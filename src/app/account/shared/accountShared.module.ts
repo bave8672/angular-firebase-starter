@@ -5,6 +5,6 @@ import { SharedModule } from 'app/shared/shared.module';
 @NgModule({
     imports: [SharedModule],
     declarations: [ProfilePictureComponent],
-    exports: [ProfilePictureComponent],
+    exports: [SharedModule, ProfilePictureComponent],
 })
 export class AccountSharedModule {}

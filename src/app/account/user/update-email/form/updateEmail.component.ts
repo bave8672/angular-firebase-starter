@@ -17,7 +17,7 @@ export class UpdateEmailComponent {
         newEmail: new TypedFormControl('', emailValid),
     });
 
-    formState$ = this.state.select(s => s.user.updateEmail);
+    formState$ = this.state.select(s => s.accountUser.updateEmail);
 
     constructor(private state: Store<UserAppState>) {}
 

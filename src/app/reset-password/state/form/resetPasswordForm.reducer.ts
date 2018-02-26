@@ -1,4 +1,4 @@
-import { formReducer } from "app/store/forms/form.reducer.factory";
+import { formReducer } from 'app/store/forms/form.reducer.factory';
 import { ResetPasswordFormActionTypes } from './resetPasswordForm.actionTypes';
 
 export const resetPasswordFormReducer = formReducer({

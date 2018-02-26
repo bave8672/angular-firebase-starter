@@ -5,7 +5,7 @@ import {
 } from 'app/shared/forms/typedValidatorFn';
 import { TypedFormGroup } from 'app/shared/forms/typedFormGroup';
 import { TypedFormArray } from 'app/shared/forms/typedFormArray';
-import { ValidationErrors } from '@angular/forms/src/directives/validators';
+import { ValidationErrors } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 
 export interface TypedAbstractControl<

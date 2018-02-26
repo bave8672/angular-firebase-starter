@@ -8,7 +8,7 @@ import {
 
 import { showErrors } from './showErrors';
 import { TypedAbstractControl } from 'app/shared/forms/typedAbstractControl';
-import { ValidationErrors } from '@angular/forms/src/directives/validators';
+import { ValidationErrors } from '@angular/forms';
 import {
     TypedValidatorFn,
     TypedAsyncValidatorFn,
