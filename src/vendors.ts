@@ -8,3 +8,4 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/switchmap';
 
 import 'rxjs/add/observable/from';
+import 'rxjs/add/observable/race';

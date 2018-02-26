@@ -7,13 +7,6 @@ import { logInReducer } from './user/logIn/logIn.reducer';
 import { ActionReducerMap } from '@ngrx/store';
 import { AppState } from 'app/store/app.state';
 
-export const combinedReducers: ActionReducerMap<AppState> = {
-    user: combineReducers<UserState>({
-        logIn: logInReducer,
-    }),
+export const appReducers: ActionReducerMap<Partial<AppState>> = {
     nav: NavReducer,
 };
-
-export function effects() {
-    return [LogInEffects];
-}
