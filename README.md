@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/bave8672/angular-firebase-starter.svg?branch=master)](https://travis-ci.org/bave8672/angular-firebase-starter)
+[![Build Status](https://travis-ci.org/bave8672/angular-firebase-starter.svg?branch=master)](https://travis-ci.org/bave8672/angular-firebase-starter) [![Greenkeeper badge](https://badges.greenkeeper.io/bave8672/angular-firebase-starter.svg)](https://greenkeeper.io/)
 
 # Angular 2 Firebase App
 
